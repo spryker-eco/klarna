@@ -1,0 +1,22 @@
+<div class="payment-form klarna-invoice-form" id="klarnaInvoice">
+    <h3>{{ 'payment.method.checkout.payment_title.klarnaInvoice' | trans }}</h3>
+    <h3>{{ 'payment.method.checkout.payment_sub_title.klarnaInvoice' | trans }}</h3>
+
+    {% include '@klarna/errorInvoice.twig' %}
+
+    {{ form_widget(form.klarna_invoice) }}
+    <span id="invoicexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Invoice({
+            el: 'invoicexx',
+            eid: '{{ form.klarna_invoice.vars.attr.EID }}',
+            locale: '{{ termsLocale }}',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+</div>

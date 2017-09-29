@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<statemachine
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../process.xsd"
+>
+    <process name="Cancel">
+        <states>
+            <state name="cancel succeeded"/>
+        </states>
+
+        <transitions>
+            <transition>
+                <source>check succeeded</source>
+                <target>cancel succeeded</target>
+                <event>cancel order</event>
+            </transition>
+
+            <transition>
+                <source>cancel succeeded</source>
+                <target>ready for closing</target>
+                <event>start closing process</event>
+            </transition>
+        </transitions>
+
+        <events>
+            <event name="cancel order" manual="true" command="Klarna/Cancel"/>
+            <event name="cancel order automate" onEnter="true" command="Klarna/Cancel"/>
+        </events>
+    </process>
+</statemachine>

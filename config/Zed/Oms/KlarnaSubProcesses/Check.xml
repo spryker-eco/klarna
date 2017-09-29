@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<statemachine
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../process.xsd"
+>
+    <process name="Check">
+        <states>
+            <state name="ready for check"/>
+            <state name="check succeeded"/>
+            <state name="check failed"/>
+            <state name="deny succeeded"/>
+            <state name="deny failed"/>
+        </states>
+
+        <transitions>
+            <transition happy="true" condition="Klarna/IsOrderStatusApproved">
+                <source>ready for check</source>
+                <target>check succeeded</target>
+                <event>check pending</event>
+            </transition>
+
+            <transition>
+                <source>ready for check</source>
+                <target>check failed</target>
+                <event>check pending</event>
+            </transition>
+
+            <transition condition="Klarna/IsOrderDenied">
+                <source>check failed</source>
+                <target>deny succeeded</target>
+                <event>deny order check</event>
+            </transition>
+
+            <transition>
+                <source>check failed</source>
+                <target>deny failed</target>
+                <event>deny order check</event>
+            </transition>
+
+            <transition>
+                <source>deny failed</source>
+                <target>ready for check</target>
+                <event>use previous check</event>
+            </transition>
+
+            <transition>
+                <source>deny succeeded</source>
+                <target>cancel succeeded</target>
+                <event>cancel order automate</event>
+            </transition>
+        </transitions>
+
+        <events>
+            <event name="check pending" onEnter="true" command="Klarna/Check"/>
+            <event name="deny failed" onEnter="true" />
+            <event name="deny order check" onEnter="true"/>
+            <event name="use previous check"  manual="true" timeout="10 minutes" />
+        </events>
+    </process>
+
+</statemachine>

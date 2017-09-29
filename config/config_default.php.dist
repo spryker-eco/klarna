@@ -1,0 +1,79 @@
+<?php
+
+use Spryker\Shared\Application\ApplicationConstants;
+use Spryker\Shared\Kernel\KernelConstants;
+use Spryker\Shared\Oms\OmsConstants;
+use Spryker\Shared\Sales\SalesConstants;
+use Spryker\Shared\Klarna\KlarnaConstants;
+use Spryker\Zed\Oms\OmsConfig;
+
+$config[KernelConstants::DEPENDENCY_INJECTOR_YVES] = [
+    'Checkout' => [
+        'Klarna',
+    ],
+];
+$config[KernelConstants::DEPENDENCY_INJECTOR_ZED] = [
+    'Payment' => [
+        'Klarna',
+    ],
+    'Oms' => [
+        'Klarna',
+    ],
+];
+
+$config[OmsConstants::PROCESS_LOCATION] = [
+    OmsConfig::DEFAULT_PROCESS_LOCATION,
+    $config[ApplicationConstants::APPLICATION_SPRYKER_ROOT] . '/Klarna/config/Zed/Oms'
+];
+
+$config[OmsConstants::ACTIVE_PROCESSES] = [
+    'KlarnaPayment01'
+];
+
+$config[SalesConstants::PAYMENT_METHOD_STATEMACHINE_MAPPING] = [
+    KlarnaConstants::BRAND_INVOICE => 'KlarnaPayment01',
+        KlarnaConstants::BRAND_INSTALLMENT => 'KlarnaPayment01',
+];
+
+
+/**
+ * Klarna
+ * Integration Requirements
+ */
+$config[KlarnaConstants::COUNTRY_AUSTRIA] = 'AT'; //EUR
+$config[KlarnaConstants::COUNTRY_GERMANY] = 'DE'; //EUR
+$config[KlarnaConstants::COUNTRY_NETHERLAND] = 'NL'; //EUR
+$config[KlarnaConstants::COUNTRY_NORWAY] = 'NO'; //NOK
+$config[KlarnaConstants::COUNTRY_SWEDEN] = 'SE'; //SEK
+$config[KlarnaConstants::COUNTRY_FINLAND] = 'FI'; //EUR
+$config[KlarnaConstants::COUNTRY_DENMARK] = 'DK'; //DKK
+
+$config[KlarnaConstants::CURRENCY] = [
+    $config[KlarnaConstants::COUNTRY_AUSTRIA] => 'EUR',
+    $config[KlarnaConstants::COUNTRY_GERMANY] => 'EUR',
+    $config[KlarnaConstants::COUNTRY_NETHERLAND] => 'EUR',
+    $config[KlarnaConstants::COUNTRY_NORWAY] => 'NOK',
+    $config[KlarnaConstants::COUNTRY_SWEDEN] => 'SEK',
+    $config[KlarnaConstants::COUNTRY_FINLAND] => 'EUR',
+    $config[KlarnaConstants::COUNTRY_DENMARK] => 'DKK',
+];
+
+/**
+ * Klarna Testdata
+ */
+$config[KlarnaConstants::SHARED_SECRED] = 'pro2VDSakSISYFn';
+$config[KlarnaConstants::EID] = '5373';
+$config[KlarnaConstants::TEST_MODE] = true;
+$config[KlarnaConstants::KLARNA_INVOICE_MAIL_TYPE] = KlarnaConstants::KLARNA_INVOICE_TYPE_EMAIL;
+$config[KlarnaConstants::KLARNA_PCLASS_STORE_TYPE] = 'json';
+$config[KlarnaConstants::KLARNA_PCLASS_STORE_URI] = APPLICATION_ROOT_DIR . '/data/DE/pclasses.json';
+
+$domain = 'http://' . $config[ApplicationConstants::HOST_YVES];
+$config[KlarnaConstants::KLARNA_CHECKOUT_CONFIRMATION_URI] = $domain . '/checkout/klarna/success';
+$config[KlarnaConstants::KLARNA_CHECKOUT_TERMS_URI] = $domain;
+$config[KlarnaConstants::KLARNA_CHECKOUT_PUSH_URI] = $domain . '/checkout/klarna/push';
+$config[KlarnaConstants::KLARNA_CHECKOUT_URI] = $domain;
+$config[KlarnaConstants::KLARNA_PDF_URL_PATTERN] = 'https://online.testdrive.klarna.com/invoices/%s.pdf';
+
+// part payment options must not be displayed to the customer whenever the purchase sum exceeds €250.
+$config[KlarnaConstants::NL_PART_PAYMENT_LIMIT] = 25000;

@@ -1,0 +1,52 @@
+<div class="payment-form klarna-installment-form" id="klarnaInstallment">
+    <h3>Gespreid betalen: flexibel, in uw eigen tempo betalen</h3>
+
+    <span id="ratexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Account({
+            el: 'ratexx',
+            eid: '{{ form.klarna_installment.vars.attr.EID }}',
+            locale: 'nl_NL',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+
+    {% include '@klarna/errorInstallment.twig' %}
+
+    <img src="https://www.afm.nl/~/profmedia/images/wetten-regels/kredietwaarschuwing/on-offline-reclame/balk_afm1-jpg.ashx?la=nl-nl" height="54" />
+
+    <img src="/assets/demoshop/img/nl_credit_table.png" />
+
+    <br/>
+    {% for payment in form.klarna_installment.vars.installmentResponseTransfer.payments %}
+        <table class="paymentDescription">
+            <tr>
+                <td>Jaarlijkse rente</td>
+                <td>{{ payment.getInterestRate }} {{ form.klarna_installment.vars.attr.currency }}</td>
+            </tr>
+            <tr>
+                <td>Factuurkosten</td>
+                <td>{{ payment.getInvoiceFee }} {{ form.klarna_installment.vars.attr.currency }}</td>
+            </tr>
+            <tr>
+                <td>Maandelijkse kosten</td>
+                <td>{{ payment.getMonthlyCosts }} {{ form.klarna_installment.vars.attr.currency }}</td>
+            </tr>
+        </table><hr/>
+    {% endfor %}
+
+    {{ form_widget(form.klarna_installment) }}
+
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Geboortedatum is verplicht";
+    var errorMsgDateBirthWrong = "Geboortedatum verkeerd";
+    var errorMsgPNOMandatory = "PNO is verplicht";
+    var errorMsgTermsMandatory = "Voorwaarden is verplicht";
+    var errorMsgPaymentTypeMandatory = "Type betaling is verplicht";
+</script>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<statemachine
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../process.xsd"
+>
+    <process name="Capture">
+        <states>
+            <state name="ready for capture"/>
+            <state name="capture succeeded"/>
+            <state name="capture failed"/>
+        </states>
+
+        <transitions>
+            <transition happy="true" condition="Klarna/HasCapture">
+                <source>ready for capture</source>
+                <target>capture succeeded</target>
+                <event>capture payment</event>
+            </transition>
+
+            <transition>
+                <source>ready for capture</source>
+                <target>capture failed</target>
+                <event>capture payment</event>
+            </transition>
+
+            <transition>
+                <source>capture failed</source>
+                <target>ready for update</target>
+                <event>start update order process</event>
+            </transition>
+        </transitions>
+
+        <events>
+            <event name="capture payment" onEnter="true" command="Klarna/Capture"/>
+            <event name="use previous capture" manual="true"/>
+            <event name="start update order process" manual="true"/>
+        </events>
+    </process>
+</statemachine>

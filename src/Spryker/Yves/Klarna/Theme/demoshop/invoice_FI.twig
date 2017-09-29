@@ -1,0 +1,30 @@
+<div class="payment-form klarna-invoice-form" id="klarnaInvoice">
+    <h3>Lasku</h3>
+    <h3>Maksa 14 päivän kuluessa</h3>
+
+    <span id="invoicexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Invoice({
+            el: 'invoicexx',
+            eid: '{{ form.klarna_invoice.vars.attr.EID }}',
+            locale: 'fi_fi',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+    {% include '@klarna/errorInvoice.twig' %}
+
+    {{ form_widget(form.klarna_invoice) }}
+
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Birth vaaditaan";
+    var errorMsgDateBirthWrong = "false syntymä";
+    var errorMsgPNOMandatory = "PNO vaaditaan";
+    var errorMsgTermsMandatory = "Ehdoista tarvitaan";
+    var errorMsgPaymentTypeMandatory = "Maksu";
+</script>

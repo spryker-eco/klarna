@@ -1,0 +1,28 @@
+{
+  "name": "spryker/klarna",
+  "autoload": {
+    "psr-0": {
+      "Spryker": "src/",
+      "Acceptance": "tests/",
+      "Functional": "tests/",
+      "Integration": "tests/",
+      "Unit": "tests/",
+      "YvesUnit": "tests/"
+    }
+  },
+  "require": {
+    "klarna/php-xmlrpc": "4.0",
+    "klarna/checkout": "4.0"
+  },
+  "require-dev": {
+  },
+  "description": "spryker klarna integration",
+  "license": "proprietary",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev"
+    }
+  }
+}
