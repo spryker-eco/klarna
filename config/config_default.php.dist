@@ -4,7 +4,7 @@ use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Shared\Kernel\KernelConstants;
 use Spryker\Shared\Oms\OmsConstants;
 use Spryker\Shared\Sales\SalesConstants;
-use Spryker\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Zed\Oms\OmsConfig;
 
 $config[KernelConstants::DEPENDENCY_INJECTOR_YVES] = [

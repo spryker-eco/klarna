@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
+namespace SprykerEco\Client\Klarna;
+
+use Spryker\Client\Kernel\AbstractFactory;
+use SprykerEco\Client\Klarna\Session\KlarnaSession;
+use SprykerEco\Client\Klarna\Zed\KlarnaStub;
+
+/**
+ * Class KlarnaFactory
+ *
+ * @package SprykerEco\Client\Klarna
+ *
+ * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+ */
+class KlarnaFactory extends AbstractFactory
+{
+
+    /**
+     * @return \SprykerEco\Client\Klarna\Zed\KlarnaStub
+     */
+    public function createKlarnaStub()
+    {
+        return new KlarnaStub($this->createZedRequestClient());
+    }
+
+    /**
+     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     */
+    public function createKlarnaSession()
+    {
+        return new KlarnaSession($this->createSessionClient());
+    }
+
+}
