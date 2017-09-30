@@ -17,7 +17,7 @@
   "require-dev": {
   },
   "description": "spryker klarna integration",
-  "license": "proprietary",
+  "license": "MIT",
   "minimum-stability": "dev",
   "prefer-stable": true,
   "extra": {
