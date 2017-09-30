@@ -3,7 +3,7 @@
 ## Installation
 
 ```
-composer require spryker/klarna
+composer require spryker-eco/klarna
 ```
 
 ## Documentation
