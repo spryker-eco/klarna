@@ -55,10 +55,10 @@ class AbstractFacadeTest extends Test
 
         // Mock the facade to override getFactory() and have it return out
         // previously created mock.
-        $facade = $this->getMock(
-            'SprykerEco\Zed\Klarna\Business\KlarnaFacade',
-            ['getFactory']
-        );
+        $facade = $this->getMockBuilder('SprykerEco\Zed\Klarna\Business\KlarnaFacade')
+            ->setMethods(['getFactory'])
+            ->getMock()
+        ;
         $facade->expects($this->any())
                ->method('getFactory')
                ->will($this->returnValue($businessFactoryMock));
@@ -71,10 +71,9 @@ class AbstractFacadeTest extends Test
      */
     protected function getBusinessFactoryMock()
     {
-        $businessFactoryMock = $this->getMock(
-            'SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory',
-            ['createAdapter', 'getLocaleFacade']
-        );
+        $businessFactoryMock = $this->getMockBuilder(
+            'SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory'
+        )->setMethods(['createAdapter', 'getLocaleFacade'])->getMock();
 
         return $businessFactoryMock;
     }

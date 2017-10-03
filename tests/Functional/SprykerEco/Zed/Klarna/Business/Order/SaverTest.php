@@ -29,8 +29,6 @@ use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
-use Orm\Zed\Sales\Persistence\SpySalesOrderItemBundle;
-use Orm\Zed\Sales\Persistence\SpySalesOrderItemBundleItem;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory;
 use SprykerEco\Zed\Klarna\Business\Order\Saver;
@@ -231,14 +229,12 @@ class SaverTest extends Test
     {
         $stateEntity = $this->createOrderItemStateEntity();
         $processEntity = $this->createOrderProcessEntity();
-        $bundleEntity = $this->createOrderItemBundleEntity();
 
         $orderItemEntity = new SpySalesOrderItem();
         $orderItemEntity
             ->setFkSalesOrder($idSalesOrder)
             ->setFkOmsOrderItemState($stateEntity->getIdOmsOrderItemState())
             ->setFkOmsOrderProcess($processEntity->getIdOmsOrderProcess())
-            ->setFkSalesOrderItemBundle($bundleEntity->getIdSalesOrderItemBundle())
             ->setName('test product')
             ->setSku('1324354657687980')
             ->setGrossPrice(1000)
@@ -270,31 +266,6 @@ class SaverTest extends Test
         $processEntity->save();
 
         return $processEntity;
-    }
-
-    /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemBundle
-     */
-    private function createOrderItemBundleEntity()
-    {
-        $bundleEntity = new SpySalesOrderItemBundle();
-        $bundleEntity
-            ->setName('test bundle')
-            ->setSku('13243546')
-            ->setGrossPrice(1000)
-            ->setBundleType('NonSplitBundle');
-        $bundleEntity->save();
-
-        $bundleItemEntity = new SpySalesOrderItemBundleItem();
-        $bundleItemEntity
-            ->setFkSalesOrderItemBundle($bundleEntity->getIdSalesOrderItemBundle())
-            ->setName('test bundle item')
-            ->setSku('13243546')
-            ->setGrossPrice(1000)
-            ->setVariety('Simple');
-        $bundleItemEntity->save();
-
-        return $bundleEntity;
     }
 
     /**

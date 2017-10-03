@@ -13,6 +13,8 @@ use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 use SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 /**
  * Class IntallmentTest
@@ -67,15 +69,10 @@ class IntallmentTest extends Test
      */
     protected function getInstallmentObject()
     {
-        $klarnaApiMock = $this->getMock(
-            'SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi',
-            [
-                'getPclasses'
-            ],
-            [],
-            '',
-            false
-        );
+        $klarnaApiMock = $this->getMockBuilder(KlarnaApi::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getPclasses'])
+            ->getMock();
 
         $klarnaPclassObject = new \KlarnaPClass();
         $klarnaPclassObject->setMinAmount(10);
@@ -103,8 +100,26 @@ class IntallmentTest extends Test
         return new InstallmentRequest(
             $klarnaApiMock,
             new \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper(),
-            new \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper()
+            new \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper(
+                $this->createMoneyFacade()
+            )
         );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyBridge
+     */
+    protected function createMoneyFacade()
+    {
+        $moneyFacade = $this->getMockBuilder(KlarnaToMoneyInterface::class)
+            ->setMethods(['convertIntegerToDecimal', 'convertDecimalToInteger'])
+            ->getMock();
+        $moneyFacade->expects($this->once())
+            ->method('convertIntegerToDecimal')
+            ->willReturn(0.2);
+
+        return $moneyFacade;
+
     }
 
 }

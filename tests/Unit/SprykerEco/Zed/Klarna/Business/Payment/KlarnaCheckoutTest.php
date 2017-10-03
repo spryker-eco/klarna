@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 
 /**
  * Class KlarnaCheckoutTest
@@ -117,24 +118,17 @@ class KlarnaCheckoutTest extends Test
      */
     protected function getKlarnaCheckoutCreateOrderObject($returnUpdateError = false)
     {
-        $checkoutFacadeMock = $this->getMock(
-            'SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface',
-            [
-                'placeOrder',
-            ]
-        );
+        $checkoutFacadeMock = $this->getMockBuilder(
+            'SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface'
+        )->setMethods(['placeOrder'])
+        ->getMock();
         $checkoutResponseTransfer = new \Generated\Shared\Transfer\CheckoutResponseTransfer();
         $checkoutFacadeMock->expects($this->any())->method('placeOrder')->willReturn($checkoutResponseTransfer);
 
-        $klarnaCheckoutApiMock = $this->getMock(
-            'SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi',
-            [
-                'createOrder', 'fetchKlarnaOrder',
-            ],
-            [],
-            '',
-            false
-        );
+        $klarnaCheckoutApiMock = $this->getMockBuilder(KlarnaCheckoutApi::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['createOrder', 'fetchKlarnaOrder'])
+            ->getMock();
 
         $fetchKlarnaOrderReturnData = [
             'status' => KlarnaConstants::STATUS_COMPLETE,
@@ -194,9 +188,7 @@ class KlarnaCheckoutTest extends Test
 
         ];
 
-        $connector = $this->getMock(
-            '\Klarna_Checkout_ConnectorInterface'
-        );
+        $connector = $this->createMock('\Klarna_Checkout_ConnectorInterface');
         $fetchKlarnaOrderReturn = new \Klarna_Checkout_Order($connector);
         $fetchKlarnaOrderReturn->parse($fetchKlarnaOrderReturnData);
 
@@ -217,22 +209,13 @@ class KlarnaCheckoutTest extends Test
      */
     protected function getKlarnaCheckoutObject($returnUpdateError = false)
     {
-        $checkoutFacadeMock = $this->getMock(
-            'SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface',
-            [
-                'placeOrder'
-            ]
-        );
+        $checkoutFacadeMock = $this->getMockBuilder(
+            'SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface'
+        )->setMethods(['placeOrder'])
+        ->getMock();
 
-        $klarnaCheckoutApiMock = $this->getMock(
-            'SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi',
-            [
-                'getCheckoutValues', 'getSuccessValues',
-            ],
-            [],
-            '',
-            false
-        );
+        $klarnaCheckoutApiMock = $this->getMockBuilder(\SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi::class)->disableOriginalConstructor()->setMethods(['getCheckoutValues', 'getSuccessValues'])
+        ->getMock();
 
         if ($returnUpdateError) {
             $klarnaCheckoutApiMock

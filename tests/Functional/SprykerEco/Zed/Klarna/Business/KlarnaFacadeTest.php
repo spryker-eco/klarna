@@ -24,11 +24,11 @@ use Orm\Zed\Customer\Persistence\SpyCustomer;
 use Orm\Zed\Klarna\Persistence\Map\SpyPaymentKlarnaTableMap;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
+use Orm\Zed\ProductBundle\Persistence\SpySalesOrderItemBundle;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
-use Orm\Zed\Sales\Persistence\SpySalesOrderItemBundle;
-use Orm\Zed\Sales\Persistence\SpySalesOrderItemBundleItem;
+use PHPUnit_Framework_TestResult;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 /**
@@ -56,8 +56,8 @@ class KlarnaFacadeTest extends AbstractFacadeTest
 
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
-        $this->assertSame('testStatus', $return->getStatus());
-        $this->assertSame('testRefNo', $return->getReservationNo());
+        $this->assertEquals('testStatus', $return->getStatus());
+        $this->assertEquals('testRefNo', $return->getReservationNo());
         $this->assertNull($return->getError());
     }
 
@@ -181,14 +181,12 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     {
         $stateEntity = $this->createOrderItemStateEntity();
         $processEntity = $this->createOrderProcessEntity();
-        $bundleEntity = $this->createOrderItemBundleEntity();
 
         $orderItemEntity = new SpySalesOrderItem();
         $orderItemEntity
             ->setFkSalesOrder($idSalesOrder)
             ->setFkOmsOrderItemState($stateEntity->getIdOmsOrderItemState())
             ->setFkOmsOrderProcess($processEntity->getIdOmsOrderProcess())
-            ->setFkSalesOrderItemBundle($bundleEntity->getIdSalesOrderItemBundle())
             ->setName('test product')
             ->setSku('1324354657687980')
             ->setGrossPrice(1000)
@@ -223,31 +221,6 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     }
 
     /**
-     * @return \Orm\Zed\Sales\Persistence\SpySalesOrderItemBundle
-     */
-    private function createOrderItemBundleEntity()
-    {
-        $bundleEntity = new SpySalesOrderItemBundle();
-        $bundleEntity
-            ->setName('test bundle')
-            ->setSku('13243546')
-            ->setGrossPrice(1000)
-            ->setBundleType('NonSplitBundle');
-        $bundleEntity->save();
-
-        $bundleItemEntity = new SpySalesOrderItemBundleItem();
-        $bundleItemEntity
-            ->setFkSalesOrderItemBundle($bundleEntity->getIdSalesOrderItemBundle())
-            ->setName('test bundle item')
-            ->setSku('13243546')
-            ->setGrossPrice(1000)
-            ->setVariety('Simple');
-        $bundleItemEntity->save();
-
-        return $bundleEntity;
-    }
-
-    /**
      * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
      */
     protected function createCheckoutResponse()
@@ -259,4 +232,29 @@ class KlarnaFacadeTest extends AbstractFacadeTest
         return $checkoutResponseTransfer;
     }
 
+    /**
+     * Count elements of an object
+     * @link http://php.net/manual/en/countable.count.php
+     * @return int The custom count as an integer.
+     * </p>
+     * <p>
+     * The return value is cast to an integer.
+     * @since 5.1.0
+     */
+    public function count()
+    {
+        // TODO: Implement count() method.
+    }
+
+    /**
+     * Runs a test and collects its result in a TestResult instance.
+     *
+     * @param PHPUnit_Framework_TestResult $result
+     *
+     * @return PHPUnit_Framework_TestResult
+     */
+    public function run(PHPUnit_Framework_TestResult $result = null)
+    {
+        // TODO: Implement run() method.
+    }
 }
