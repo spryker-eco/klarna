@@ -22,6 +22,6 @@ interface KlarnaToSalesInterface
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    public function getOrderTotalsByIdSalesOrder($idSalesOrder);
+    public function getOrderByIdSalesOrder($idSalesOrder);
 
 }

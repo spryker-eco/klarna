@@ -8,15 +8,16 @@
 namespace SprykerEco\Yves\Klarna\Form;
 
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
-use Generated\Shared\Transfer\PaymentTransfer;
 use Spryker\Shared\Config\Config;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
+use SprykerEco\Zed\Klarna\Business\Api\Adapter\Klarna;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 
 /**
  * Class RateSubForm
@@ -25,16 +26,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
+class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
 
     const PAYMENT_CHOICES = 'paymentChoices';
-    const PAYMENT_PROVIDER = KlarnaConstants::KLARNA;
-    const PAYMENT_METHOD = 'installment';
     const FIELD_INSTALLMENT_INDEX = 'installment_pay_index';
     const FIELD_TERMS = 'installment_terms';
     const FIELD_DATE_OF_BIRTH = 'installment_date_of_birth';
-    const FIELD_PNO = 'pno_no';
 
     const NON_PNO_COUNTRIES = [KlarnaConstants::COUNTRY_GERMANY, KlarnaConstants::COUNTRY_NETHERLAND, KlarnaConstants::COUNTRY_AUSTRIA];
     const NON_TERMS_COUNTRIES = [
@@ -111,7 +109,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     public function addPNO(FormBuilderInterface $builder)
     {
         $builder->add(
-            self::FIELD_PNO,
+            KlarnaConstants::FIELD_PNO,
             'text',
             [
                 'label'    => 'customer.PNO',
@@ -133,17 +131,17 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function addInstallmentDetails(FormBuilderInterface $builder, array $options)
     {
-        $choiceKeys = array_keys($options['select_options'][self::PAYMENT_CHOICES]);
+        $choiceKeys = array_keys($options['select_options'][static::PAYMENT_CHOICES]);
         $attr = [];
         if (count($choiceKeys) == 1) {
             $attr['style'] = 'display:none;';
         }
 
         $builder->add(
-            self::FIELD_INSTALLMENT_INDEX,
+            static::FIELD_INSTALLMENT_INDEX,
             'choice',
             [
-                'choices'     => $options['select_options'][self::PAYMENT_CHOICES],
+                'choices'     => $options['select_options'][static::PAYMENT_CHOICES],
                 'label'       => false,
                 'required'    => true,
                 'expanded'    => true,
@@ -166,7 +164,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     public function addTerms(FormBuilderInterface $builder)
     {
         $builder->add(
-            self::FIELD_TERMS,
+            static::FIELD_TERMS,
             'checkbox',
             [
                 'label'  => ' ',
@@ -186,7 +184,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     protected function addDateOfBirth(FormBuilderInterface $builder)
     {
         $builder->add(
-            self::FIELD_DATE_OF_BIRTH,
+            static::FIELD_DATE_OF_BIRTH,
             'birthday',
             [
                 'label'    => 'customer.birth_date',
@@ -204,7 +202,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     }
 
     /**
-     * @return \Spryker\Shared\Transfer\TransferInterface|array
+     * @return array
      */
     public function populateFormFields()
     {
@@ -216,7 +214,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getName()
     {
-        return self::PAYMENT_PROVIDER . '_' . self::PAYMENT_METHOD;
+        return strtolower(KlarnaConstants::BRAND_INSTALLMENT);
     }
 
     /**
@@ -224,16 +222,18 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getPropertyPath()
     {
-        return PaymentTransfer::KLARNA_INSTALLMENT;
+        return strtolower(KlarnaConstants::BRAND_INSTALLMENT);
     }
 
     /**
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function getTemplatePath()
     {
-        $templatePath = self::PAYMENT_PROVIDER . '/' . self::PAYMENT_METHOD . '_' . $this->countryIso2;
+        $templatePath = KlarnaConstants::KLARNA .
+            '/' . KlarnaConstants::PAYMENT_METHOD_INSTALLMENT_TEMPLATE .
+            '_' . $this->countryIso2
+        ;
 
         return $templatePath;
     }
@@ -256,7 +256,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
                 'currency' => $this->subFormDataProvider->getCurrency(),
                 'grandTotal' => $this->quoteTransfer->getTotals()->getGrandTotal()/100,
             ],
-        ])->setRequired(SubFormInterface::OPTIONS_FIELD_NAME);
+        ])->setRequired([SubFormInterface::OPTIONS_FIELD_NAME]);
     }
 
     /**
@@ -273,6 +273,14 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
         $installmentResponseTransfer = $this->subFormDataProvider->getInstallmentPaymentTransfer($this->quoteTransfer);
 
         $view->vars['installmentResponseTransfer'] = $installmentResponseTransfer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderName()
+    {
+        return KlarnaConstants::PROVIDER_NAME;
     }
 
     /**

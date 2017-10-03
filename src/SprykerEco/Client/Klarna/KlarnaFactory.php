@@ -26,7 +26,7 @@ class KlarnaFactory extends AbstractFactory
      */
     public function createKlarnaStub()
     {
-        return new KlarnaStub($this->createZedRequestClient());
+        return new KlarnaStub($this->getZedService());
     }
 
     /**
@@ -35,7 +35,23 @@ class KlarnaFactory extends AbstractFactory
      */
     public function createKlarnaSession()
     {
-        return new KlarnaSession($this->createSessionClient());
+        return new KlarnaSession($this->getSessionClient());
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getZedService()
+    {
+        return $this->getProvidedDependency(KlarnaDependencyProvider::SERVICE_ZED);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getSessionClient()
+    {
+        return $this->getProvidedDependency(KlarnaDependencyProvider::CLIENT_SESSION);
     }
 
 }

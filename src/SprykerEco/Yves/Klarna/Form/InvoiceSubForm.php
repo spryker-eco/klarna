@@ -15,6 +15,7 @@ use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 
 /**
  * Class InvoiceSubForm
@@ -23,13 +24,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
+class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
 
-    const PAYMENT_PROVIDER = KlarnaConstants::KLARNA;
-    const PAYMENT_METHOD = 'invoice';
-
-    const FIELD_PNO = 'pno_no';
     const FIELD_DATE_OF_BIRTH = 'date_of_birth';
     const FIELD_TERMS = 'terms';
 
@@ -85,7 +82,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
     public function addPNO(FormBuilderInterface $builder)
     {
         $builder->add(
-            self::FIELD_PNO,
+            KlarnaConstants::FIELD_PNO,
             'text',
             [
                 'label'    => 'customer.PNO',
@@ -167,7 +164,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
     }
 
     /**
-     * @return \Spryker\Shared\Transfer\TransferInterface|array
+     * @return array
      */
     public function populateFormFields()
     {
@@ -179,7 +176,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getName()
     {
-        return self::PAYMENT_PROVIDER . '_' . self::PAYMENT_METHOD;
+        return strtolower(KlarnaConstants::BRAND_INVOICE);
     }
 
     /**
@@ -187,7 +184,15 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getPropertyPath()
     {
-        return PaymentTransfer::KLARNA_INVOICE;
+        return strtolower(KlarnaConstants::BRAND_INVOICE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderName()
+    {
+        return KlarnaConstants::PROVIDER_NAME;
     }
 
     /**
@@ -196,7 +201,10 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
      */
     protected function getTemplatePath()
     {
-        $templatePath = self::PAYMENT_PROVIDER . '/' . self::PAYMENT_METHOD . '_' . $this->countryIso2;
+        $templatePath = KlarnaConstants::PROVIDER_NAME .
+            '/' . KlarnaConstants::PAYMENT_METHOD_INVOICE_TEMPLATE .
+            '_' . $this->countryIso2
+        ;
 
         return $templatePath;
     }

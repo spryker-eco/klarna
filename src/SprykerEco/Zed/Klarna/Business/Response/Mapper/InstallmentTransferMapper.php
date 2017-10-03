@@ -10,15 +10,23 @@ namespace SprykerEco\Zed\Klarna\Business\Response\Mapper;
 use Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer;
 use Generated\Shared\Transfer\KlarnaPClassTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Shared\Library\Currency\CurrencyManager;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 class InstallmentTransferMapper
 {
 
     /**
-     * @var \Spryker\Shared\Library\Currency\CurrencyManager
+     * @var \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface
      */
-    protected $currencyManager;
+    protected $moneyFacade;
+
+    /**
+     * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface $moneyFacade
+     */
+    public function __construct(KlarnaToMoneyInterface $moneyFacade)
+    {
+        $this->moneyFacade = $moneyFacade;
+    }
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -29,11 +37,8 @@ class InstallmentTransferMapper
      */
     public function map(
         QuoteTransfer $quoteTransfer,
-        $pClasses,
-        CurrencyManager $currencyManager
+        $pClasses
     ) {
-        $this->currencyManager = $currencyManager;
-
         $orderAmount = $quoteTransfer->getTotals()->getGrandTotal();
         $payments = new \ArrayObject();
         foreach ($pClasses as $key => $pClass) {
@@ -59,7 +64,7 @@ class InstallmentTransferMapper
      */
     protected function convertToInstallmentTransfer(\KlarnaPClass $pClass, $orderAmount)
     {
-        $amount = $this->currencyManager->convertCentToDecimal($orderAmount);
+        $amount = $this->moneyFacade->convertIntegerToDecimal($orderAmount);
         $monthlyCosts = \KlarnaCalc::calc_monthly_cost($amount, $pClass, \KlarnaFlags::CHECKOUT_PAGE);
         $apr = \KlarnaCalc::calc_apr($amount, $pClass, \KlarnaFlags::CHECKOUT_PAGE);
         $totalCreditPurchaseCost = \KlarnaCalc::total_credit_purchase_cost($amount, $pClass, \KlarnaFlags::CHECKOUT_PAGE);

@@ -39,6 +39,8 @@
 
     <transfer name="Payment">
         <property name="klarna" type="KlarnaPayment"/>
+        <property name="klarnaInvoice" type="KlarnaPayment"/>
+        <property name="klarnaInstallment" type="KlarnaPayment"/>
     </transfer>
 
     <transfer name="KlarnaReserveAmountResponse">

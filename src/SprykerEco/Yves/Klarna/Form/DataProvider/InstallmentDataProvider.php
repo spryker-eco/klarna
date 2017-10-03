@@ -14,8 +14,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Client\Glossary\GlossaryClient;
 use SprykerEco\Client\Klarna\KlarnaClientInterface;
 use Spryker\Shared\Kernel\Store;
-use Spryker\Shared\Library\Currency\CurrencyManager;
-use Spryker\Shared\Transfer\AbstractTransfer;
+use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use SprykerEco\Yves\Klarna\Form\InstallmentSubForm;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 
@@ -68,7 +67,7 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
-     * @param \Spryker\Shared\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
@@ -86,7 +85,7 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
-     * @param \Spryker\Shared\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
@@ -146,7 +145,7 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
      */
     public function getCurrency()
     {
-        return CurrencyManager::getInstance()->getDefaultCurrency()->getIsoCode();
+        return Store::getInstance()->getCurrencyIsoCode();
     }
 
     /**

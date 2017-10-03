@@ -9,10 +9,10 @@ namespace SprykerEco\Zed\Klarna\Business\Request;
 
 use Generated\Shared\Transfer\KlarnaPClassRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Shared\Library\Currency\CurrencyManager;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 /**
  * Class Installment
@@ -20,14 +20,13 @@ use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
  * @package SprykerEco\Zed\Klarna\Business\Payment
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+ * @author Sergey Sikachev <sergey.sikachev@spryker.com>
  */
 class InstallmentRequest
 {
 
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $klarnaApi;
 
@@ -42,20 +41,12 @@ class InstallmentRequest
     protected $installmentTransferMapper;
 
     /**
-     * @var \Spryker\Shared\Library\Currency\CurrencyManager
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     */
-    protected $currencyManager;
-
-    /**
      * Installment constructor.
      *
      * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
      * @param \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper $pClassRequestTransferMapper
      * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper $installmentTransferMapper
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface $moneyFacade
      */
     public function __construct(
         KlarnaApi $klarnaApi,
@@ -65,14 +56,12 @@ class InstallmentRequest
         $this->klarnaApi = $klarnaApi;
         $this->pClassRequestTransferMapper = $pClassRequestTransferMapper;
         $this->installmentTransferMapper = $installmentTransferMapper;
-        $this->currencyManager = CurrencyManager::getInstance();
     }
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInstallments(QuoteTransfer $quoteTransfer)
     {
@@ -83,8 +72,7 @@ class InstallmentRequest
 
         $klarnaInstallmentResponseTransfer = $this->installmentTransferMapper->map(
             $quoteTransfer,
-            $pClasses,
-            $this->currencyManager
+            $pClasses
         );
 
         return $klarnaInstallmentResponseTransfer;

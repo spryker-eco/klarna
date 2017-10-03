@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\KlarnaObjectInitTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Client\Klarna\KlarnaClientInterface;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 class DefaultSubFormsCreator extends AbstractSubFormsCreator implements SubFormsCreatorInterface
 {

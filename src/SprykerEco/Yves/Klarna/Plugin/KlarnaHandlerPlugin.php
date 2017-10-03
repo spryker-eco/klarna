@@ -9,7 +9,7 @@ namespace SprykerEco\Yves\Klarna\Plugin;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Store;
-use Spryker\Shared\Transfer\AbstractTransfer;
+use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use SprykerEco\Yves\Klarna\Handler\Exception\KlarnaHandlerException;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Handler\StepHandlerPluginInterface;
@@ -27,7 +27,7 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Generated\Shared\Transfer\QuoteTransfer|\Spryker\Shared\Transfer\AbstractTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer|use \Spryker\Shared\Kernel\Transfer\AbstractTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
@@ -66,7 +66,7 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
      */
     public function getTranslatorClient()
     {
-        return $this->getLocator()->glossary()->client();
+        return $this->getFactory()->getTranslatorClient();
     }
 
     /**

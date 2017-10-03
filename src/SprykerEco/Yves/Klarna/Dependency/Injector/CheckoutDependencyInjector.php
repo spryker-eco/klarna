@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Yves\Klarna\Dependency\Injector;
 
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\ContainerInterface;
 use Spryker\Shared\Kernel\Dependency\Injector\DependencyInjectorInterface;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
@@ -15,6 +16,7 @@ use SprykerEco\Yves\Klarna\Plugin\KlarnaHandlerPlugin;
 use SprykerEco\Yves\Klarna\Plugin\KlarnaSubFormsPlugin;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginCollection;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Handler\StepHandlerPluginCollection;
+use SprykerEco\Yves\Klarna\Plugin\PluginCountryFactory;
 
 class CheckoutDependencyInjector implements DependencyInjectorInterface
 {
@@ -39,13 +41,14 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
      */
     protected function injectPaymentSubForms(ContainerInterface $container)
     {
-        $klarnaSubFormsPlugin = $this->createKlarnaSubFormsPlugin();
-        // @var Closure $cartClientClosure
-        $cartClientClosure = $container->raw(CheckoutDependencyProvider::CLIENT_CART);
-        $cartClient = $cartClientClosure();
-        $quoteTransfer = $cartClient->getQuote();
+        $quoteTransfer = $container
+            ->getLocator()
+            ->cart()
+            ->client()
+            ->getQuote()
+        ;
 
-        $paymentMethodsSubForms = $klarnaSubFormsPlugin->getPaymentMethodsSubForms($quoteTransfer);
+        $paymentMethodsSubForms = $this->getPaymentMethodsSubForms($quoteTransfer);
         $container->extend(CheckoutDependencyProvider::PAYMENT_SUB_FORMS, function (SubFormPluginCollection $paymentSubForms) use ($paymentMethodsSubForms) {
             foreach ($paymentMethodsSubForms as $paymentMethodsSubForm) {
                 $paymentSubForms->add($paymentMethodsSubForm);
@@ -75,12 +78,37 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
         return $container;
     }
 
+
     /**
-     * @return \SprykerEco\Yves\Klarna\Plugin\KlarnaSubFormsPlugin
+     * @param \Generated\Shared\Transfer\QuoteTransfer
+     * @param bool $create
+     *
+     * @return \Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface[]
      */
-    protected function createKlarnaSubFormsPlugin()
+    protected function getPaymentMethodsSubForms(QuoteTransfer $quoteTransfer, $create = true)
     {
-        return new KlarnaSubFormsPlugin();
+        $pluginCountryFactory = new PluginCountryFactory();
+        // Klarna does not work with companies
+        if (!$quoteTransfer->getBillingAddress()) {
+            return [];
+        }
+        if ($quoteTransfer->getBillingAddress()->getIso2Code() === null) {
+            return [];
+        }
+        if (!$quoteTransfer->getBillingSameAsShipping() &&
+            (
+                $quoteTransfer->getBillingAddress()->getFirstName() !== $quoteTransfer->getShippingAddress()->getFirstName()
+                || $quoteTransfer->getBillingAddress()->getLastName() !== $quoteTransfer->getShippingAddress()->getLastName()
+            )
+        ) {
+            return [];
+        }
+        $subFormsCreator = $pluginCountryFactory
+            ->createSubFormsCreator($quoteTransfer->getBillingAddress()->getIso2Code());
+
+        $paymentMethodsSubForms = $subFormsCreator->createPaymentMethodsSubForms($quoteTransfer, ['create' => $create]);
+
+        return $paymentMethodsSubForms;
     }
 
 }

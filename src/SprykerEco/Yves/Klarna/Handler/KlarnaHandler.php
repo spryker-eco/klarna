@@ -9,10 +9,10 @@ namespace SprykerEco\Yves\Klarna\Handler;
 
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Pyz\Yves\Application\Business\Model\FlashMessengerInterface;
+use Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface;
 use SprykerEco\Client\Klarna\KlarnaClientInterface;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
-use SprykerEco\Yves\Klarna\Handler\Exception\KlarnaHandlerException;
+use SprykerEco\Zed\Klarna\Business\Api\Adapter\Klarna;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -24,8 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class KlarnaHandler
 {
-
-    const PAYMENT_PROVIDER = 'klarna';
 
     /**
      * @var array
@@ -67,7 +65,7 @@ class KlarnaHandler
      * KlarnaHandler constructor.
      *
      * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
-     * @param \Pyz\Yves\Application\Business\Model\FlashMessengerInterface $flashMessenger
+     * @param \Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface $flashMessenger
      *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
@@ -113,8 +111,8 @@ class KlarnaHandler
     protected function setPaymentProviderAndMethod(QuoteTransfer $quoteTransfer, $paymentSelection)
     {
         $quoteTransfer->getPayment()
-                      ->setPaymentProvider(self::PAYMENT_PROVIDER)
-                      ->setPaymentMethod(self::$paymentMethods[$paymentSelection]);
+            ->setPaymentProvider(KlarnaConstants::PROVIDER_NAME)
+            ->setPaymentMethod(static::$paymentMethods[$paymentSelection]);
     }
 
     /**

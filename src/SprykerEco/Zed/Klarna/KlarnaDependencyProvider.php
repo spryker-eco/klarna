@@ -11,7 +11,9 @@ use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridge;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleBridge;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyBridge;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToSalesBridge;
+use Spryker\Yves\Kernel\Plugin\Pimple;
 
 /**
  * Class KlarnaDependencyProvider
@@ -19,14 +21,17 @@ use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToSalesBridge;
  * @package SprykerEco\Zed\Klarna
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+ * @author Sergey Sikachev <sergey.sikachev@spryker.com>
  */
 class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
 {
 
     const FACADE_SALES = 'sales facade';
+    const FACADE_CHECKOUT = 'checkout facade';
+    const FACADE_LOCALE = 'locale facade';
+    const FACADE_MONEY = 'money facade';
 
-    const FACADE_CHECKOUT = 'checkout_facade';
-    const FACADE_LOCALE = 'locale_facade';
+    const PLUGIN_APPLICATION = 'applicaton plugin';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -35,8 +40,8 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideCommunicationLayerDependencies(Container $container)
     {
-        $container[self::FACADE_SALES] = function (Container $container) {
-            return new KlarnaToSalesBridge($container->getLocator()->salesAggregator()->facade());
+        $container[static::FACADE_SALES] = function (Container $container) {
+            return new KlarnaToSalesBridge($container->getLocator()->sales()->facade());
         };
 
         return $container;
@@ -46,15 +51,21 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function provideBusinessLayerDependencies(Container $container)
     {
-        $container[self::FACADE_CHECKOUT] = function (Container $container) {
+        $container[static::FACADE_CHECKOUT] = function (Container $container) {
             return new KlarnaToCheckoutBridge($container->getLocator()->checkout()->facade());
         };
-        $container[self::FACADE_LOCALE] = function (Container $container) {
+        $container[static::FACADE_LOCALE] = function (Container $container) {
             return new KlarnaToLocaleBridge($container->getLocator()->locale()->facade());
+        };
+        $container[static::FACADE_MONEY] = function (Container $container) {
+            return new KlarnaToMoneyBridge($container->getLocator()->money()->facade());
+        };
+        $container[static::PLUGIN_APPLICATION] = function () {
+            $pimplePlugin = new Pimple();
+            return $pimplePlugin->getApplication();
         };
 
         return $container;

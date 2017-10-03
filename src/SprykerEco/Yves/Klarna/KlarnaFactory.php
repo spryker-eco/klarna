@@ -7,7 +7,6 @@
 
 namespace SprykerEco\Yves\Klarna;
 
-use Pyz\Yves\Application\Plugin\Pimple;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Yves\Kernel\AbstractFactory;
 use SprykerEco\Yves\Klarna\Form\DataProvider\InstallmentDataProvider;
@@ -42,7 +41,6 @@ class KlarnaFactory extends AbstractFactory
      * @param \SprykerEco\Yves\Klarna\Form\DataProvider\InstallmentDataProvider $subFormDataProvider
      *
      * @return \SprykerEco\Yves\Klarna\Form\InstallmentSubForm
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createInstallmentForm($countryIso2, $quoteTransfer, $subFormDataProvider)
     {
@@ -62,28 +60,27 @@ class KlarnaFactory extends AbstractFactory
      */
     public function getKlarnaClient()
     {
-        return $this->getLocator()->klarna()->client();
+        return $this->getProvidedDependency(KlarnaDependencyProvider::CLIENT_KLARNA);
     }
 
     /**
-     * @return \Pyz\Yves\Application\Business\Model\FlashMessengerInterface
+     * @return \Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface
      */
     public function getFlashMessenger()
     {
-        return $this->createApplication()['flash_messenger'];
+        return $this->getApplication()['flash_messenger'];
     }
 
     /**
-     * @return \Spryker\Yves\Application\Application
+     * @return \Spryker\Yves\Kernel\Application
      */
-    protected function createApplication()
+    protected function getApplication()
     {
-        return (new Pimple())->getApplication();
+        return $this->getProvidedDependency(KlarnaDependencyProvider::PLUGIN_APPLICATION);
     }
 
     /**
      * @return \SprykerEco\Yves\Klarna\Form\DataProvider\InvoiceDataProvider
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createInvoiceDataProvider()
     {
@@ -92,7 +89,6 @@ class KlarnaFactory extends AbstractFactory
 
     /**
      * @return \SprykerEco\Yves\Klarna\Form\DataProvider\InstallmentDataProvider
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createInstallmentDataProvider()
     {
@@ -105,25 +101,22 @@ class KlarnaFactory extends AbstractFactory
 
     /**
      * @return \Spryker\Client\Cart\CartClientInterface
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getCartClient()
     {
-        return $this->getLocator()->cart()->client();
+        return $this->getProvidedDependency(KlarnaDependencyProvider::CLIENT_CART);
     }
 
     /**
      * @return \Spryker\Client\Glossary\GlossaryClient
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getTranslatorClient()
     {
-        return $this->getLocator()->glossary()->client();
+        return $this->getProvidedDependency(KlarnaDependencyProvider::CLIENT_GLOSSARY);
     }
 
     /**
      * @return \Spryker\Shared\Kernel\Store
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getStore()
     {

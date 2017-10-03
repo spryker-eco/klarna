@@ -277,7 +277,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
      */
     public function createInstallmentTransferMapper()
     {
-        return new InstallmentTransferMapper();
+        return new InstallmentTransferMapper($this->getMoneyFacade());
     }
 
     /**
@@ -286,6 +286,11 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     public function createAddressesResponseTransferMapper()
     {
         return new AddressesResponseTransferMapper();
+    }
+
+    protected function getMoneyFacade()
+    {
+        return $this->getProvidedDependency(KlarnaDependencyProvider::FACADE_MONEY);
     }
 
 }

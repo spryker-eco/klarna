@@ -6,6 +6,8 @@
  */
 
 namespace SprykerEco\Zed\Klarna\Dependency\Facade;
+use Spryker\Zed\Sales\Business\SalesFacade;
+use Spryker\Zed\Sales\Business\SalesFacadeInterface;
 
 /**
  * Class KlarnaToSalesBridge
@@ -18,16 +20,16 @@ class KlarnaToSalesBridge implements KlarnaToSalesInterface
 {
 
     /**
-     * @var \Spryker\Zed\SalesAggregator\Business\SalesAggregatorFacade
+     * @var \Spryker\Zed\Sales\Business\SalesFacadeInterface
      */
-    protected $salesAggregationFacade;
+    protected $salesFacade;
 
     /**
-     * @param \Spryker\Zed\SalesAggregator\Business\SalesAggregatorFacade $salesAggregationFacade
+     * @param  \Spryker\Zed\Sales\Business\SalesFacadeInterface $salesFacade
      */
-    public function __construct($salesAggregationFacade)
+    public function __construct(SalesFacadeInterface $salesFacade)
     {
-        $this->salesAggregationFacade = $salesAggregationFacade;
+        $this->salesFacade = $salesFacade;
     }
 
     /**
@@ -35,9 +37,9 @@ class KlarnaToSalesBridge implements KlarnaToSalesInterface
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
-    public function getOrderTotalsByIdSalesOrder($idSalesOrder)
+    public function getOrderByIdSalesOrder($idSalesOrder)
     {
-        return $this->salesAggregationFacade->getOrderTotalsByIdSalesOrder($idSalesOrder);
+        return $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
     }
 
 }

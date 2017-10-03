@@ -9,7 +9,7 @@ namespace SprykerEco\Yves\Klarna\Form\DataProvider;
 
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
-use Spryker\Shared\Transfer\AbstractTransfer;
+use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
 
 /**
@@ -21,10 +21,9 @@ class InvoiceDataProvider implements StepEngineFormDataProviderInterface
 {
 
     /**
-     * @param \Spryker\Shared\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getData(AbstractTransfer $quoteTransfer)
     {
@@ -39,10 +38,9 @@ class InvoiceDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
-     * @param \Spryker\Shared\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getOptions(AbstractTransfer $quoteTransfer)
     {
