@@ -20,54 +20,62 @@ interface KlarnaSessionInterface
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $responseTransfer
      *
      * @return $this
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function setInstallments(KlarnaInstallmentResponseTransfer $responseTransfer);
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasInstallments();
 
     /**
-     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallments();
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeInstallments();
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeOrderId();
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getKlarnaOrderId();
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $orderId
      *
      * @return $this
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function setKlarnaOrderId($orderId);
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasKlarnaOrderId();
 

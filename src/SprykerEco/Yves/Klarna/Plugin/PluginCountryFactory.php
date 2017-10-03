@@ -8,8 +8,8 @@
 namespace SprykerEco\Yves\Klarna\Plugin;
 
 use Spryker\Shared\Config\Config;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Yves\Kernel\AbstractPlugin;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\AustriaSubFormsCreator;
 use SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\DefaultSubFormsCreator;
 use SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\DenmarkSubFormsCreator;

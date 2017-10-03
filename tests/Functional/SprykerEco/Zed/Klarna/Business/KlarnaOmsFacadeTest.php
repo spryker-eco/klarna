@@ -11,6 +11,7 @@ use Functional\SprykerEco\Zed\Klarna\Business\Api\Mock\KlarnaCaptureMock;
 use Functional\SprykerEco\Zed\Klarna\Business\Api\Mock\KlarnaRefundMock;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
+use KlarnaException;
 use Orm\Zed\Country\Persistence\SpyCountryQuery;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\Customer\Persistence\SpyCustomerQuery;
@@ -48,8 +49,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     private $paymentEntity;
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testCapturePayment()
     {
@@ -57,9 +59,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
         $this->setUpPaymentTestData();
         $orderTransfer = $this->createOrderTransfer();
         $paymentEntity = $this->getPaymentEntity();
-        $adapterMock   = new KlarnaCaptureMock();
-        $facade        = $this->generateFacade($adapterMock);
-        $response      = $facade->capturePayment($paymentEntity, $orderTransfer);
+        $adapterMock = new KlarnaCaptureMock();
+        $facade = $this->generateFacade($adapterMock);
+        $response = $facade->capturePayment($paymentEntity, $orderTransfer);
 
         $this->assertTrue(is_array($response));
         $this->assertCount(2, $response);
@@ -70,8 +72,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     /**
      * Test part activation.
      *
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testCapturePartPayment()
     {
@@ -86,9 +89,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
 
         $orderItems = [$orderItem];
 
-        $adapterMock   = new KlarnaCaptureMock();
-        $facade        = $this->generateFacade($adapterMock);
-        $response      = $facade->capturePartPayment($orderItems, $paymentEntity, $orderTransfer);
+        $adapterMock = new KlarnaCaptureMock();
+        $facade = $this->generateFacade($adapterMock);
+        $response = $facade->capturePartPayment($orderItems, $paymentEntity, $orderTransfer);
 
         $this->assertTrue(is_array($response));
         $this->assertCount(2, $response);
@@ -97,8 +100,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testCapturePaymentFailed()
     {
@@ -106,9 +110,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
         $this->setUpPaymentTestData();
         $orderTransfer = $this->createOrderTransfer();
         $paymentEntity = $this->getPaymentEntity();
-        $adapterMock   = new KlarnaCaptureMock();
-        $adapterMock->setException(new \KlarnaException('test Exception'));
-        $facade   = $this->generateFacade($adapterMock);
+        $adapterMock = new KlarnaCaptureMock();
+        $adapterMock->setException(new KlarnaException('test Exception'));
+        $facade = $this->generateFacade($adapterMock);
         $response = $facade->capturePayment($paymentEntity, $orderTransfer);
 
         $this->assertTrue(is_array($response));
@@ -118,24 +122,26 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testRefundPayment()
     {
         $this->setUpSalesOrderTestData();
         $this->setUpPaymentTestData();
         $paymentEntity = $this->getPaymentEntity();
-        $adapterMock   = new KlarnaRefundMock();
-        $facade        = $this->generateFacade($adapterMock);
-        $response      = $facade->refundPayment($paymentEntity);
+        $adapterMock = new KlarnaRefundMock();
+        $facade = $this->generateFacade($adapterMock);
+        $response = $facade->refundPayment($paymentEntity);
 
         $this->assertSame('invoiceNumber', $response);
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testPartRefundPayment()
     {
@@ -147,27 +153,29 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
 
         $orderItems = [$orderItem];
 
-        $adapterMock   = new KlarnaRefundMock();
-        $facade        = $this->generateFacade($adapterMock);
-        $response      = $facade->refundPartPayment($orderItems, $paymentEntity);
+        $adapterMock = new KlarnaRefundMock();
+        $facade = $this->generateFacade($adapterMock);
+        $response = $facade->refundPartPayment($orderItems, $paymentEntity);
 
         $this->assertSame('invoicePartNumber', $response);
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @expectedException \KlarnaException
      * @expectedExceptionMessage test
+     *
+     * @return void
      */
     public function testRefundPaymentFailed()
     {
         $this->setUpSalesOrderTestData();
         $this->setUpPaymentTestData();
         $paymentEntity = $this->getPaymentEntity();
-        $adapterMock   = new KlarnaRefundMock();
-        $adapterMock->setException(new \KlarnaException('test'));
-        $facade   = $this->generateFacade($adapterMock);
+        $adapterMock = new KlarnaRefundMock();
+        $adapterMock->setException(new KlarnaException('test'));
+        $facade = $this->generateFacade($adapterMock);
         $facade->refundPayment($paymentEntity);
     }
 

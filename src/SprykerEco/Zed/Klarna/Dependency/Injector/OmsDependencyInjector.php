@@ -9,6 +9,9 @@ namespace SprykerEco\Zed\Klarna\Dependency\Injector;
 
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Dependency\Injector\AbstractDependencyInjector;
+use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandCollectionInterface;
+use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionCollectionInterface;
+use Spryker\Zed\Oms\OmsDependencyProvider;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Command\CancelPlugin;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Command\CapturePlugin;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Command\CheckPlugin;
@@ -19,9 +22,6 @@ use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition\HasCapturePlugin;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition\IsBillingAddressSamePlugin;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition\IsOrderDenied;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition\IsOrderStatusApproved;
-use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandCollectionInterface;
-use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionCollectionInterface;
-use Spryker\Zed\Oms\OmsDependencyProvider;
 
 class OmsDependencyInjector extends AbstractDependencyInjector
 {

@@ -18,48 +18,54 @@ class KlarnaApiMockAbstract
 {
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function config()
     {
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function setEstoreInfo()
     {
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function setAddress()
     {
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function addArticle()
     {
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function setClientIp()
     {
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function addArtNo()
     {

@@ -21,11 +21,12 @@ interface SaverInterface
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
      *
      * @return mixed
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function saveOrderPayment(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer);
 

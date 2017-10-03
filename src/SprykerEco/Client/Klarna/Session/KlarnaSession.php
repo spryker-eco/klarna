@@ -38,10 +38,11 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $responseTransfer
      *
      * @return $this
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function setInstallments(KlarnaInstallmentResponseTransfer $responseTransfer)
     {
@@ -51,8 +52,9 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasInstallments()
     {
@@ -60,8 +62,9 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
-     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallments()
     {
@@ -71,8 +74,9 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeInstallments()
     {
@@ -86,8 +90,9 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeOrderId()
     {
@@ -101,8 +106,9 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getKlarnaOrderId()
     {
@@ -110,10 +116,11 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $orderId
      *
      * @return $this
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function setKlarnaOrderId($orderId)
     {
@@ -123,8 +130,9 @@ class KlarnaSession implements KlarnaSessionInterface
     }
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasKlarnaOrderId()
     {

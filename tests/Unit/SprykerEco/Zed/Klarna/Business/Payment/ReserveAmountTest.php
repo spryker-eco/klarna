@@ -20,13 +20,14 @@ class ReserveAmountTest extends Test
 {
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testReserveAmount()
     {
         $reserveAmount = $this->getReserveAmountObject();
-        $return        = $reserveAmount->reserveAmount(new QuoteTransfer());
+        $return = $reserveAmount->reserveAmount(new QuoteTransfer());
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
         $this->assertSame('testStatus', $return->getStatus());
@@ -35,26 +36,28 @@ class ReserveAmountTest extends Test
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testUpdateReservation()
     {
         $reserveAmount = $this->getReserveAmountObject();
-        $return        = $reserveAmount->updateReservation(new QuoteTransfer());
+        $return = $reserveAmount->updateReservation(new QuoteTransfer());
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
         $this->assertSame(1, $return->getStatus());
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testUpdateReservationFailed()
     {
         $reserveAmount = $this->getReserveAmountObject(true);
-        $return        = $reserveAmount->updateReservation(new QuoteTransfer());
+        $return = $reserveAmount->updateReservation(new QuoteTransfer());
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
         $this->assertSame(0, $return->getStatus());
@@ -62,17 +65,18 @@ class ReserveAmountTest extends Test
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param bool $returnUpdateError
      *
      * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmount
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function getReserveAmountObject($returnUpdateError = false)
     {
         $klarnaApiMock = $this->getMock(
             'SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi',
             [
-                'reserveAmount', 'update'
+                'reserveAmount', 'update',
             ],
             [],
             '',
@@ -85,7 +89,7 @@ class ReserveAmountTest extends Test
                 [
                     0 => 'testRefNo',
                     1 => 'testStatus',
-                    2 => 'testError'
+                    2 => 'testError',
                 ]
             );
 

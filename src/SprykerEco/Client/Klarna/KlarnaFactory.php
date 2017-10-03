@@ -30,8 +30,9 @@ class KlarnaFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
      */
     public function createKlarnaSession()
     {

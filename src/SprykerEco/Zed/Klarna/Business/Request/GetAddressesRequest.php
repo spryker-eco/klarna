@@ -25,10 +25,10 @@ class GetAddressesRequest
     protected $addressesResponseTransferMapper;
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
      * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapper $addressesResponseTransferMapper
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(
         KlarnaApi $klarnaApi,

@@ -7,12 +7,14 @@
 
 namespace SprykerEco\Yves\Klarna\Handler\Exception;
 
+use Exception;
+
 /**
  * Class KlarnaHandlerException
  *
  * @package SprykerEco\Yves\Klarna\Handler\Exception
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class KlarnaHandlerException extends \Exception
+class KlarnaHandlerException extends Exception
 {
 }

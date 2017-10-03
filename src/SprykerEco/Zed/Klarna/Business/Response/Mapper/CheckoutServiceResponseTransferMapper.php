@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Response\Mapper;
 
+use CheckoutServiceResponse;
 use Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer;
 use Generated\Shared\Transfer\KlarnaPaymentMethodDetailTransfer;
 use Generated\Shared\Transfer\KlarnaPaymentMethodTransfer;
@@ -19,7 +20,7 @@ class CheckoutServiceResponseTransferMapper
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer
      */
-    public function map(\CheckoutServiceResponse $checkoutServiceResponse)
+    public function map(CheckoutServiceResponse $checkoutServiceResponse)
     {
         $checkoutServiceTransfer = new KlarnaCheckoutServiceResponseTransfer();
         $responseData = $checkoutServiceResponse->getData();

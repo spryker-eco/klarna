@@ -8,9 +8,9 @@
 namespace SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Command;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandByOrderInterface;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 /**
  * Class CapturePlugin
@@ -25,12 +25,13 @@ class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $orderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
     {

@@ -30,9 +30,9 @@ class KlarnaToCheckoutBridge implements KlarnaToCheckoutBridgeInterface
     /**
      * KlarnaToCheckoutBridge constructor.
      *
-     * @param \Spryker\Zed\Checkout\Business\CheckoutFacadeInterface $checkoutFacade
-     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param \Spryker\Zed\Checkout\Business\CheckoutFacadeInterface $checkoutFacade
      */
     public function __construct(CheckoutFacadeInterface $checkoutFacade)
     {
@@ -40,10 +40,11 @@ class KlarnaToCheckoutBridge implements KlarnaToCheckoutBridgeInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function placeOrder(QuoteTransfer $quoteTransfer)
     {

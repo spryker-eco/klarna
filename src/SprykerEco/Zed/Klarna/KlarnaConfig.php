@@ -7,8 +7,8 @@
 
 namespace SprykerEco\Zed\Klarna;
 
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 /**
  * Class KlarnaConfig
@@ -21,8 +21,9 @@ class KlarnaConfig extends AbstractBundleConfig
 {
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getSharedSecret()
     {
@@ -30,8 +31,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getEid()
     {
@@ -39,8 +41,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return bool
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function isTestMode()
     {
@@ -48,8 +51,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getMailMode()
     {
@@ -57,8 +61,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getPclassStoreType()
     {
@@ -66,8 +71,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getPclassStoreUri()
     {
@@ -75,8 +81,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getCheckoutConfirmationUri()
     {
@@ -84,8 +91,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getCheckoutTermsUri()
     {
@@ -93,8 +101,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getCheckoutPushUri()
     {
@@ -102,8 +111,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getCheckoutUri()
     {
@@ -111,8 +121,9 @@ class KlarnaConfig extends AbstractBundleConfig
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getPdfUrlPattern()
     {

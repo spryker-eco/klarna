@@ -7,13 +7,13 @@
 
 namespace SprykerEco\Zed\Klarna\Dependency\Injector;
 
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Dependency\Injector\AbstractDependencyInjector;
-use SprykerEco\Zed\Klarna\Communication\Plugin\Checkout\KlarnaPreCheckPlugin;
-use SprykerEco\Zed\Klarna\Communication\Plugin\Checkout\KlarnaSaveOrderPlugin;
 use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPluginCollection;
 use Spryker\Zed\Payment\PaymentDependencyProvider;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Zed\Klarna\Communication\Plugin\Checkout\KlarnaPreCheckPlugin;
+use SprykerEco\Zed\Klarna\Communication\Plugin\Checkout\KlarnaSaveOrderPlugin;
 
 class PaymentDependencyInjector extends AbstractDependencyInjector
 {

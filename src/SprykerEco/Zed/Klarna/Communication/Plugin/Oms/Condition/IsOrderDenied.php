@@ -8,8 +8,8 @@
 namespace SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 /**
  * Class IsOrderDenied

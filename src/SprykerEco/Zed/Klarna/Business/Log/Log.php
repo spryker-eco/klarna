@@ -30,9 +30,9 @@ class Log
     /**
      * Log constructor.
      *
-     * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
-     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
      */
     public function __construct(KlarnaQueryContainerInterface $queryContainer)
     {
@@ -40,10 +40,11 @@ class Log
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Propel\Runtime\Collection\ObjectCollection $orders
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getPaymentLogs(ObjectCollection $orders)
     {
@@ -54,11 +55,11 @@ class Log
         /** @var \Orm\Zed\Klarna\Persistence\Base\SpyPaymentKlarnaTransactionStatusLog $paymentLog */
         foreach ($paymentLogs as $paymentLog) {
             $log[] = [
-                'logType'       => get_class($paymentLog),
-                'CreatedAt'     => $paymentLog->getCreatedAt(),
-                'Status'        => $paymentLog->getProcessingType(),
+                'logType' => get_class($paymentLog),
+                'CreatedAt' => $paymentLog->getCreatedAt(),
+                'Status' => $paymentLog->getProcessingType(),
                 'TransactionId' => '',
-                'Request'       => $paymentLog->getProcessingErrorMessage()
+                'Request' => $paymentLog->getProcessingErrorMessage(),
             ];
         }
 

@@ -10,12 +10,11 @@ namespace SprykerEco\Yves\Klarna\Dependency\Injector;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\ContainerInterface;
 use Spryker\Shared\Kernel\Dependency\Injector\DependencyInjectorInterface;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Yves\Checkout\CheckoutDependencyProvider;
-use SprykerEco\Yves\Klarna\Plugin\KlarnaHandlerPlugin;
-use SprykerEco\Yves\Klarna\Plugin\KlarnaSubFormsPlugin;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginCollection;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Handler\StepHandlerPluginCollection;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Yves\Klarna\Plugin\KlarnaHandlerPlugin;
 use SprykerEco\Yves\Klarna\Plugin\PluginCountryFactory;
 
 class CheckoutDependencyInjector implements DependencyInjectorInterface
@@ -45,8 +44,7 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
             ->getLocator()
             ->cart()
             ->client()
-            ->getQuote()
-        ;
+            ->getQuote();
 
         $paymentMethodsSubForms = $this->getPaymentMethodsSubForms($quoteTransfer);
         $container->extend(CheckoutDependencyProvider::PAYMENT_SUB_FORMS, function (SubFormPluginCollection $paymentSubForms) use ($paymentMethodsSubForms) {
@@ -77,7 +75,6 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
 
         return $container;
     }
-
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer

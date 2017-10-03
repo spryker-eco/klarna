@@ -35,10 +35,11 @@ class KlarnaCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param int $idPayment
      *
      * @return \SprykerEco\Zed\Klarna\Communication\Table\StatusLog
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createStatusLogTable($idPayment)
     {

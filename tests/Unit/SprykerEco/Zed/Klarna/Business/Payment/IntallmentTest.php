@@ -23,8 +23,9 @@ class IntallmentTest extends Test
 {
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testGetInstallments()
     {
@@ -60,8 +61,9 @@ class IntallmentTest extends Test
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
      */
     protected function getInstallmentObject()
     {
@@ -90,7 +92,7 @@ class IntallmentTest extends Test
 
         $return = [
             $klarnaPclassObject,
-            $klarnaPclassObjectFail
+            $klarnaPclassObjectFail,
         ];
 
         $klarnaApiMock

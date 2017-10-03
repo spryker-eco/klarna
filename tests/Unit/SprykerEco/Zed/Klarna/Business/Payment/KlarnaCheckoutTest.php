@@ -23,15 +23,16 @@ class KlarnaCheckoutTest extends Test
 {
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testGetCheckoutHtml()
     {
         $quoteTransfer = new QuoteTransfer();
 
         $klarnaCheckout = $this->getKlarnaCheckoutObject();
-        $result         = $klarnaCheckout->getCheckoutHtml($quoteTransfer);
+        $result = $klarnaCheckout->getCheckoutHtml($quoteTransfer);
 
         $this->assertInstanceOf('\Generated\Shared\Transfer\KlarnaCheckoutTransfer', $result);
         $this->assertSame('testSnippet', $result->getHtml());
@@ -39,15 +40,16 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testGetCheckoutHtmlFail()
     {
         $quoteTransfer = new QuoteTransfer();
 
         $klarnaCheckout = $this->getKlarnaCheckoutObject(true);
-        $result         = $klarnaCheckout->getCheckoutHtml($quoteTransfer);
+        $result = $klarnaCheckout->getCheckoutHtml($quoteTransfer);
 
         $this->assertInstanceOf('\Generated\Shared\Transfer\KlarnaCheckoutTransfer', $result);
         $this->assertSame('', $result->getHtml());
@@ -55,8 +57,9 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testGetSuccessHtml()
     {
@@ -64,7 +67,7 @@ class KlarnaCheckoutTest extends Test
         $klarnaCheckoutTransfer->setOrderid('12345');
 
         $klarnaCheckout = $this->getKlarnaCheckoutObject();
-        $result         = $klarnaCheckout->getSuccessHtml($klarnaCheckoutTransfer);
+        $result = $klarnaCheckout->getSuccessHtml($klarnaCheckoutTransfer);
 
         $this->assertInstanceOf('\Generated\Shared\Transfer\KlarnaCheckoutTransfer', $result);
         $this->assertSame('testSuccessSnippet', $result->getHtml());
@@ -72,8 +75,9 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testGetSuccessHtmlFail()
     {
@@ -81,7 +85,7 @@ class KlarnaCheckoutTest extends Test
         $klarnaCheckoutTransfer->setOrderid('12345');
 
         $klarnaCheckout = $this->getKlarnaCheckoutObject(true);
-        $result         = $klarnaCheckout->getSuccessHtml($klarnaCheckoutTransfer);
+        $result = $klarnaCheckout->getSuccessHtml($klarnaCheckoutTransfer);
 
         $this->assertInstanceOf('\Generated\Shared\Transfer\KlarnaCheckoutTransfer', $result);
         $this->assertSame('', $result->getHtml());
@@ -89,8 +93,9 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testCreateCheckoutOrder()
     {
@@ -98,16 +103,17 @@ class KlarnaCheckoutTest extends Test
         $klarnaCheckoutTransfer->setOrderid('12345');
 
         $klarnaCheckout = $this->getKlarnaCheckoutCreateOrderObject(true);
-        $result         = $klarnaCheckout->createCheckoutOrder($klarnaCheckoutTransfer);
+        $result = $klarnaCheckout->createCheckoutOrder($klarnaCheckoutTransfer);
 
         $this->assertTrue($result);
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param bool $returnUpdateError
      *
      * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function getKlarnaCheckoutCreateOrderObject($returnUpdateError = false)
     {
@@ -123,7 +129,7 @@ class KlarnaCheckoutTest extends Test
         $klarnaCheckoutApiMock = $this->getMock(
             'SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi',
             [
-                'createOrder', 'fetchKlarnaOrder'
+                'createOrder', 'fetchKlarnaOrder',
             ],
             [],
             '',
@@ -131,64 +137,64 @@ class KlarnaCheckoutTest extends Test
         );
 
         $fetchKlarnaOrderReturnData = [
-            'status'            => KlarnaConstants::STATUS_COMPLETE,
-            'cart'              => [
+            'status' => KlarnaConstants::STATUS_COMPLETE,
+            'cart' => [
                 'items' => [
                     [
-                        'type'          => KlarnaConstants::SHIPPING_TYPE,
-                        'reference'     => '',
-                        'name'          => 'shipping',
-                        'quantity'      => 1,
-                        'unit_price'    => 4.95,
+                        'type' => KlarnaConstants::SHIPPING_TYPE,
+                        'reference' => '',
+                        'name' => 'shipping',
+                        'quantity' => 1,
+                        'unit_price' => 4.95,
                         'discount_rate' => 0,
-                        'tax_rate'      => 19
+                        'tax_rate' => 19,
                     ],
                     [
-                        'type'          => '',
-                        'reference'     => '',
-                        'name'          => 'Artikel',
-                        'quantity'      => 1,
-                        'unit_price'    => 9.95,
+                        'type' => '',
+                        'reference' => '',
+                        'name' => 'Artikel',
+                        'quantity' => 1,
+                        'unit_price' => 9.95,
                         'discount_rate' => 0,
-                        'tax_rate'      => 19
+                        'tax_rate' => 19,
                     ],
                 ],
                 'total_price_including_tax' => 14.90,
             ],
-            'billing_address'   => [
-                'given_name'    => 'testperson',
-                'family_name'   => 'lastname',
-                'email'         => 'test@test.de',
-                'city'          => 'testcity',
-                'street_name'   => 'teststreet',
+            'billing_address' => [
+                'given_name' => 'testperson',
+                'family_name' => 'lastname',
+                'email' => 'test@test.de',
+                'city' => 'testcity',
+                'street_name' => 'teststreet',
                 'street_number' => 'teststreetnumber',
-                'title'         => 'Herr',
-                'country'       => 'DE',
-                'postal_code'   => '41460'
+                'title' => 'Herr',
+                'country' => 'DE',
+                'postal_code' => '41460',
 
             ],
-            'shipping_address'  => [
-                'given_name'    => 'testperson',
-                'family_name'   => 'lastname',
-                'email'         => 'test@test.de',
-                'city'          => 'testcity',
-                'street_name'   => 'teststreet',
+            'shipping_address' => [
+                'given_name' => 'testperson',
+                'family_name' => 'lastname',
+                'email' => 'test@test.de',
+                'city' => 'testcity',
+                'street_name' => 'teststreet',
                 'street_number' => 'teststreetnumber',
-                'title'         => 'Herr',
-                'country'       => 'DE',
-                'postal_code'   => '41460'
+                'title' => 'Herr',
+                'country' => 'DE',
+                'postal_code' => '41460',
             ],
-            'customer'          => [
+            'customer' => [
                 'date_of_birth' => '',
-                'gender'        => 'Herr',
+                'gender' => 'Herr',
             ],
-            'purchase_country'  => 'DE',
+            'purchase_country' => 'DE',
             'purchase_currency' => 'EUR',
-            'reservation'       => 'reservationId',
+            'reservation' => 'reservationId',
 
         ];
 
-        $connector              = $this->getMock(
+        $connector = $this->getMock(
             '\Klarna_Checkout_ConnectorInterface'
         );
         $fetchKlarnaOrderReturn = new \Klarna_Checkout_Order($connector);
@@ -203,10 +209,11 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param bool $returnUpdateError
      *
      * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function getKlarnaCheckoutObject($returnUpdateError = false)
     {
@@ -220,7 +227,7 @@ class KlarnaCheckoutTest extends Test
         $klarnaCheckoutApiMock = $this->getMock(
             'SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi',
             [
-                'getCheckoutValues', 'getSuccessValues'
+                'getCheckoutValues', 'getSuccessValues',
             ],
             [],
             '',

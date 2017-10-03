@@ -30,9 +30,9 @@ class ReserveAmount
     /**
      * ReserveAmount constructor.
      *
-     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
-     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
      */
     public function __construct(KlarnaApi $klarnaApi)
     {
@@ -40,10 +40,11 @@ class ReserveAmount
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function reserveAmount(QuoteTransfer $quoteTransfer)
     {
@@ -60,10 +61,11 @@ class ReserveAmount
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function updateReservation(QuoteTransfer $quoteTransfer)
     {

@@ -7,6 +7,8 @@
 
 namespace Functional\SprykerEco\Zed\Klarna\Business\Api\Mock;
 
+use Exception;
+
 /**
  * Class KlarnaRefundMock
  *
@@ -23,20 +25,23 @@ class KlarnaRefundMock extends KlarnaApiMockAbstract
     protected $exception;
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Exception $exception
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
-    public function setException(\Exception $exception)
+    public function setException(Exception $exception)
     {
         $this->exception = $exception;
     }
 
     /**
-     * @return string
-     * @throws \Exception
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @throws \Exception
+     *
+     * @return string
      */
     public function creditInvoice()
     {
@@ -48,9 +53,11 @@ class KlarnaRefundMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @return string
-     * @throws \Exception
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @throws \Exception
+     *
+     * @return string
      */
     public function creditPart()
     {

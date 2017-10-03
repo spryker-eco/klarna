@@ -35,9 +35,9 @@ class Payments extends AbstractTable
     protected $paymentKlarnaQuery;
 
     /**
-     * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery $paymentKlarnaQuery
-     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery $paymentKlarnaQuery
      */
     public function __construct(SpyPaymentKlarnaQuery $paymentKlarnaQuery)
     {
@@ -47,20 +47,21 @@ class Payments extends AbstractTable
     /**
      * Configure Table header.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Spryker\Zed\Gui\Communication\Table\TableConfiguration $config
      *
      * @return \Spryker\Zed\Gui\Communication\Table\TableConfiguration
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function configure(TableConfiguration $config)
     {
         $config->setHeader(
             [
                 SpyPaymentKlarnaTableMap::COL_ID_PAYMENT_KLARNA => 'Payment ID',
-                SpyPaymentKlarnaTableMap::COL_FK_SALES_ORDER    => 'Order ID',
-                SpyPaymentKlarnaTableMap::COL_EMAIL             => 'Email',
-                SpyPaymentKlarnaTableMap::COL_CREATED_AT        => 'Created',
-                self::FIELD_VIEW                                => 'View',
+                SpyPaymentKlarnaTableMap::COL_FK_SALES_ORDER => 'Order ID',
+                SpyPaymentKlarnaTableMap::COL_EMAIL => 'Email',
+                SpyPaymentKlarnaTableMap::COL_CREATED_AT => 'Created',
+                self::FIELD_VIEW => 'View',
             ]
         );
 
@@ -75,22 +76,23 @@ class Payments extends AbstractTable
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Spryker\Zed\Gui\Communication\Table\TableConfiguration $config
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function prepareData(TableConfiguration $config)
     {
         $paymentItems = $this->runQuery($this->paymentKlarnaQuery, $config);
-        $results      = [];
+        $results = [];
         foreach ($paymentItems as $paymentItem) {
             $results[] = [
                 SpyPaymentKlarnaTableMap::COL_ID_PAYMENT_KLARNA => $paymentItem[SpyPaymentKlarnaTableMap::COL_ID_PAYMENT_KLARNA],
-                SpyPaymentKlarnaTableMap::COL_FK_SALES_ORDER    => $paymentItem[SpyPaymentKlarnaTableMap::COL_FK_SALES_ORDER],
-                SpyPaymentKlarnaTableMap::COL_EMAIL             => $paymentItem[SpyPaymentKlarnaTableMap::COL_EMAIL],
-                SpyPaymentKlarnaTableMap::COL_CREATED_AT        => $paymentItem[SpyPaymentKlarnaTableMap::COL_CREATED_AT],
-                self::FIELD_VIEW                                => implode(' ', $this->buildOptionsUrls($paymentItem)),
+                SpyPaymentKlarnaTableMap::COL_FK_SALES_ORDER => $paymentItem[SpyPaymentKlarnaTableMap::COL_FK_SALES_ORDER],
+                SpyPaymentKlarnaTableMap::COL_EMAIL => $paymentItem[SpyPaymentKlarnaTableMap::COL_EMAIL],
+                SpyPaymentKlarnaTableMap::COL_CREATED_AT => $paymentItem[SpyPaymentKlarnaTableMap::COL_CREATED_AT],
+                self::FIELD_VIEW => implode(' ', $this->buildOptionsUrls($paymentItem)),
             ];
         }
 
@@ -98,10 +100,11 @@ class Payments extends AbstractTable
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $paymentItem
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function buildOptionsUrls(array $paymentItem)
     {

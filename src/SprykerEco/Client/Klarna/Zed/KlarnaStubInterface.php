@@ -30,34 +30,38 @@ interface KlarnaStubInterface
     public function updatePayment(QuoteTransfer $quoteTransfer);
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Spryker\Shared\Transfer\TransferInterface
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInstallments(QuoteTransfer $quoteTransfer);
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Spryker\Shared\Transfer\TransferInterface
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer);
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Spryker\Shared\Transfer\TransferInterface
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 

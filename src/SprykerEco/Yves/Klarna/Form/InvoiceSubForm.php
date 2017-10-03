@@ -8,14 +8,13 @@
 namespace SprykerEco\Yves\Klarna\Form;
 
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
-use Generated\Shared\Transfer\PaymentTransfer;
 use Spryker\Shared\Config\Config;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
+use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 
 /**
  * Class InvoiceSubForm
@@ -53,11 +52,12 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -71,7 +71,6 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
         if (!in_array($this->countryIso2, $nonTermsCountries)) {
             $this->addTerms($builder);
         }
-
     }
 
     /**
@@ -85,9 +84,9 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
             KlarnaConstants::FIELD_PNO,
             'text',
             [
-                'label'    => 'customer.PNO',
+                'label' => 'customer.PNO',
                 'required' => true,
-                'attr'     => [
+                'attr' => [
                     'placeholder' => 'customer.PNO',
                 ],
             ]
@@ -97,10 +96,11 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      *
      * @return \SprykerEco\Yves\Klarna\Form\InvoiceSubForm
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function addTerms(FormBuilderInterface $builder)
     {
@@ -108,8 +108,8 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
             self::FIELD_TERMS,
             'checkbox',
             [
-                'label'  => ' ',
-                'mapped' => false
+                'label' => ' ',
+                'mapped' => false,
             ]
         );
 
@@ -127,12 +127,12 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
             self::FIELD_DATE_OF_BIRTH,
             'birthday',
             [
-                'label'    => 'customer.birth_date',
+                'label' => 'customer.birth_date',
                 'required' => true,
-                'widget'   => 'single_text',
-                'format'   => 'dd.MM.yyyy',
-                'input'    => 'string',
-                'attr'     => [
+                'widget' => 'single_text',
+                'format' => 'dd.MM.yyyy',
+                'input' => 'string',
+                'attr' => [
                     'placeholder' => 'customer.birth_date',
                 ],
             ]
@@ -154,7 +154,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
 
         $resolver->setDefaults(
             [
-                'data_class'                         => KlarnaPaymentTransfer::class,
+                'data_class' => KlarnaPaymentTransfer::class,
                 SubFormInterface::OPTIONS_FIELD_NAME => [],
                 'attr' => [
                     'EID' => $eid,
@@ -196,15 +196,15 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     }
 
     /**
-     * @return mixed
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return mixed
      */
     protected function getTemplatePath()
     {
         $templatePath = KlarnaConstants::PROVIDER_NAME .
             '/' . KlarnaConstants::PAYMENT_METHOD_INVOICE_TEMPLATE .
-            '_' . $this->countryIso2
-        ;
+            '_' . $this->countryIso2;
 
         return $templatePath;
     }

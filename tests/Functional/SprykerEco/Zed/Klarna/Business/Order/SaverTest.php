@@ -50,8 +50,8 @@ class SaverTest extends Test
     public function testSaveOrderPaymentCreatesPersistentPaymentData()
     {
         $checkoutResponseTransfer = $this->createCheckoutResponse();
-        $quoteTransfer            = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $orderManager             = new Saver($this->getKlarnaBusinessFactory());
+        $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
+        $orderManager = new Saver($this->getKlarnaBusinessFactory());
 
         $orderManager->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
 
@@ -78,8 +78,8 @@ class SaverTest extends Test
     public function testSaveOrderPaymentHasAddressData()
     {
         $checkoutResponseTransfer = $this->createCheckoutResponse();
-        $quoteTransfer            = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $orderManager             = new Saver($this->getKlarnaBusinessFactory());
+        $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
+        $orderManager = new Saver($this->getKlarnaBusinessFactory());
 
         $orderManager->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
 
@@ -129,7 +129,7 @@ class SaverTest extends Test
         $orderEntity = $this->createOrderEntity();
 
         $paymentAddressTransfer = new AddressTransfer();
-        $email                  = 'testst@tewst.com';
+        $email = 'testst@tewst.com';
         $paymentAddressTransfer
             ->setIso2Code('DE')
             ->setEmail($email)
@@ -184,7 +184,6 @@ class SaverTest extends Test
     }
 
     /**
-     * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
      */
@@ -231,9 +230,9 @@ class SaverTest extends Test
      */
     private function createOrderItemEntity($idSalesOrder)
     {
-        $stateEntity   = $this->createOrderItemStateEntity();
+        $stateEntity = $this->createOrderItemStateEntity();
         $processEntity = $this->createOrderProcessEntity();
-        $bundleEntity  = $this->createOrderItemBundleEntity();
+        $bundleEntity = $this->createOrderItemBundleEntity();
 
         $orderItemEntity = new SpySalesOrderItem();
         $orderItemEntity
@@ -305,7 +304,7 @@ class SaverTest extends Test
     protected function createCheckoutResponse()
     {
         $checkoutResponseTransfer = new CheckoutResponseTransfer();
-        $saveOrderTransfer        = new SaveOrderTransfer();
+        $saveOrderTransfer = new SaveOrderTransfer();
         $checkoutResponseTransfer->setSaveOrder($saveOrderTransfer);
 
         return $checkoutResponseTransfer;

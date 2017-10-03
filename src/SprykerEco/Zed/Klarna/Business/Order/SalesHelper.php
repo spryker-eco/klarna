@@ -29,9 +29,9 @@ class SalesHelper implements SalesHelperInterface
     /**
      * SalesHelper constructor.
      *
-     * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
-     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
      */
     public function __construct(KlarnaQueryContainerInterface $queryContainer)
     {
@@ -39,10 +39,11 @@ class SalesHelper implements SalesHelperInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param int $salesOrderId
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getKlarnaPaymentById($salesOrderId)
     {
@@ -50,11 +51,12 @@ class SalesHelper implements SalesHelperInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $pdfUrlPattern
      * @param int $salesOrderId
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInvoicePdfUrl($pdfUrlPattern, $salesOrderId)
     {

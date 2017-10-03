@@ -42,16 +42,17 @@ class KlarnaFacadeTest extends AbstractFacadeTest
 {
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function testReserveAmount()
     {
         $checkoutResponseTransfer = $this->createCheckoutResponse();
-        $quoteTransfer            = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $adapterMock              = new KlarnaReserveMock();
-        $facade                   = $this->generateFacade($adapterMock);
-        $return                   = $facade->reserveAmount($quoteTransfer);
+        $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
+        $adapterMock = new KlarnaReserveMock();
+        $facade = $this->generateFacade($adapterMock);
+        $return = $facade->reserveAmount($quoteTransfer);
 
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
@@ -70,7 +71,7 @@ class KlarnaFacadeTest extends AbstractFacadeTest
         $orderEntity = $this->createOrderEntity();
 
         $paymentAddressTransfer = new AddressTransfer();
-        $email                  = 'testst@tewst.com';
+        $email = 'testst@tewst.com';
         $paymentAddressTransfer
             ->setIso2Code('DE')
             ->setEmail($email)
@@ -133,7 +134,6 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     }
 
     /**
-     * @throws \Propel\Runtime\Exception\PropelException
      *
      * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
      */
@@ -180,9 +180,9 @@ class KlarnaFacadeTest extends AbstractFacadeTest
      */
     private function createOrderItemEntity($idSalesOrder)
     {
-        $stateEntity   = $this->createOrderItemStateEntity();
+        $stateEntity = $this->createOrderItemStateEntity();
         $processEntity = $this->createOrderProcessEntity();
-        $bundleEntity  = $this->createOrderItemBundleEntity();
+        $bundleEntity = $this->createOrderItemBundleEntity();
 
         $orderItemEntity = new SpySalesOrderItem();
         $orderItemEntity
@@ -254,7 +254,7 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     protected function createCheckoutResponse()
     {
         $checkoutResponseTransfer = new CheckoutResponseTransfer();
-        $saveOrderTransfer        = new SaveOrderTransfer();
+        $saveOrderTransfer = new SaveOrderTransfer();
         $checkoutResponseTransfer->setSaveOrder($saveOrderTransfer);
 
         return $checkoutResponseTransfer;

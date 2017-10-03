@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Command;
 
+use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
@@ -15,9 +16,9 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use SprykerEco\Zed\Klarna\Communication\Plugin\Exception\KlarnaUpdateException;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandByOrderInterface;
+use SprykerEco\Zed\Klarna\Communication\Plugin\Exception\KlarnaUpdateException;
 
 /**
  * Class UpdatePlugin
@@ -36,8 +37,9 @@ class UpdatePlugin extends AbstractPlugin implements CommandByOrderInterface
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      * @param \Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject $data
      *
-     * @return array
      * @throws \SprykerEco\Zed\Klarna\Communication\Plugin\Exception\KlarnaUpdateException
+     *
+     * @return array
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
     {
@@ -69,7 +71,7 @@ class UpdatePlugin extends AbstractPlugin implements CommandByOrderInterface
         $shipmentTransfer = new ShipmentTransfer();
         $shipmentTransfer->setMethod($shipmentMethodTransfer);
 
-        $items = new \ArrayObject();
+        $items = new ArrayObject();
 
         foreach ($orderEntity->getItems() as $orderItem) {
             $itemTransfer = new ItemTransfer();

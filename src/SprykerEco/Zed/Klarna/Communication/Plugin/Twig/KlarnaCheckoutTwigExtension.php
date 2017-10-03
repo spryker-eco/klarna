@@ -10,6 +10,8 @@ namespace SprykerEco\Zed\Klarna\Communication\Plugin\Twig;
 use Spryker\Client\Cart\CartClientInterface;
 use SprykerEco\Client\Klarna\KlarnaClientInterface;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Twig\Functions\KlarnaCheckout;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Class KlarnaCheckoutTwigExtension
@@ -18,7 +20,7 @@ use SprykerEco\Zed\Klarna\Communication\Plugin\Twig\Functions\KlarnaCheckout;
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class KlarnaCheckoutTwigExtension extends \Twig_Extension
+class KlarnaCheckoutTwigExtension extends Twig_Extension
 {
 
     /**
@@ -38,10 +40,10 @@ class KlarnaCheckoutTwigExtension extends \Twig_Extension
     /**
      * KlarnaCheckoutTwigExtension constructor.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
      * @param \Spryker\Client\Cart\CartClientInterface $cartClient
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(KlarnaClientInterface $klarnaClient, CartClientInterface $cartClient)
     {
@@ -50,13 +52,14 @@ class KlarnaCheckoutTwigExtension extends \Twig_Extension
     }
 
     /**
-     * @return array
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return array
      */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new Twig_SimpleFunction(
                 'KlarnaCheckout',
                 function () {
                     $klarnaCheckout = new KlarnaCheckout($this->klarnaClient, $this->cartClient);
@@ -67,8 +70,9 @@ class KlarnaCheckoutTwigExtension extends \Twig_Extension
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getName()
     {

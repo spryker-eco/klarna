@@ -24,7 +24,6 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
     const CLIENT_GLOSSARY = 'glossary client';
     const PLUGIN_APPLICATION = 'plugin application';
 
-
     /**
      * @param \Spryker\Yves\Kernel\Container $container
      *
@@ -32,7 +31,6 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideDependencies(Container $container)
     {
-
         $container = $this->provideClients($container);
         $container = $this->providePlugins($container);
 
@@ -66,7 +64,6 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function providePlugins(Container $container)
     {
-
         $container[self::PLUGIN_APPLICATION] = function () {
             $pimplePlugin = new Pimple();
 

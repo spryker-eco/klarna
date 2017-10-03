@@ -26,118 +26,147 @@ interface KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function updatePayment(QuoteTransfer $quoteTransfer);
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInstallments(QuoteTransfer $quoteTransfer);
 
     /**
      * @api
-     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
      */
     public function getSession();
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasInstallmentsInSession();
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $installmentResponseTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function storeInstallmentsInSession(KlarnaInstallmentResponseTransfer $installmentResponseTransfer);
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeInstallmentsFromSession();
 
     /**
      * @api
-     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallmentsFromSession();
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Spryker\Shared\Transfer\TransferInterface
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer);
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $orderId
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function storeKlarnaOrderIdInSession($orderId);
 
     /**
      * @api
-     * @return string
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getKlarnaOrderIdFromSession();
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeKlarnaOrderIdFromSession();
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasKlarnaOrderIdInSession();
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return mixed
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 
     /**
      * @api
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer
@@ -146,6 +175,7 @@ interface KlarnaClientInterface
 
     /**
      * @api
+     *
      * @param \Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer

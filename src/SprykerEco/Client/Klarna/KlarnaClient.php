@@ -27,10 +27,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function updatePayment(QuoteTransfer $quoteTransfer)
     {
@@ -39,10 +41,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInstallments(QuoteTransfer $quoteTransfer)
     {
@@ -51,8 +55,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
      */
     public function getSession()
     {
@@ -61,8 +67,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasInstallmentsInSession()
     {
@@ -71,10 +79,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $installmentResponseTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function storeInstallmentsInSession(KlarnaInstallmentResponseTransfer $installmentResponseTransfer)
     {
@@ -85,8 +95,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeInstallmentsFromSession()
     {
@@ -95,8 +107,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallmentsFromSession()
     {
@@ -105,10 +119,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Spryker\Shared\Transfer\TransferInterface
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer)
     {
@@ -117,9 +133,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @param string $orderId
-     * @return void
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param string $orderId
+     *
+     * @return void
      */
     public function storeKlarnaOrderIdInSession($orderId)
     {
@@ -128,8 +147,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return string
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function getKlarnaOrderIdFromSession()
     {
@@ -138,8 +159,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function removeKlarnaOrderIdFromSession()
     {
@@ -148,8 +171,10 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     * @return bool
+     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return bool
      */
     public function hasKlarnaOrderIdInSession()
     {
@@ -158,10 +183,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -170,10 +197,12 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return mixed
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -182,6 +211,7 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer
@@ -193,6 +223,7 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
+     *
      * @param \Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer

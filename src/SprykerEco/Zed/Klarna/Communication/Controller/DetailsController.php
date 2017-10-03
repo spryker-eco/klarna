@@ -31,23 +31,25 @@ class DetailsController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $idPayment      = (int)$request->get('id-payment');
-        $paymentEntity  = $this->getPaymentEntity($idPayment);
+        $idPayment = (int)$request->get('id-payment');
+        $paymentEntity = $this->getPaymentEntity($idPayment);
         $statusLogTable = $this->getFactory()->createStatusLogTable($idPayment);
 
         return [
-            'idPayment'      => $idPayment,
+            'idPayment' => $idPayment,
             'paymentDetails' => $paymentEntity,
             'statusLogTable' => $statusLogTable->render(),
         ];
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param int $idPayment
      *
-     * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna
      */
     private function getPaymentEntity($idPayment)
     {
@@ -67,7 +69,7 @@ class DetailsController extends AbstractController
      */
     public function statusLogTableAction(Request $request)
     {
-        $idPayment      = (int)$request->get('id-payment');
+        $idPayment = (int)$request->get('id-payment');
         $statusLogTable = $this->getFactory()->createStatusLogTable($idPayment);
 
         return $this->jsonResponse($statusLogTable->fetchData());

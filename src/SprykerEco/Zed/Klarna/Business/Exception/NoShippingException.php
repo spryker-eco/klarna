@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Exception;
 
+use Exception;
+
 /**
  * Class NoShippingException
  *
@@ -14,6 +16,6 @@ namespace SprykerEco\Zed\Klarna\Business\Exception;
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class NoShippingException extends \Exception
+class NoShippingException extends Exception
 {
 }

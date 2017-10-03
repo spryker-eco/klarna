@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Api\Handler;
 
+use DateTime;
+use Exception;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer;
 use Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer;
@@ -16,11 +18,18 @@ use Generated\Shared\Transfer\KlarnaPClassRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
+use Klarna;
+use KlarnaCountry;
+use KlarnaCurrency;
+use KlarnaEncoding;
+use KlarnaException;
+use KlarnaFlags;
+use KlarnaPClass;
 use Klarna_UnknownEncodingException;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Shared\Library\Currency\CurrencyManager;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface;
 
 /**
@@ -46,7 +55,7 @@ class KlarnaApi
     const UPDATE_SUCCESS = 'ok';
     const UPDATE_ERROR = 'error';
 
-    const NON_PNO_COUNTRIES = [self::ISO_CODE_DE, self::ISO_CODE_NL, self::ISO_CODE_AT, ];
+    const NON_PNO_COUNTRIES = [self::ISO_CODE_DE, self::ISO_CODE_NL, self::ISO_CODE_AT];
 
     /**
      * @var string
@@ -110,6 +119,8 @@ class KlarnaApi
     /**
      * KlarnaApi constructor.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Klarna $klarnaAdapter
      * @param string $merchantId
      * @param string $sharedSecret
@@ -118,8 +129,6 @@ class KlarnaApi
      * @param string $pClassStoreType
      * @param string $pClassStoreUri
      * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface $localeFacade
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(
         $klarnaAdapter,
@@ -131,14 +140,14 @@ class KlarnaApi
         $pClassStoreUri,
         KlarnaToLocaleInterface $localeFacade
     ) {
-        $this->klarnaAdapter   = $klarnaAdapter;
-        $this->merchantId      = $merchantId;
-        $this->sharedSecret    = $sharedSecret;
-        $this->testMode        = $testMode;
-        $this->mailMode        = $mailMode;
+        $this->klarnaAdapter = $klarnaAdapter;
+        $this->merchantId = $merchantId;
+        $this->sharedSecret = $sharedSecret;
+        $this->testMode = $testMode;
+        $this->mailMode = $mailMode;
         $this->pClassStoreType = $pClassStoreType;
-        $this->pClassStoreUri  = $pClassStoreUri;
-        $this->localeFacade    = $localeFacade;
+        $this->pClassStoreUri = $pClassStoreUri;
+        $this->localeFacade = $localeFacade;
 
         $this->klarnaCountryFactory = new KlarnaAddressFactory();
     }
@@ -146,25 +155,25 @@ class KlarnaApi
     /**
      * Creates the basic klarna object.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $country
      * @param string $currency
      *
      * @return \Klarna
-     * @throws \KlarnaException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function createKlarnaObject($country, $currency)
     {
-        $countryCode = \KlarnaCountry::fromCode($country);
-        $klarnaApi   =  clone $this->klarnaAdapter;
+        $countryCode = KlarnaCountry::fromCode($country);
+        $klarnaApi = clone $this->klarnaAdapter;
 
         $klarnaApi->config(
             $this->merchantId, // Merchant ID
             $this->sharedSecret, // Shared secret
             $countryCode, // Purchase country
-            \KlarnaCountry::getLanguage($countryCode), // Purchase language
-            \KlarnaCurrency::fromCode($currency), // Purchase currency
-            (($this->testMode) ? \Klarna::BETA : \Klarna::LIVE), // Server
+            KlarnaCountry::getLanguage($countryCode), // Purchase language
+            KlarnaCurrency::fromCode($currency), // Purchase currency
+            (($this->testMode) ? Klarna::BETA : Klarna::LIVE), // Server
             $this->pClassStoreType, // PClass storage
             $this->pClassStoreUri // PClass storage URI path
         );
@@ -176,7 +185,6 @@ class KlarnaApi
      * @param \Generated\Shared\Transfer\KlarnaObjectInitTransfer $klarnaObjectInitTransfer
      *
      * @return \Klarna
-     * @throws \KlarnaException
      */
     protected function createKlarnaObjectByKlarnaObjectInitTransfer(KlarnaObjectInitTransfer $klarnaObjectInitTransfer)
     {
@@ -193,7 +201,6 @@ class KlarnaApi
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
      *
      * @return \Klarna
-     * @throws \KlarnaException
      */
     protected function createKlarnaObjectByAddressTransfer(AddressTransfer $addressTransfer)
     {
@@ -207,7 +214,6 @@ class KlarnaApi
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return \Klarna
-     * @throws \KlarnaException
      */
     protected function createKlarnaObjectByPaymentKlarnaEntity(SpyPaymentKlarna $paymentEntity)
     {
@@ -224,7 +230,6 @@ class KlarnaApi
      * @param \Generated\Shared\Transfer\KlarnaPaymentTransfer $paymentTransfer
      *
      * @return \Klarna
-     * @throws \KlarnaException
      */
     protected function createKlarnaObjectByKlarnaPaymentTransfer(KlarnaPaymentTransfer $paymentTransfer)
     {
@@ -237,11 +242,12 @@ class KlarnaApi
     /**
      * Activate Invoice at klarna.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function activateOrder(SpyPaymentKlarna $paymentEntity, OrderTransfer $orderTransfer)
     {
@@ -255,8 +261,8 @@ class KlarnaApi
             $mailMode = ($this->mailMode === KlarnaConstants::KLARNA_INVOICE_TYPE_NOMAIL)
                 ? null
                 : ($this->mailMode === KlarnaConstants::KLARNA_INVOICE_TYPE_MAIL)
-                    ? \KlarnaFlags::RSRV_SEND_BY_MAIL
-                    : \KlarnaFlags::RSRV_SEND_BY_EMAIL;
+                    ? KlarnaFlags::RSRV_SEND_BY_MAIL
+                    : KlarnaFlags::RSRV_SEND_BY_EMAIL;
             $result = $klarnaApi->activate(
                 $paymentEntity->getPreCheckId(),
                 null, // OCR Number
@@ -264,7 +270,7 @@ class KlarnaApi
             );
             $msg = isset($result[1])?$result[1]:'';
             $this->logApiResult('activate', $paymentEntity->getIdPaymentKlarna(), $result[0], $msg);
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $result = [0, '', $exception->getMessage()];
             $this->logApiResult(
                 'activateError',
@@ -281,12 +287,13 @@ class KlarnaApi
     /**
      * Activate Invoice at klarna.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $orderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function activatePartOrder(array $spyOrderItems, SpyPaymentKlarna $paymentEntity, OrderTransfer $orderTransfer)
     {
@@ -321,8 +328,8 @@ class KlarnaApi
                 $paymentEntity->getPreCheckId(),
                 null, // OCR Number
                 ($this->mailMode === KlarnaConstants::KLARNA_INVOICE_TYPE_MAIL)
-                ? \KlarnaFlags::RSRV_SEND_BY_MAIL
-                : \KlarnaFlags::RSRV_SEND_BY_EMAIL
+                ? KlarnaFlags::RSRV_SEND_BY_MAIL
+                : KlarnaFlags::RSRV_SEND_BY_EMAIL
             );
             $msg = isset($result[1])?$result[1]:'';
             $this->logApiResult('activatePart', $paymentEntity->getIdPaymentKlarna(), $result[0], $msg);
@@ -330,7 +337,7 @@ class KlarnaApi
                 $this->logApiResult('activateShipping', $paymentEntity->getIdPaymentKlarna(), $result[0], $msg);
             }
 
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $result = [0, '', $exception->getMessage()];
             $this->logApiResult(
                 'activatePartError',
@@ -347,10 +354,11 @@ class KlarnaApi
     /**
      * Get Part Payments.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaPClassRequestTransfer $klarnaPClassRequestTransfer
      *
      * @return \KlarnaPClass[]
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getPclasses(KlarnaPClassRequestTransfer $klarnaPClassRequestTransfer)
     {
@@ -363,7 +371,7 @@ class KlarnaApi
                 $pClasses = $klarnaApi->getPClasses($klarnaPClassRequestTransfer->getPClassType());
                 $klarnaApi->sortPClasses($pClasses);
             }
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $pClasses = [];
         }
 
@@ -373,11 +381,13 @@ class KlarnaApi
     /**
      * Refund Invoice.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
-     * @return string
      * @throws \KlarnaException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function creditInvoice(SpyPaymentKlarna $paymentEntity)
     {
@@ -386,7 +396,7 @@ class KlarnaApi
         try {
             $result = $klarnaApi->creditInvoice($paymentEntity->getInvoiceId());
             $this->logApiResult('credit', $paymentEntity->getIdPaymentKlarna(), $result);
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'creditError',
                 $paymentEntity->getIdPaymentKlarna(),
@@ -406,8 +416,9 @@ class KlarnaApi
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
-     * @return void
      * @throws \KlarnaException
+     *
+     * @return void
      */
     public function ship(SpyPaymentKlarna $paymentEntity)
     {
@@ -431,7 +442,7 @@ class KlarnaApi
                 $paymentEntity->save();
             }
 
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'activateShippingError',
                 $paymentEntity->getIdPaymentKlarna(),
@@ -447,12 +458,14 @@ class KlarnaApi
     /**
      * Refund article.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $orderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
-     * @return string
      * @throws \KlarnaException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function creditPart(array $orderItems, SpyPaymentKlarna $paymentEntity)
     {
@@ -467,7 +480,7 @@ class KlarnaApi
                 $items[$orderItem->getIdSalesOrderItem()] = [
                     'fkOrderItem' => $orderItem->getIdSalesOrderItem(),
                     'quantity' => $orderItem->getQuantity(),
-                    'sku' => $orderItem->getSku()
+                    'sku' => $orderItem->getSku(),
                 ];
             }
 
@@ -492,7 +505,7 @@ class KlarnaApi
             foreach ($invoiceItems as $invoiceId => $invoiceItemSku) {
                 foreach ($invoiceItemSku as $sku => $quantity) {
                     $klarnaApi->addArtNo($quantity, $sku);
-                 }
+                }
 
                 $creditShipping = false;
                 if ($paymentEntity->getShippingInvoiceId() == $invoiceId) {
@@ -507,7 +520,7 @@ class KlarnaApi
                 }
             }
 
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'creditPartError',
                 $paymentEntity->getIdPaymentKlarna(),
@@ -530,7 +543,7 @@ class KlarnaApi
      *
      * @return void
      */
-    protected function creditShipping(\Klarna $klarnaApi, SpyPaymentKlarna $paymentEntity)
+    protected function creditShipping(Klarna $klarnaApi, SpyPaymentKlarna $paymentEntity)
     {
         try {
             if ($paymentEntity->getShippingInvoiceId()) {
@@ -541,7 +554,7 @@ class KlarnaApi
                 $this->logApiResult('creditShipping', $paymentEntity->getIdPaymentKlarna(), 'ok', $shippingRefundResult);
             }
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->logApiResult(
                 'creditShippingError',
                 $paymentEntity->getIdPaymentKlarna(),
@@ -555,10 +568,11 @@ class KlarnaApi
     /**
      * Cancel reservation.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return bool
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function cancelReservation(SpyPaymentKlarna $paymentEntity)
     {
@@ -569,7 +583,7 @@ class KlarnaApi
 
             $this->logApiResult('cancel', $paymentEntity->getIdPaymentKlarna(), $result);
 
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'cancelError',
                 $paymentEntity->getIdPaymentKlarna(),
@@ -586,35 +600,36 @@ class KlarnaApi
     /**
      * Reserve Invoice Amount.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function reserveAmount(QuoteTransfer $quoteTransfer)
     {
         $paymentTransfer = $quoteTransfer->getPayment()->getKlarna();
-        $countryIsoCode  = $paymentTransfer->getLanguageIso2Code();
+        $countryIsoCode = $paymentTransfer->getLanguageIso2Code();
         $klarnaApi = $this->createKlarnaObjectByKlarnaPaymentTransfer($paymentTransfer);
 
         $this->addReservationValues($quoteTransfer, $paymentTransfer, $klarnaApi);
 
         if (in_array($countryIsoCode, self::NON_PNO_COUNTRIES)) {
-            $date = new \DateTime($paymentTransfer->getDateOfBirth());
-            $pno  = $date->format('dmY');
+            $date = new DateTime($paymentTransfer->getDateOfBirth());
+            $pno = $date->format('dmY');
         } else {
-            $encoding = \KlarnaEncoding::get($countryIsoCode);
+            $encoding = KlarnaEncoding::get($countryIsoCode);
             try {
-                $pnoRegEx = \KlarnaEncoding::getRegexp($encoding);
+                $pnoRegEx = KlarnaEncoding::getRegexp($encoding);
             } catch (Klarna_UnknownEncodingException $klarnaLibException) {
                 return [
-                    0, '', $klarnaLibException->getMessage()
+                    0, '', $klarnaLibException->getMessage(),
                 ];
             }
             $pno = $paymentTransfer->getPnoNo();
             if (!preg_match($pnoRegEx, $pno)) {
                 return [
-                    0, '', 'wrong pno number'
+                    0, '', 'wrong pno number',
                 ];
             }
         }
@@ -622,20 +637,20 @@ class KlarnaApi
         try {
             $pclass = ($paymentTransfer->getAccountBrand() === KlarnaConstants::BRAND_INSTALLMENT)
                 ? $paymentTransfer->getInstallmentPayIndex()
-                : \KlarnaPClass::INVOICE;
+                : KlarnaPClass::INVOICE;
 
             $result = $klarnaApi->reserveAmount(
                 $pno, // PNO (Date of birth for AT/DE/NL)
-                (($paymentTransfer->getGender() == 0) ? \KlarnaFlags::MALE : \KlarnaFlags::FEMALE), // KlarnaFlags::MALE, KlarnaFlags::FEMALE (AT/DE/NL only)
-                -1, // Automatically calculate and reserve the cart total amount
-                \KlarnaFlags::NO_FLAG,
+                (($paymentTransfer->getGender() == 0) ? KlarnaFlags::MALE : KlarnaFlags::FEMALE), // KlarnaFlags::MALE, KlarnaFlags::FEMALE (AT/DE/NL only)
+                - 1, // Automatically calculate and reserve the cart total amount
+                KlarnaFlags::NO_FLAG,
                 $pclass
             );
 
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
 
             $result = [
-                0, '', utf8_encode($exception->getMessage())
+                0, '', utf8_encode($exception->getMessage()),
             ];
         }
 
@@ -645,21 +660,20 @@ class KlarnaApi
     /**
      * Add reservation values to passed klarna instance.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\KlarnaPaymentTransfer $paymentTransfer
      * @param \Klarna $klarnaApi
      *
      * @return void
-     * @throws \Klarna_InvalidKlarnaAddrException
-     * @throws \Klarna_UnknownAddressTypeException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addReservationValues(
         QuoteTransfer $quoteTransfer,
         KlarnaPaymentTransfer $paymentTransfer,
         $klarnaApi
     ) {
-        $billingAddress       = $quoteTransfer->getBillingAddress();
+        $billingAddress = $quoteTransfer->getBillingAddress();
         $klarnaBillingAddress = $this->createKlarnaAddress($billingAddress, $paymentTransfer);
 
         $shippingAddress = $quoteTransfer->getShippingAddress();
@@ -669,8 +683,8 @@ class KlarnaApi
             $klarnaShippingAddress = $klarnaBillingAddress;
         }
 
-        $klarnaApi->setAddress(\KlarnaFlags::IS_BILLING, $klarnaBillingAddress);
-        $klarnaApi->setAddress(\KlarnaFlags::IS_SHIPPING, $klarnaShippingAddress);
+        $klarnaApi->setAddress(KlarnaFlags::IS_BILLING, $klarnaBillingAddress);
+        $klarnaApi->setAddress(KlarnaFlags::IS_SHIPPING, $klarnaShippingAddress);
 
         $this->addOrderItems($quoteTransfer->getItems(), $klarnaApi);
 
@@ -681,8 +695,6 @@ class KlarnaApi
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $salesOrderTransfer
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $spyPayment
-     * @throws \Klarna_InvalidKlarnaAddrException
-     * @throws \Klarna_UnknownAddressTypeException
      *
      * @return void
      */
@@ -696,9 +708,9 @@ class KlarnaApi
 
         $addressType = null;
         if ($salesOrderTransfer->getShippingAddress()->getIdSalesOrderAddress() == $addressTransfer->getIdSalesOrderAddress()) {
-            $addressType = \KlarnaFlags::IS_SHIPPING;
+            $addressType = KlarnaFlags::IS_SHIPPING;
         } elseif ($salesOrderTransfer->getBillingAddress()->getIdSalesOrderAddress() == $addressTransfer->getIdSalesOrderAddress()) {
-            $addressType = \KlarnaFlags::IS_BILLING;
+            $addressType = KlarnaFlags::IS_BILLING;
         }
 
         if ($addressType !== null) {
@@ -710,15 +722,16 @@ class KlarnaApi
     /**
      * Add order items to klarna instance.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $items
      * @param \Klarna $klarnaApi
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function addOrderItems($items, $klarnaApi)
     {
-        $flags = \KlarnaFlags::INC_VAT;
+        $flags = KlarnaFlags::INC_VAT;
         /** @var \Generated\Shared\Transfer\ItemTransfer $orderItem */
         foreach ($items as $orderItem) {
             $discountPercentage = 0;
@@ -744,11 +757,12 @@ class KlarnaApi
     /**
      * Convert addressTransfer to klarna address.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
-     * @param \Generated\Shared\Transfer\KlarnaPaymentTransfer $paymentTransfer
+     * @param \Generated\Shared\Transfer\KlarnaPaymentTransfer|null $paymentTransfer
      *
      * @return \KlarnaAddr
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createKlarnaAddress(AddressTransfer $addressTransfer, KlarnaPaymentTransfer $paymentTransfer = null)
     {
@@ -773,11 +787,11 @@ class KlarnaApi
     /**
      * Check order Status
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return int
-     * @throws \Klarna_InvalidTypeException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function checkOrderStatus(SpyPaymentKlarna $paymentEntity)
     {
@@ -788,9 +802,9 @@ class KlarnaApi
         $klarnaApi = $this->createKlarnaObjectByPaymentKlarnaEntity($paymentEntity);
         $status = (int)$klarnaApi->checkOrderStatus($paymentEntity->getPreCheckId());
 
-        if ($status === \KlarnaFlags::ACCEPTED) {
+        if ($status === KlarnaFlags::ACCEPTED) {
             $return = KlarnaConstants::ORDER_PENDING_ACCEPTED;
-        } elseif ($status === \KlarnaFlags::DENIED) {
+        } elseif ($status === KlarnaFlags::DENIED) {
             $return = KlarnaConstants::ORDER_PENDING_DENIED;
         } else {
             $return = KlarnaConstants::ORDER_PENDING;
@@ -812,12 +826,12 @@ class KlarnaApi
     /**
      * Add Shipping costs to klarna.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\ShipmentTransfer $shipment
      * @param \Klarna $klarnaApi
      *
      * @return void
-     * @throws \Klarna_ArgumentNotSetException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addShipping(ShipmentTransfer $shipment, $klarnaApi)
     {
@@ -830,7 +844,7 @@ class KlarnaApi
                 $this->getCurrencyManager()->convertCentToDecimal($method->getDefaultPrice()),
                 (float)$method->getTaxRate(),
                 0,
-                \KlarnaFlags::INC_VAT | \KlarnaFlags::IS_SHIPMENT
+                KlarnaFlags::INC_VAT | KlarnaFlags::IS_SHIPMENT
             );
         }
     }
@@ -838,10 +852,11 @@ class KlarnaApi
     /**
      * Update an reservation.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function update(QuoteTransfer $quoteTransfer)
     {
@@ -855,7 +870,7 @@ class KlarnaApi
 
             $this->logApiResult('update', $paymentTransfer->getFkSalesOrder(), $result);
 
-        } catch (\KlarnaException $exception) {
+        } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'updateError',
                 $paymentTransfer->getFkSalesOrder(),
@@ -873,10 +888,11 @@ class KlarnaApi
     /**
      * Send invoice by email.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function sendInvoiceByMail(SpyPaymentKlarna $paymentEntity)
     {
@@ -888,10 +904,11 @@ class KlarnaApi
     /**
      * Send invoice by postal service.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function sendInvoiceByPost(SpyPaymentKlarna $paymentEntity)
     {
@@ -911,10 +928,10 @@ class KlarnaApi
     {
         $klarnaApi = $this->createKlarnaObjectByKlarnaObjectInitTransfer($klarnaCheckoutServiceRequestTransfer->getKlarnaObjectInit());
 
-        $country    = $klarnaCheckoutServiceRequestTransfer->getKlarnaObjectInit()->getIso2Code();
-        $currency   = $klarnaCheckoutServiceRequestTransfer->getKlarnaObjectInit()->getCurrencyIso3Code();
-        $price      = $klarnaCheckoutServiceRequestTransfer->getGrandTotal() / 100;
-        $locale     = $this->localeFacade->getCurrentLocaleName();
+        $country = $klarnaCheckoutServiceRequestTransfer->getKlarnaObjectInit()->getIso2Code();
+        $currency = $klarnaCheckoutServiceRequestTransfer->getKlarnaObjectInit()->getCurrencyIso3Code();
+        $price = $klarnaCheckoutServiceRequestTransfer->getGrandTotal() / 100;
+        $locale = $this->localeFacade->getCurrentLocaleName();
 
         return $klarnaApi->checkoutService(
             $price,
@@ -941,6 +958,8 @@ class KlarnaApi
     /**
      * Log Api Results to transaction status table.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $type
      * @param string $paymentId
      * @param string $status
@@ -948,8 +967,6 @@ class KlarnaApi
      * @param int $errorCode
      *
      * @return void
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function logApiResult($type, $paymentId, $status, $errorMsg = '', $errorCode = 0)
     {

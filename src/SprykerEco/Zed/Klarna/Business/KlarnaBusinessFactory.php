@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Klarna\Business;
 
+use Klarna_Checkout_Connector;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
 use Spryker\Zed\Application\Communication\Plugin\Pimple;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
@@ -48,8 +49,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      */
     public function createKlarnaApi()
     {
@@ -68,8 +70,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi
      */
     public function createKlarnaCheckoutApi()
     {
@@ -86,24 +89,26 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Klarna_Checkout_ConnectorInterface
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Klarna_Checkout_ConnectorInterface
      */
     public function getKlarnaCheckoutConnector()
     {
         $config = $this->getConfig();
 
-        return \Klarna_Checkout_Connector::create(
+        return Klarna_Checkout_Connector::create(
             $config->getSharedSecret(),
             ($config->isTestMode()) ?
-                  \Klarna_Checkout_Connector::BASE_TEST_URL
-                : \Klarna_Checkout_Connector::BASE_URL
+                  Klarna_Checkout_Connector::BASE_TEST_URL
+                : Klarna_Checkout_Connector::BASE_URL
         );
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmount
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmount
      */
     public function createReserveAmount()
     {
@@ -113,8 +118,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Klarna
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Klarna
      */
     public function createAdapter()
     {
@@ -133,8 +139,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
      */
     public function createInstallment()
     {
@@ -157,8 +164,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Log\Log
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Log\Log
      */
     public function createPaymentLog()
     {
@@ -168,8 +176,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
      */
     public function createKlarnaCheckout()
     {
@@ -180,9 +189,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface
      */
     public function getCheckoutFacade()
     {
@@ -190,9 +199,8 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface
      *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface
      */
     public function getLocaleFacade()
     {
@@ -200,8 +208,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Order\SalesHelper
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Zed\Klarna\Business\Order\SalesHelper
      */
     protected function createSalesHelper()
     {
@@ -211,10 +220,11 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param int $salesOrderId
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInvoicePdfUrl($salesOrderId)
     {
@@ -225,10 +235,11 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param int $salesOrderId
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getKlarnaPaymentById($salesOrderId)
     {

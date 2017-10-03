@@ -53,7 +53,7 @@ class Saver implements SaverInterface
      */
     protected function savePaymentForOrder(KlarnaPaymentTransfer $paymentTransfer, $idSalesOrder)
     {
-        $paymentEntity   = new SpyPaymentKlarna();
+        $paymentEntity = new SpyPaymentKlarna();
         $addressTransfer = $paymentTransfer->getAddress();
 
         $formattedStreet = trim(
@@ -98,11 +98,11 @@ class Saver implements SaverInterface
     /**
      * Save to klarna status log.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $idPaymentKlarna
      *
      * @return void
-     * @throws \Propel\Runtime\Exception\PropelException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function saveKlarnaPaymentStatusLog($idPaymentKlarna)
     {

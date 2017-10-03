@@ -20,10 +20,11 @@ interface KlarnaToCheckoutBridgeInterface
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function placeOrder(QuoteTransfer $quoteTransfer);
 

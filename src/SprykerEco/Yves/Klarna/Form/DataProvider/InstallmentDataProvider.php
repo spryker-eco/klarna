@@ -12,11 +12,11 @@ use Generated\Shared\Transfer\KlarnaPaymentTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Client\Glossary\GlossaryClient;
-use SprykerEco\Client\Klarna\KlarnaClientInterface;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
-use SprykerEco\Yves\Klarna\Form\InstallmentSubForm;
 use Spryker\Yves\StepEngine\Dependency\Form\StepEngineFormDataProviderInterface;
+use SprykerEco\Client\Klarna\KlarnaClientInterface;
+use SprykerEco\Yves\Klarna\Form\InstallmentSubForm;
 
 /**
  * Class InstallmentDataProvider
@@ -53,11 +53,11 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     /**
      * InstallmentDataProvider constructor.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
      * @param \Spryker\Client\Glossary\GlossaryClient $translator
      * @param \Spryker\Shared\Kernel\Store $store
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(KlarnaClientInterface $klarnaClient, GlossaryClient $translator, Store $store)
     {
@@ -67,10 +67,11 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getData(AbstractTransfer $quoteTransfer)
     {
@@ -85,10 +86,11 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getOptions(AbstractTransfer $quoteTransfer)
     {
@@ -98,11 +100,12 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param bool $canTakeFromSession
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInstallmentPaymentTransfer(QuoteTransfer $quoteTransfer, $canTakeFromSession = true)
     {
@@ -111,7 +114,7 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
                   $quoteTransfer->getPayment()
                 : new PaymentTransfer();
             $klarnaPaymentTransfer = new KlarnaPaymentTransfer();
-            $billingAddress        = $quoteTransfer->getBillingAddress();
+            $billingAddress = $quoteTransfer->getBillingAddress();
 
             $klarnaPaymentTransfer
                 ->setCurrencyIso3Code($billingAddress->getCurrencyIso3Code())
@@ -128,10 +131,11 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     private function getPaymentChoices(QuoteTransfer $quoteTransfer)
     {
@@ -149,10 +153,11 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $installmentPaymentTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function buildChoices(KlarnaInstallmentResponseTransfer $installmentPaymentTransfer)
     {
@@ -181,10 +186,11 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaPClassTransfer $paymentDetail
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function buildChoice($paymentDetail)
     {

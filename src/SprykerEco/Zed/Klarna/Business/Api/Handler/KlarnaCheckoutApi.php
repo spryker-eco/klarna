@@ -7,12 +7,14 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Api\Handler;
 
+use Exception;
 use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Klarna_Checkout_Order;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Shared\Kernel\Store;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Shared\Library\Currency\CurrencyManager;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 
 /**
@@ -81,14 +83,14 @@ class KlarnaCheckoutApi
     /**
      * KlarnaCheckoutApi constructor.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $merchantId
      * @param string $confirmationUri
      * @param string $pushUri
      * @param string $termsUri
      * @param string $checkoutUri
      * @param \Klarna_Checkout_ConnectorInterface $connector
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(
         $merchantId,
@@ -98,22 +100,23 @@ class KlarnaCheckoutApi
         $checkoutUri,
         $connector
     ) {
-        $this->merchantId   = $merchantId;
+        $this->merchantId = $merchantId;
 
         $this->confirmationUri = $confirmationUri;
-        $this->pushUri     = $pushUri;
-        $this->termsUri    = $termsUri;
+        $this->pushUri = $pushUri;
+        $this->termsUri = $termsUri;
         $this->checkoutUri = $checkoutUri;
-        $this->connector   = $connector;
+        $this->connector = $connector;
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return array
      * @throws \SprykerEco\Zed\Klarna\Business\Exception\NoShippingException
-     * @throws \Spryker\Shared\Kernel\Locale\LocaleNotFoundException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return array
      */
     public function getCheckoutValues(QuoteTransfer $quoteTransfer)
     {
@@ -125,12 +128,12 @@ class KlarnaCheckoutApi
             if ($shipmentMmethod) {
                 $cart[] =
                     [
-                        'type'       => KlarnaConstants::SHIPPING_TYPE,
-                        'reference'  => (string)$shipmentMmethod->getIdShipmentMethod(),
-                        'name'       => $shipmentMmethod->getName(),
-                        'quantity'   => 1,
+                        'type' => KlarnaConstants::SHIPPING_TYPE,
+                        'reference' => (string)$shipmentMmethod->getIdShipmentMethod(),
+                        'name' => $shipmentMmethod->getName(),
+                        'quantity' => 1,
                         'unit_price' => $shipmentMmethod->getDefaultPrice(),
-                        'tax_rate'   => $shipmentMmethod->getTaxRate()
+                        'tax_rate' => $shipmentMmethod->getTaxRate(),
                     ];
             }
         } else {
@@ -141,7 +144,7 @@ class KlarnaCheckoutApi
             $return = [];
 
             $orderArray = $this->createOrderArray($quoteTransfer, $cart);
-            $order = new \Klarna_Checkout_Order($this->connector);
+            $order = new Klarna_Checkout_Order($this->connector);
             $order->create($orderArray);
 
             $order->fetch();
@@ -149,7 +152,7 @@ class KlarnaCheckoutApi
             $return['orderid'] = $order['id'];
 
             $return['snippet'] = $order['gui']['snippet'];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $return['snippet'] = '';
             $return['orderid'] = '';
         }
@@ -158,10 +161,11 @@ class KlarnaCheckoutApi
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getSuccessValues(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -171,7 +175,7 @@ class KlarnaCheckoutApi
             $return['orderid'] = $order['id'];
 
             $return['snippet'] = $order['gui']['snippet'];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $return['snippet'] = '';
             $return['orderid'] = '';
         }
@@ -182,10 +186,11 @@ class KlarnaCheckoutApi
     /**
      * Mark checkout order as created.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -199,30 +204,32 @@ class KlarnaCheckoutApi
 
                 $order->update($update);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
 
         }
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Klarna_Checkout_Order
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function fetchKlarnaOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
-        $order = new \Klarna_Checkout_Order($this->connector, $klarnaCheckoutTransfer->getOrderid());
+        $order = new Klarna_Checkout_Order($this->connector, $klarnaCheckoutTransfer->getOrderid());
         $order->fetch();
 
         return $order;
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $orderItems
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addArticles($orderItems)
     {
@@ -231,12 +238,12 @@ class KlarnaCheckoutApi
         /** @var \Generated\Shared\Transfer\ItemTransfer $orderItem */
         foreach ($orderItems as $orderItem) {
             $cart[] = [
-                'reference'     => $orderItem->getSku(),
-                'name'          => $orderItem->getName(),
-                'quantity'      => $orderItem->getQuantity(),
-                'unit_price'    => $orderItem->getUnitGrossPrice(),
+                'reference' => $orderItem->getSku(),
+                'name' => $orderItem->getName(),
+                'quantity' => $orderItem->getQuantity(),
+                'unit_price' => $orderItem->getUnitGrossPrice(),
                 'discount_rate' => $orderItem->getUnitTotalDiscountAmount(),
-                'tax_rate'      => ($orderItem->getTaxRate()) ?: self::DEFAULT_TAX_RATE,
+                'tax_rate' => ($orderItem->getTaxRate()) ?: self::DEFAULT_TAX_RATE,
             ];
         }
 
@@ -252,10 +259,11 @@ class KlarnaCheckoutApi
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function getCustomerData(QuoteTransfer $quoteTransfer)
     {
@@ -297,8 +305,8 @@ class KlarnaCheckoutApi
             }
 
             $customerData['customer'] = [
-                'type'          => self::CUSTOMER_TYPE,
-                'date_of_birth' => $customer->getDateOfBirth() ?: ''
+                'type' => self::CUSTOMER_TYPE,
+                'date_of_birth' => $customer->getDateOfBirth() ?: '',
             ];
         }
 
@@ -306,12 +314,12 @@ class KlarnaCheckoutApi
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array $cart
      *
      * @return array
-     * @throws \Spryker\Shared\Kernel\Locale\LocaleNotFoundException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function createOrderArray(QuoteTransfer $quoteTransfer, array $cart)
     {
@@ -325,22 +333,22 @@ class KlarnaCheckoutApi
         $customerData = $this->getCustomerData($quoteTransfer);
         if (count($customerData)) {
             $create['shipping_address'] = $customerData['address'];
-            $create['customer']         = $customerData['customer'];
-            $create['purchase_country']  = $customerData['country'];
+            $create['customer'] = $customerData['customer'];
+            $create['purchase_country'] = $customerData['country'];
         }
 
         $create['purchase_currency'] = $this->getCurrency();
-        $create['locale']            = str_replace('_', '-', $store->getCurrentLocale());
+        $create['locale'] = str_replace('_', '-', $store->getCurrentLocale());
 
         // $create['recurring'] = true;
         $create['merchant'] = [
-            'id'               => $this->merchantId,
-            'terms_uri'        => $this->termsUri,
-            'checkout_uri'     => $this->checkoutUri,
+            'id' => $this->merchantId,
+            'terms_uri' => $this->termsUri,
+            'checkout_uri' => $this->checkoutUri,
             'confirmation_uri' => $this->confirmationUri .
                 '?klarna_order_id={checkout.order.id}',
-            'push_uri'         => $this->pushUri .
-                '?klarna_order_id={checkout.order.id}'
+            'push_uri' => $this->pushUri .
+                '?klarna_order_id={checkout.order.id}',
         ];
 
         return $create;

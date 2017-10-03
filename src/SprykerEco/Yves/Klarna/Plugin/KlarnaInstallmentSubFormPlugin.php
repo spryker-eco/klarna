@@ -50,8 +50,9 @@ class KlarnaInstallmentSubFormPlugin extends AbstractPlugin implements SubFormPl
     }
 
     /**
-     * @return \SprykerEco\Yves\Klarna\Form\DataProvider\InstallmentDataProvider
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \SprykerEco\Yves\Klarna\Form\DataProvider\InstallmentDataProvider
      */
     public function createSubFormDataProvider()
     {

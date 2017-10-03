@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\Klarna\Communication\Plugin\Exception;
 
+use Exception;
+
 /**
  * Class KlarnaUpdateException
  *
@@ -14,6 +16,6 @@ namespace SprykerEco\Zed\Klarna\Communication\Plugin\Exception;
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class KlarnaUpdateException extends \Exception
+class KlarnaUpdateException extends Exception
 {
 }

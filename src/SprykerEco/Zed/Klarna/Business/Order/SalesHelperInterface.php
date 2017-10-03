@@ -18,19 +18,21 @@ interface SalesHelperInterface
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param int $salesOrderId
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getKlarnaPaymentById($salesOrderId);
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param string $pdfUrlPattern
      * @param int $salesOrderId
      *
      * @return string
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getInvoicePdfUrl($pdfUrlPattern, $salesOrderId);
 

@@ -25,10 +25,11 @@ class GatewayController extends AbstractGatewayController
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function updatePaymentAction(QuoteTransfer $quoteTransfer)
     {
@@ -36,10 +37,11 @@ class GatewayController extends AbstractGatewayController
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function installmentsAction(QuoteTransfer $quoteTransfer)
     {
@@ -47,10 +49,11 @@ class GatewayController extends AbstractGatewayController
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function klarnaCheckoutAction(QuoteTransfer $quoteTransfer)
     {
@@ -58,10 +61,11 @@ class GatewayController extends AbstractGatewayController
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function klarnaSuccessAction(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -69,10 +73,11 @@ class GatewayController extends AbstractGatewayController
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return bool
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createCheckoutOrderAction(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {

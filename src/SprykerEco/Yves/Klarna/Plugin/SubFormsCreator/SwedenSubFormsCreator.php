@@ -9,7 +9,6 @@ namespace SprykerEco\Yves\Klarna\Plugin\SubFormsCreator;
 
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 class SwedenSubFormsCreator extends AbstractSubFormsCreator implements SubFormsCreatorInterface
 {

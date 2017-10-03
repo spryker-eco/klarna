@@ -11,8 +11,8 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Yves\Kernel\AbstractPlugin;
-use SprykerEco\Yves\Klarna\Handler\Exception\KlarnaHandlerException;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Handler\StepHandlerPluginInterface;
+use SprykerEco\Yves\Klarna\Handler\Exception\KlarnaHandlerException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -61,8 +61,9 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
     }
 
     /**
-     * @return \Spryker\Client\Glossary\GlossaryClient
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Spryker\Client\Glossary\GlossaryClient
      */
     public function getTranslatorClient()
     {
@@ -70,8 +71,9 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
     }
 
     /**
-     * @return \Spryker\Shared\Kernel\Store
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Spryker\Shared\Kernel\Store
      */
     public function getStore()
     {

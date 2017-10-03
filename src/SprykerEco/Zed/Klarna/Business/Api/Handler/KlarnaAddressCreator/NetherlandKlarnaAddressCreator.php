@@ -6,6 +6,8 @@
 namespace SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaAddressCreator;
 
 use Generated\Shared\Transfer\AddressTransfer;
+use KlarnaAddr;
+use KlarnaCountry;
 
 class NetherlandKlarnaAddressCreator implements KlarnaAddressCreatorInterface
 {
@@ -17,7 +19,7 @@ class NetherlandKlarnaAddressCreator implements KlarnaAddressCreatorInterface
      */
     public function createKlarnaAddress(AddressTransfer $addressTransfer)
     {
-        return new \KlarnaAddr(
+        return new KlarnaAddr(
             $addressTransfer->getEmail(), // Email address
             $addressTransfer->getPhone(), // Telephone number, only one phone number is needed
             $addressTransfer->getCellPhone(), // Cell phone number
@@ -27,7 +29,7 @@ class NetherlandKlarnaAddressCreator implements KlarnaAddressCreatorInterface
             utf8_decode($addressTransfer->getAddress1()), // Street address
             $addressTransfer->getZipCode(), // Zip code
             utf8_decode($addressTransfer->getCity()), // City
-            \KlarnaCountry::fromCode($addressTransfer->getIso2Code()), // Country
+            KlarnaCountry::fromCode($addressTransfer->getIso2Code()), // Country
             $addressTransfer->getAddress2(), // House number (AT/DE/NL only)
             $addressTransfer->getAddress3() // House extension (NL only)
         );

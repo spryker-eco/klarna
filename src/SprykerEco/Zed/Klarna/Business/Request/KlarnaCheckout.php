@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Request;
 
+use ArrayObject;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\ExpenseTransfer;
@@ -18,9 +19,10 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentMethodTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
+use Klarna_Checkout_Order;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Shared\Shipment\ShipmentConstants;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface;
@@ -52,24 +54,25 @@ class KlarnaCheckout
     /**
      * KlarnaCheckout constructor.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi $klarnaCheckoutApi
      * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface $checkoutFacade
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(
         KlarnaCheckoutApi $klarnaCheckoutApi,
         KlarnaToCheckoutBridgeInterface $checkoutFacade
     ) {
         $this->klarnaCheckoutApi = $klarnaCheckoutApi;
-        $this->checkoutFacade    = $checkoutFacade;
+        $this->checkoutFacade = $checkoutFacade;
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getCheckoutHtml(QuoteTransfer $quoteTransfer)
     {
@@ -87,10 +90,11 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -104,17 +108,18 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return bool
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
         $order = $this->klarnaCheckoutApi->fetchKlarnaOrder($klarnaCheckoutTransfer);
         if ($order['status'] === KlarnaConstants::STATUS_COMPLETE) {
             $quoteTransfer = new QuoteTransfer();
-            $shippingItem  = $this->addCartItemsToQuote($order, $quoteTransfer);
+            $shippingItem = $this->addCartItemsToQuote($order, $quoteTransfer);
             $this->addShippingToQuote($shippingItem, $quoteTransfer);
 
             $billingTransfer = $this->addCustomerToQuote($order, $quoteTransfer);
@@ -135,11 +140,12 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $shippingItem
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addShippingToQuote(array $shippingItem, QuoteTransfer $quoteTransfer)
     {
@@ -164,15 +170,16 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Klarna_Checkout_Order $order
      * @param \Generated\Shared\Transfer\AddressTransfer $billingTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addPaymentToQuote(
-        \Klarna_Checkout_Order $order,
+        Klarna_Checkout_Order $order,
         AddressTransfer $billingTransfer,
         QuoteTransfer $quoteTransfer
     ) {
@@ -200,13 +207,14 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Klarna_Checkout_Order $order
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
-    protected function addTotalsToQuote(\Klarna_Checkout_Order $order, QuoteTransfer $quoteTransfer)
+    protected function addTotalsToQuote(Klarna_Checkout_Order $order, QuoteTransfer $quoteTransfer)
     {
         $totalsTransfer = new TotalsTransfer();
         $totalsTransfer->setGrandTotal($order['cart']['total_price_including_tax']);
@@ -215,11 +223,12 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param array $shippingAddress
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addShippingAddressToQuote(array $shippingAddress, QuoteTransfer $quoteTransfer)
     {
@@ -246,15 +255,16 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Klarna_Checkout_Order $order
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\AddressTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
-    protected function addCustomerToQuote(\Klarna_Checkout_Order $order, QuoteTransfer $quoteTransfer)
+    protected function addCustomerToQuote(Klarna_Checkout_Order $order, QuoteTransfer $quoteTransfer)
     {
-        $billingAddress   = $order['billing_address'];
+        $billingAddress = $order['billing_address'];
         $customerTransfer = new CustomerTransfer();
         $customerTransfer->setFirstName($billingAddress['given_name'])
                          ->setLastName($billingAddress['family_name'])
@@ -268,8 +278,8 @@ class KlarnaCheckout
         $billingTransfer = $this->addBillingAddressToQuote($quoteTransfer, $billingAddress);
 
         $shippingTransfer = $this->addShippingAddressToQuote($order['shipping_address'], $quoteTransfer);
-        $customerTransfer->setBillingAddress(new \ArrayObject($billingTransfer));
-        $customerTransfer->setShippingAddress(new \ArrayObject($shippingTransfer));
+        $customerTransfer->setBillingAddress(new ArrayObject($billingTransfer));
+        $customerTransfer->setShippingAddress(new ArrayObject($shippingTransfer));
 
         $quoteTransfer->setCustomer($customerTransfer);
 
@@ -277,11 +287,12 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array $billingAddress
      *
      * @return \Generated\Shared\Transfer\AddressTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function addBillingAddressToQuote(QuoteTransfer $quoteTransfer, array $billingAddress)
     {
@@ -308,15 +319,16 @@ class KlarnaCheckout
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Klarna_Checkout_Order $order
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
-    protected function addCartItemsToQuote(\Klarna_Checkout_Order $order, QuoteTransfer $quoteTransfer)
+    protected function addCartItemsToQuote(Klarna_Checkout_Order $order, QuoteTransfer $quoteTransfer)
     {
-        $cartItems    = new \ArrayObject();
+        $cartItems = new ArrayObject();
         $shippingItem = [];
 
         foreach ($order['cart']['items'] as $item) {

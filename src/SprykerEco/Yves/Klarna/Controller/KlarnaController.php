@@ -33,14 +33,15 @@ class KlarnaController extends AbstractController
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function successAction(Request $request)
     {
-        $klarnaClient   = $this->getFactory()->getKlarnaClient();
+        $klarnaClient = $this->getFactory()->getKlarnaClient();
         $requestOrderId = $request->query->get('klarna_order_id');
         if (!$requestOrderId ||
             !$klarnaClient->hasKlarnaOrderIdInSession() ||
@@ -58,16 +59,18 @@ class KlarnaController extends AbstractController
         $cartClient->storeQuote(new QuoteTransfer());
 
         return [
-            'html' => $klarnaResponse->getHtml()
+            'html' => $klarnaResponse->getHtml(),
         ];
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function pushAction(Request $request)
     {
@@ -76,7 +79,7 @@ class KlarnaController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $klarnaClient   = $this->getFactory()->getKlarnaClient();
+        $klarnaClient = $this->getFactory()->getKlarnaClient();
         $klarnaCheckoutTransfer = new KlarnaCheckoutTransfer();
         $klarnaCheckoutTransfer->setOrderid($requestOrderId);
 
@@ -84,7 +87,6 @@ class KlarnaController extends AbstractController
 
         return new Response();
     }
-
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -105,7 +107,7 @@ class KlarnaController extends AbstractController
         $klarnaGetAddressesResponseTransfer = $klarnaClient->getAddresses($klarnaGetAddressesRequestTransfer);
 
         return [
-            'addresses' => $klarnaGetAddressesResponseTransfer
+            'addresses' => $klarnaGetAddressesResponseTransfer,
         ];
     }
 
@@ -129,7 +131,7 @@ class KlarnaController extends AbstractController
         $checkoutServiceTransfer = $klarnaClient->checkoutService($klarnaCheckoutServiceRequestTransfer);
 
         return [
-            'checkoutService' => $checkoutServiceTransfer
+            'checkoutService' => $checkoutServiceTransfer,
         ];
     }
 
@@ -160,7 +162,7 @@ class KlarnaController extends AbstractController
         $installments = $klarnaClient->getInstallments($quoteTransfer);
 
         return [
-            'installments' => $installments
+            'installments' => $installments,
         ];
     }
 

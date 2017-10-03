@@ -35,9 +35,9 @@ class KlarnaCheckout
     /**
      * KlarnaCheckout constructor.
      *
-     * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
-     *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
      */
     public function __construct(KlarnaClientInterface $klarnaClient, CartClientInterface $cartClient)
     {
@@ -46,8 +46,9 @@ class KlarnaCheckout
     }
 
     /**
-     * @return string
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return string
      */
     public function renderKlarnaHtml()
     {

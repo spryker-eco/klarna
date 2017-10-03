@@ -9,15 +9,14 @@ namespace SprykerEco\Yves\Klarna\Form;
 
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
 use Spryker\Shared\Config\Config;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
-use SprykerEco\Zed\Klarna\Business\Api\Adapter\Klarna;
+use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
 
 /**
  * Class RateSubForm
@@ -112,9 +111,9 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
             KlarnaConstants::FIELD_PNO,
             'text',
             [
-                'label'    => 'customer.PNO',
+                'label' => 'customer.PNO',
                 'required' => true,
-                'attr'     => [
+                'attr' => [
                     'placeholder' => 'customer.PNO',
                 ],
             ]
@@ -141,14 +140,14 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
             static::FIELD_INSTALLMENT_INDEX,
             'choice',
             [
-                'choices'     => $options['select_options'][static::PAYMENT_CHOICES],
-                'label'       => false,
-                'required'    => true,
-                'expanded'    => true,
-                'multiple'    => false,
+                'choices' => $options['select_options'][static::PAYMENT_CHOICES],
+                'label' => false,
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
                 'empty_value' => false,
-                'data'        => count($choiceKeys)?$choiceKeys[0]:null,
-                'attr'        => $attr,
+                'data' => count($choiceKeys)?$choiceKeys[0]:null,
+                'attr' => $attr,
             ]
         );
 
@@ -156,10 +155,11 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      *
      * @return \SprykerEco\Yves\Klarna\Form\InstallmentSubForm
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function addTerms(FormBuilderInterface $builder)
     {
@@ -167,9 +167,9 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
             static::FIELD_TERMS,
             'checkbox',
             [
-                'label'  => ' ',
+                'label' => ' ',
                 'mapped' => false,
-                'required' => true
+                'required' => true,
             ]
         );
 
@@ -187,12 +187,12 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
             static::FIELD_DATE_OF_BIRTH,
             'birthday',
             [
-                'label'    => 'customer.birth_date',
+                'label' => 'customer.birth_date',
                 'required' => true,
-                'widget'   => 'single_text',
-                'format'   => 'dd.MM.yyyy',
-                'input'    => 'string',
-                'attr'     => [
+                'widget' => 'single_text',
+                'format' => 'dd.MM.yyyy',
+                'input' => 'string',
+                'attr' => [
                     'placeholder' => 'customer.birth_date',
                 ],
             ]
@@ -232,8 +232,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     {
         $templatePath = KlarnaConstants::KLARNA .
             '/' . KlarnaConstants::PAYMENT_METHOD_INSTALLMENT_TEMPLATE .
-            '_' . $this->countryIso2
-        ;
+            '_' . $this->countryIso2;
 
         return $templatePath;
     }
@@ -254,7 +253,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
             'attr' => [
                 'EID' => $eid,
                 'currency' => $this->subFormDataProvider->getCurrency(),
-                'grandTotal' => $this->quoteTransfer->getTotals()->getGrandTotal()/100,
+                'grandTotal' => $this->quoteTransfer->getTotals()->getGrandTotal() / 100,
             ],
         ])->setRequired([SubFormInterface::OPTIONS_FIELD_NAME]);
     }

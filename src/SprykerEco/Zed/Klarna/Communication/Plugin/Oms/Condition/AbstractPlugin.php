@@ -21,10 +21,11 @@ class AbstractPlugin extends BaseAbstractPlugin
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function getPaymentEntity(SpySalesOrderItem $orderItem)
     {

@@ -23,6 +23,7 @@ class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQuery
 
     /**
      * @api
+     *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
      */
     public function queryPayments()
@@ -32,6 +33,7 @@ class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQuery
 
     /**
      * @api
+     *
      * @param int $idPayment
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
@@ -45,6 +47,7 @@ class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQuery
 
     /**
      * @api
+     *
      * @param int $idSalesOrder
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
@@ -58,6 +61,7 @@ class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQuery
 
     /**
      * @api
+     *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery
      */
     public function queryTransactionStatusLog()
@@ -67,6 +71,7 @@ class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQuery
 
     /**
      * @api
+     *
      * @param int $idPayment
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery

@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
-use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 /**
  * Class Installment

@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface;
 use SprykerEco\Client\Klarna\KlarnaClientInterface;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
-use SprykerEco\Zed\Klarna\Business\Api\Adapter\Klarna;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -29,7 +28,7 @@ class KlarnaHandler
      * @var array
      */
     protected static $paymentMethods = [
-        PaymentTransfer::KLARNA_INVOICE     => 'invoice',
+        PaymentTransfer::KLARNA_INVOICE => 'invoice',
         PaymentTransfer::KLARNA_INSTALLMENT => 'installment',
     ];
 
@@ -37,7 +36,7 @@ class KlarnaHandler
      * @var array
      */
     protected static $klarnaPaymentMethodMapper = [
-        PaymentTransfer::KLARNA_INVOICE     => KlarnaConstants::BRAND_INVOICE,
+        PaymentTransfer::KLARNA_INVOICE => KlarnaConstants::BRAND_INVOICE,
         PaymentTransfer::KLARNA_INSTALLMENT => KlarnaConstants::BRAND_INSTALLMENT,
     ];
 
@@ -45,7 +44,7 @@ class KlarnaHandler
      * @var array
      */
     protected static $klarnaGenderMapper = [
-        'Mr'  => 'Male',
+        'Mr' => 'Male',
         'Mrs' => 'Female',
     ];
 
@@ -64,14 +63,14 @@ class KlarnaHandler
     /**
      * KlarnaHandler constructor.
      *
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
      * @param \Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface $flashMessenger
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function __construct(KlarnaClientInterface $klarnaClient, FlashMessengerInterface $flashMessenger)
     {
-        $this->klarnaClient   = $klarnaClient;
+        $this->klarnaClient = $klarnaClient;
         $this->flashMessenger = $flashMessenger;
     }
 
@@ -92,10 +91,11 @@ class KlarnaHandler
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function updatePayment(QuoteTransfer $quoteTransfer)
     {
@@ -120,13 +120,12 @@ class KlarnaHandler
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param string $paymentSelection
      *
-     * @throws \SprykerEco\Yves\Klarna\Handler\Exception\KlarnaHandlerException
      * @return void
      */
     protected function setKlarnaPayment(Request $request, QuoteTransfer $quoteTransfer, $paymentSelection)
     {
         $klarnaPaymentTransfer = $this->getKlarnaPaymentTransfer($quoteTransfer, $paymentSelection);
-        $billingAddress        = $quoteTransfer->getBillingAddress();
+        $billingAddress = $quoteTransfer->getBillingAddress();
 
         $klarnaPaymentTransfer
             ->setAccountBrand(self::$klarnaPaymentMethodMapper[$paymentSelection])
@@ -145,10 +144,11 @@ class KlarnaHandler
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function executePaymentReservation(QuoteTransfer $quoteTransfer)
     {
@@ -170,11 +170,12 @@ class KlarnaHandler
     }
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param string $paymentSelection
      *
      * @return \Generated\Shared\Transfer\KlarnaPaymentTransfer
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function getKlarnaPaymentTransfer(QuoteTransfer $quoteTransfer, $paymentSelection)
     {

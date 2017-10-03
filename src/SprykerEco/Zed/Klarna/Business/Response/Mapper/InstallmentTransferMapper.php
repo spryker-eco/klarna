@@ -7,9 +7,13 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Response\Mapper;
 
+use ArrayObject;
 use Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer;
 use Generated\Shared\Transfer\KlarnaPClassTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use KlarnaCalc;
+use KlarnaFlags;
+use KlarnaPClass;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 class InstallmentTransferMapper
@@ -40,7 +44,7 @@ class InstallmentTransferMapper
         $pClasses
     ) {
         $orderAmount = $quoteTransfer->getTotals()->getGrandTotal();
-        $payments = new \ArrayObject();
+        $payments = new ArrayObject();
         foreach ($pClasses as $key => $pClass) {
             if ($orderAmount < $pClass->getMinAmount()) {
                 unset($pClasses[$key]);
@@ -62,12 +66,12 @@ class InstallmentTransferMapper
      *
      * @return \Generated\Shared\Transfer\KlarnaPClassTransfer
      */
-    protected function convertToInstallmentTransfer(\KlarnaPClass $pClass, $orderAmount)
+    protected function convertToInstallmentTransfer(KlarnaPClass $pClass, $orderAmount)
     {
         $amount = $this->moneyFacade->convertIntegerToDecimal($orderAmount);
-        $monthlyCosts = \KlarnaCalc::calc_monthly_cost($amount, $pClass, \KlarnaFlags::CHECKOUT_PAGE);
-        $apr = \KlarnaCalc::calc_apr($amount, $pClass, \KlarnaFlags::CHECKOUT_PAGE);
-        $totalCreditPurchaseCost = \KlarnaCalc::total_credit_purchase_cost($amount, $pClass, \KlarnaFlags::CHECKOUT_PAGE);
+        $monthlyCosts = KlarnaCalc::calc_monthly_cost($amount, $pClass, KlarnaFlags::CHECKOUT_PAGE);
+        $apr = KlarnaCalc::calc_apr($amount, $pClass, KlarnaFlags::CHECKOUT_PAGE);
+        $totalCreditPurchaseCost = KlarnaCalc::total_credit_purchase_cost($amount, $pClass, KlarnaFlags::CHECKOUT_PAGE);
 
         $transfer = new KlarnaPClassTransfer();
         $transfer
@@ -82,8 +86,7 @@ class InstallmentTransferMapper
             ->setInterestRate($pClass->getInterestRate())
             ->setMonthlyCosts($monthlyCosts)
             ->setApr($apr)
-            ->setTotalCreditPurchaseCost($totalCreditPurchaseCost)
-        ;
+            ->setTotalCreditPurchaseCost($totalCreditPurchaseCost);
 
         return $transfer;
     }

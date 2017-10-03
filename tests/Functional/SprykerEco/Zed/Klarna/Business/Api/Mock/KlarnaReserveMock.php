@@ -23,10 +23,11 @@ class KlarnaReserveMock extends KlarnaApiMockAbstract
     protected $exception;
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Exception $exception
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     public function setException($exception)
     {
@@ -34,9 +35,11 @@ class KlarnaReserveMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @return array
-     * @throws \Exception
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @throws \Exception
+     *
+     * @return array
      */
     public function reserveAmount()
     {

@@ -7,6 +7,8 @@
 
 namespace Functional\SprykerEco\Zed\Klarna\Business\Api\Mock;
 
+use Exception;
+
 /**
  * Class KlarnaCaptureMock
  *
@@ -23,20 +25,23 @@ class KlarnaCaptureMock extends KlarnaApiMockAbstract
     protected $exception;
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @param \Exception $exception
      *
      * @return void
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
-    public function setException(\Exception $exception)
+    public function setException(Exception $exception)
     {
         $this->exception = $exception;
     }
 
     /**
-     * @return array
-     * @throws \Exception
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @throws \Exception
+     *
+     * @return array
      */
     public function activate()
     {
@@ -46,13 +51,14 @@ class KlarnaCaptureMock extends KlarnaApiMockAbstract
 
         return [
             'riskStatus',
-            'invoiceNumber'
+            'invoiceNumber',
         ];
     }
 
     /**
-     * @return void
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
+     * @return void
      */
     public function setActivateInfo()
     {

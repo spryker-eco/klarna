@@ -19,12 +19,14 @@ interface KlarnaQueryContainerInterface
 
     /**
      * @api
+     *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
      */
     public function queryPayments();
 
     /**
      * @api
+     *
      * @param int $idPayment
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
@@ -33,6 +35,7 @@ interface KlarnaQueryContainerInterface
 
     /**
      * @api
+     *
      * @param int $idSalesOrder
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
@@ -41,12 +44,14 @@ interface KlarnaQueryContainerInterface
 
     /**
      * @api
+     *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery
      */
     public function queryTransactionStatusLog();
 
     /**
      * @api
+     *
      * @param int $idPayment
      *
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery

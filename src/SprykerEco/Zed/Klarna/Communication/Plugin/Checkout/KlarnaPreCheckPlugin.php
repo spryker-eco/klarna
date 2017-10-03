@@ -8,9 +8,10 @@ namespace SprykerEco\Zed\Klarna\Communication\Plugin\Checkout;
 use Generated\Shared\Transfer\CheckoutErrorTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use KlarnaFlags;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin as BaseAbstractPlugin;
 use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPreCheckPluginInterface;
+use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 /**
  * Class KlarnaPreCheckPlugin
@@ -71,13 +72,14 @@ class KlarnaPreCheckPlugin extends BaseAbstractPlugin implements CheckoutPreChec
 
     /**
      * @param int $klarnaStatus
+     *
      * @return int
      */
     protected function mapStatus($klarnaStatus)
     {
-        if ($klarnaStatus === \KlarnaFlags::ACCEPTED) {
+        if ($klarnaStatus === KlarnaFlags::ACCEPTED) {
             $status = KlarnaConstants::ORDER_PENDING_ACCEPTED;
-        } elseif ($klarnaStatus === \KlarnaFlags::DENIED) {
+        } elseif ($klarnaStatus === KlarnaFlags::DENIED) {
             $status = KlarnaConstants::ORDER_PENDING_DENIED;
         } else {
             $status = KlarnaConstants::ORDER_PENDING;

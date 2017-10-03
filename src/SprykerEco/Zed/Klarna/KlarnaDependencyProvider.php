@@ -7,13 +7,13 @@
 
 namespace SprykerEco\Zed\Klarna;
 
+use Spryker\Yves\Kernel\Plugin\Pimple;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridge;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleBridge;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyBridge;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToSalesBridge;
-use Spryker\Yves\Kernel\Plugin\Pimple;
 
 /**
  * Class KlarnaDependencyProvider
