@@ -226,7 +226,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
      */
     public function getApplication()
     {
-        return (new Pimple())->getApplication();
+        return $this->getProvidedDependency(KlarnaDependencyProvider::PLUGIN_APPLICATION);
     }
 
     /**
