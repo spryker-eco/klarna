@@ -340,7 +340,7 @@ class KlarnaCheckout
                              ->setName($item['name'])
                              ->setQuantity($item['quantity'])
                              ->setUnitGrossPrice($item['unit_price'])
-                             ->setUnitTotalDiscountAmount($item['discount_rate'])
+                             ->setUnitDiscountAmountAggregation($item['discount_rate'])
                              ->setTaxRate($item['tax_rate']);
                 $cartItems->append($transferItem);
             }
