@@ -9,8 +9,8 @@
 
 use Codeception\TestCase\Test;
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Zed\Klarna\Business\Request\ReserveAmount;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Business\Request\ReserveAmount;
 
 /**
  * Class ReserveAmountTest
@@ -77,8 +77,7 @@ class ReserveAmountTest extends Test
         $klarnaApiMock = $this->getMockBuilder(KlarnaApi::class)
             ->disableOriginalConstructor()
             ->setMethods(['reserveAmount', 'update'])
-            ->getMock()
-        ;
+            ->getMock();
         $klarnaApiMock
             ->expects($this->any())
             ->method('reserveAmount')

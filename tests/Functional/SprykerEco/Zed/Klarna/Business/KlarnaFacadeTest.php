@@ -24,7 +24,6 @@ use Orm\Zed\Customer\Persistence\SpyCustomer;
 use Orm\Zed\Klarna\Persistence\Map\SpyPaymentKlarnaTableMap;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
-use Orm\Zed\ProductBundle\Persistence\SpySalesOrderItemBundle;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
@@ -234,12 +233,15 @@ class KlarnaFacadeTest extends AbstractFacadeTest
 
     /**
      * Count elements of an object
+     *
      * @link http://php.net/manual/en/countable.count.php
+     *
+     * @since 5.1.0
+     *
      * @return int The custom count as an integer.
      * </p>
      * <p>
      * The return value is cast to an integer.
-     * @since 5.1.0
      */
     public function count()
     {
@@ -249,12 +251,13 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     /**
      * Runs a test and collects its result in a TestResult instance.
      *
-     * @param PHPUnit_Framework_TestResult $result
+     * @param \PHPUnit_Framework_TestResult|null $result
      *
-     * @return PHPUnit_Framework_TestResult
+     * @return \PHPUnit_Framework_TestResult
      */
     public function run(PHPUnit_Framework_TestResult $result = null)
     {
         // TODO: Implement run() method.
     }
+
 }

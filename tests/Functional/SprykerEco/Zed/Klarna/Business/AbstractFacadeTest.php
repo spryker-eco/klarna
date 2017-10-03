@@ -57,8 +57,7 @@ class AbstractFacadeTest extends Test
         // previously created mock.
         $facade = $this->getMockBuilder('SprykerEco\Zed\Klarna\Business\KlarnaFacade')
             ->setMethods(['getFactory'])
-            ->getMock()
-        ;
+            ->getMock();
         $facade->expects($this->any())
                ->method('getFactory')
                ->will($this->returnValue($businessFactoryMock));

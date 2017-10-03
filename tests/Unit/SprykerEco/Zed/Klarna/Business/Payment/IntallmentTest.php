@@ -12,8 +12,8 @@ use Generated\Shared\Transfer\KlarnaPaymentTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
-use SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 /**
@@ -119,7 +119,6 @@ class IntallmentTest extends Test
             ->willReturn(0.2);
 
         return $moneyFacade;
-
     }
 
 }

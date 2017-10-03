@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Klarna\Business;
 
 use Klarna_Checkout_Connector;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
-use Spryker\Zed\Application\Communication\Plugin\Pimple;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Zed\Klarna\Business\Address\AddressUpdater;
 use SprykerEco\Zed\Klarna\Business\Api\Adapter\Klarna;

@@ -11,9 +11,9 @@ use Codeception\TestCase\Test;
 use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout;
-use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 
 /**
  * Class KlarnaCheckoutTest
