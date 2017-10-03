@@ -45,7 +45,6 @@ class InstallmentRequest
      * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
      * @param \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper $pClassRequestTransferMapper
      * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper $installmentTransferMapper
-     * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface $moneyFacade
      */
     public function __construct(
         KlarnaApi $klarnaApi,

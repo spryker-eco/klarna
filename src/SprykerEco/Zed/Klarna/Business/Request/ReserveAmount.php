@@ -25,6 +25,9 @@ class ReserveAmount
     const RESERVE_AMOUNT_KEY_STATUS = 1;
     const RESERVE_AMOUNT_KEY_ERROR = 2;
 
+    /**
+     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
+     */
     protected $klarnaApi;
 
     /**

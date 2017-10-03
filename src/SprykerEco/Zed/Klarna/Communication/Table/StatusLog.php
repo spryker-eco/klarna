@@ -54,14 +54,13 @@ class StatusLog extends AbstractTable
     public function __construct(SpyPaymentKlarnaTransactionStatusLogQuery $statusLogQuery, $idPayment)
     {
         $this->statusLogQuery = $statusLogQuery;
-        $this->idPayment      = $idPayment;
+        $this->idPayment = $idPayment;
     }
 
     /**
      * @param \Spryker\Zed\Gui\Communication\Table\TableConfiguration $config
      *
      * @return \Spryker\Zed\Gui\Communication\Table\TableConfiguration
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function configure(TableConfiguration $config)
     {
@@ -85,8 +84,7 @@ class StatusLog extends AbstractTable
                 SpyPaymentKlarnaTransactionStatusLogTableMap::TYPE_FIELDNAME
             );
 
-            $fieldLabel                         = str_replace(['processing_',
-                                                               'identification_'], '', $translatedFieldName);
+            $fieldLabel = str_replace(['processing_', 'identification_'], '', $translatedFieldName);
             $headerFields[$translatedFieldName] = $fieldLabel;
         }
 
@@ -99,12 +97,11 @@ class StatusLog extends AbstractTable
      * @param \Spryker\Zed\Gui\Communication\Table\TableConfiguration $config
      *
      * @return array
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected function prepareData(TableConfiguration $config)
     {
         $logItems = $this->runQuery($this->statusLogQuery, $config);
-        $results  = [];
+        $results = [];
         foreach ($logItems as $logItem) {
             $results[] = $this->getFieldMatchedResultArrayFromLogItem($logItem);
         }
@@ -150,7 +147,7 @@ class StatusLog extends AbstractTable
         $fieldNames = SpyPaymentKlarnaTransactionStatusLogTableMap::getFieldNames(
             SpyPaymentKlarnaTransactionStatusLogTableMap::TYPE_COLNAME
         );
-        $tupleRows  = [];
+        $tupleRows = [];
         foreach ($fieldNames as $fieldName) {
             if (in_array($fieldName, self::$includeFields)) {
                 continue;

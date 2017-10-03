@@ -27,17 +27,12 @@ class KlarnaCheckout
 
     /**
      * @var \Spryker\Client\Cart\CartClientInterface
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $cartClient;
 
     /**
-     * KlarnaCheckout constructor.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
+     * @param \Spryker\Client\Cart\CartClientInterface $cartClient
      */
     public function __construct(KlarnaClientInterface $klarnaClient, CartClientInterface $cartClient)
     {
@@ -46,8 +41,6 @@ class KlarnaCheckout
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return string
      */
     public function renderKlarnaHtml()

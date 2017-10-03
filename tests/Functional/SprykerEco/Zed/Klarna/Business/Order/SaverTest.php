@@ -184,7 +184,6 @@ class SaverTest extends Test
     }
 
     /**
-     *
      * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
      */
     private function createOrderEntity()

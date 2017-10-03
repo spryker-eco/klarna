@@ -1,4 +1,4 @@
-<?php
+\<?php
 
 /**
  * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
@@ -134,7 +134,6 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     }
 
     /**
-     *
      * @return \Orm\Zed\Sales\Persistence\SpySalesOrder
      */
     private function createOrderEntity()

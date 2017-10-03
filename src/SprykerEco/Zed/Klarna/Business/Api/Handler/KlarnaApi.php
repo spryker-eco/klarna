@@ -289,7 +289,7 @@ class KlarnaApi
      *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
-     * @param array $orderItems
+     * @param array $spyOrderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *

@@ -15,7 +15,7 @@ abstract class AbstractSubFormsCreator
 {
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \SprykerEco\Yves\Klarna\Plugin\KlarnaInstallmentSubFormPlugin
      */
@@ -25,7 +25,7 @@ abstract class AbstractSubFormsCreator
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \SprykerEco\Yves\Klarna\Plugin\KlarnaInvoiceSubFormPlugin
      */

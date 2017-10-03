@@ -77,7 +77,7 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param bool $create
      *
      * @return \Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface[]

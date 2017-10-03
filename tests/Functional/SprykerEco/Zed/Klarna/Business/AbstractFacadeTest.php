@@ -22,6 +22,8 @@ class AbstractFacadeTest extends Test
 {
 
     /**
+     * @param \Functional\SprykerEco\Zed\Klarna\Business\Api\Mock\KlarnaApiMockAbstract $adapter
+     *
      * @return \SprykerEco\Zed\Klarna\Business\KlarnaFacade
      */
     public function generateFacade($adapter)

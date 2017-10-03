@@ -49,8 +49,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      */
     public function createKlarnaApi()
@@ -70,8 +68,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi
      */
     public function createKlarnaCheckoutApi()
@@ -89,8 +85,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \Klarna_Checkout_ConnectorInterface
      */
     public function getKlarnaCheckoutConnector()
@@ -106,8 +100,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmount
      */
     public function createReserveAmount()
@@ -118,8 +110,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \Klarna
      */
     public function createAdapter()
@@ -139,8 +129,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
      */
     public function createInstallment()
@@ -164,8 +152,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Log\Log
      */
     public function createPaymentLog()
@@ -176,8 +162,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
      */
     public function createKlarnaCheckout()
@@ -189,8 +173,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface
      */
     public function getCheckoutFacade()
@@ -199,7 +181,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     *
      * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface
      */
     public function getLocaleFacade()
@@ -208,8 +189,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Order\SalesHelper
      */
     protected function createSalesHelper()
@@ -220,8 +199,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param int $salesOrderId
      *
      * @return string
@@ -235,8 +212,6 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param int $salesOrderId
      *
      * @return array
@@ -299,6 +274,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
         return new AddressesResponseTransferMapper();
     }
 
+    /**
+     * @return \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface
+     */
     protected function getMoneyFacade()
     {
         return $this->getProvidedDependency(KlarnaDependencyProvider::FACADE_MONEY);

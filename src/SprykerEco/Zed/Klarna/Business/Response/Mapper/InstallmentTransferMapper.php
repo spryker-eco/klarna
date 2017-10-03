@@ -35,7 +35,6 @@ class InstallmentTransferMapper
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \KlarnaPClass[] $pClasses
-     * @param \Spryker\Shared\Library\Currency\CurrencyManager
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
