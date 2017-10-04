@@ -38,8 +38,8 @@ class PaymentDependencyInjector extends AbstractDependencyInjector
     protected function injectPaymentPlugins(Container $container)
     {
         $container->extend(PaymentDependencyProvider::CHECKOUT_PLUGINS, function (CheckoutPluginCollection $pluginCollection) {
-            $pluginCollection->add(new KlarnaPreCheckPlugin(), KlarnaConstants::KLARNA, PaymentDependencyProvider::CHECKOUT_PRE_CHECK_PLUGINS);
-            $pluginCollection->add(new KlarnaSaveOrderPlugin(), KlarnaConstants::KLARNA, PaymentDependencyProvider::CHECKOUT_ORDER_SAVER_PLUGINS);
+            $pluginCollection->add(new KlarnaPreCheckPlugin(), KlarnaConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_PRE_CHECK_PLUGINS);
+            $pluginCollection->add(new KlarnaSaveOrderPlugin(), KlarnaConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_ORDER_SAVER_PLUGINS);
 
             return $pluginCollection;
         });

@@ -33,7 +33,7 @@ interface KlarnaConstants
     const SHARED_SECRED = 'KLARNA_SHARED_SECRET';
     const EID = 'KLARNA_EID';
     const TEST_MODE = 'KLARNA_TEST_MODE';
-    const KLARNA = 'Klarna';
+
     const KLARNA_INVOICE_TYPE_MAIL = 2;
     const KLARNA_INVOICE_TYPE_EMAIL = 1;
     const KLARNA_INVOICE_TYPE_NOMAIL = 0;
@@ -73,10 +73,6 @@ interface KlarnaConstants
     const CURRENCY = 'CURRENCY';
 
     const NL_PART_PAYMENT_LIMIT = 'NL_PART_PAYMENT_LIMIT';
-
-    //template path related
-    const PAYMENT_METHOD_INVOICE_TEMPLATE = 'invoice';
-    const PAYMENT_METHOD_INSTALLMENT_TEMPLATE = 'installment';
 
     const FIELD_PNO = 'pno_no';
 

@@ -185,7 +185,7 @@ class KlarnaCheckout
     ) {
         $paymentTransfer = new PaymentTransfer();
         $paymentTransfer->setPaymentMethod(KlarnaConstants::BRAND_CHECKOUT)
-                        ->setPaymentProvider(KlarnaConstants::KLARNA)
+                        ->setPaymentProvider(KlarnaConstants::PROVIDER_NAME)
                         ->setPaymentSelection(KlarnaConstants::CHECKOUT_PAYMENT_METHOD);
         $billingAddress = $order['billing_address'];
         $klarnaPaymentTransfer = new KlarnaPaymentTransfer();
