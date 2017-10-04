@@ -25,9 +25,10 @@ class PClassRequestTransferMapper
         QuoteTransfer $quoteTransfer
     ) {
         $paymentTransfer = $quoteTransfer->getPayment()->getKlarna();
+        $currency = $quoteTransfer->getCurrency();
 
         $klarnaObjectInitTransfer = new KlarnaObjectInitTransfer();
-        $klarnaObjectInitTransfer->setCurrencyIso3Code($paymentTransfer->getCurrencyIso3Code());
+        $klarnaObjectInitTransfer->setCurrencyIso3Code($currency->getCode());
         $klarnaObjectInitTransfer->setIso2Code($paymentTransfer->getLanguageIso2Code());
         $klarnaObjectInitTransfer->setClientIp($paymentTransfer->getClientIp());
 
