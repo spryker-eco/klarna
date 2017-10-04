@@ -4,7 +4,7 @@
 
     {% include '@klarna/errorInstallment.twig' %}
 
-    {{ form_widget(form.klarna_installment) }}
+    {{ form_widget(form.klarnaInstallment) }}
     <span id="ratexx"></span>
 
     <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
@@ -13,7 +13,7 @@
     <script>
         new Klarna.Terms.Account({
             el: 'ratexx',
-            eid: '{{ form.klarna_installment.vars.attr.EID }}',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
             locale: '{{ termsLocale }}',
             charge: 0,
             type: 'desktop'

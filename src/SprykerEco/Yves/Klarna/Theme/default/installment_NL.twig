@@ -9,7 +9,7 @@
     <script>
         new Klarna.Terms.Account({
             el: 'ratexx',
-            eid: '{{ form.klarna_installment.vars.attr.EID }}',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
             locale: 'nl_NL',
             charge: 0,
             type: 'desktop'
@@ -23,24 +23,24 @@
     <img src="/assets/demoshop/img/nl_credit_table.png" />
 
     <br/>
-    {% for payment in form.klarna_installment.vars.installmentResponseTransfer.payments %}
+    {% for payment in form.klarnaInstallment.vars.installmentResponseTransfer.payments %}
         <table class="paymentDescription">
             <tr>
                 <td>Jaarlijkse rente</td>
-                <td>{{ payment.getInterestRate }} {{ form.klarna_installment.vars.attr.currency }}</td>
+                <td>{{ payment.getInterestRate }} {{ form.klarnaInstallment.vars.attr.currency }}</td>
             </tr>
             <tr>
                 <td>Factuurkosten</td>
-                <td>{{ payment.getInvoiceFee }} {{ form.klarna_installment.vars.attr.currency }}</td>
+                <td>{{ payment.getInvoiceFee }} {{ form.klarnaInstallment.vars.attr.currency }}</td>
             </tr>
             <tr>
                 <td>Maandelijkse kosten</td>
-                <td>{{ payment.getMonthlyCosts }} {{ form.klarna_installment.vars.attr.currency }}</td>
+                <td>{{ payment.getMonthlyCosts }} {{ form.klarnaInstallment.vars.attr.currency }}</td>
             </tr>
         </table><hr/>
     {% endfor %}
 
-    {{ form_widget(form.klarna_installment) }}
+    {{ form_widget(form.klarnaInstallment) }}
 
 </div>
 <script>

@@ -4,7 +4,7 @@
 
     {% include '@klarna/errorInvoice.twig' %}
 
-    {{ form_widget(form.klarna_invoice) }}
+    {{ form_widget(form.klarnaInvoice) }}
     <span id="invoicexx"></span>
 
     <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
@@ -13,7 +13,7 @@
     <script>
         new Klarna.Terms.Invoice({
             el: 'invoicexx',
-            eid: '{{ form.klarna_invoice.vars.attr.EID }}',
+            eid: '{{ form.klarnaInvoice.vars.attr.EID }}',
             locale: '{{ termsLocale }}',
             charge: 0,
             type: 'desktop'

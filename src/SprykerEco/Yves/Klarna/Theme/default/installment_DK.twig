@@ -10,7 +10,7 @@
     <script>
         new Klarna.Terms.Account({
             el: 'ratexx',
-            eid: '{{ form.klarna_installment.vars.attr.EID }}',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
             locale: 'da_dk',
             charge: 0,
             type: 'desktop'
@@ -20,15 +20,15 @@
     {% include '@klarna/errorInstallment.twig' %}
 
     <div id="paymentForm_klarna_installment">
-        {% for key, formRow in form.klarna_installment.children %}
+        {% for key, formRow in form.klarnaInstallment.children %}
             <div>
                 {% if formRow.vars.name == 'installment_pay_index' %}
-                    <div id="paymentForm_klarna_installment_installment_pay_index">
+                    <div id="paymentForm_klarnaInstallment_installment_pay_index">
                         {% for keyPayIndex, rowPayIndex in formRow.children %}
 
                             {{ form_widget(rowPayIndex) }}
 
-                            {% for payment in form.klarna_installment.vars.installmentResponseTransfer.payments  if rowPayIndex.vars.value == payment.id %}
+                            {% for payment in form.klarnaInstallment.vars.installmentResponseTransfer.payments  if rowPayIndex.vars.value == payment.id %}
 
                                 {% if payment.getType == 1 %}
                                     {# KlarnaPClass::ACCOUNT #}
@@ -88,7 +88,7 @@
                                         </tr>
                                         <tr>
                                             <td>Kreditomkostningerne</td>
-                                            <td>{{ (payment.getTotalCreditPurchaseCost - form.klarna_installment.vars.attr.grandTotal) | round(2) }} kr.</td>
+                                            <td>{{ (payment.getTotalCreditPurchaseCost - form.klarnaInstallment.vars.attr.grandTotal) | round(2) }} kr.</td>
                                         </tr>
                                         <tr>
                                             <td>Kreditkøbspris</td>
