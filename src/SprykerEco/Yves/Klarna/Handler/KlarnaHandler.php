@@ -126,15 +126,16 @@ class KlarnaHandler
     {
         $klarnaPaymentTransfer = $this->getKlarnaPaymentTransfer($quoteTransfer, $paymentSelection);
         $billingAddress = $quoteTransfer->getBillingAddress();
+        $currency = $quoteTransfer->getCurrency();
 
         $klarnaPaymentTransfer
             ->setAccountBrand(self::$klarnaPaymentMethodMapper[$paymentSelection])
             ->setAddress($billingAddress)
             ->setGender(self::$klarnaGenderMapper[$billingAddress->getSalutation()])
             ->setEmail($quoteTransfer->getCustomer()->getEmail())
-            ->setCurrencyIso3Code($billingAddress->getCurrencyIso3Code())
+            ->setCurrencyIso3Code($currency->getCode())
             ->setLanguageIso2Code($billingAddress->getIso2Code())
-            ->setClientIp($quoteTransfer->getClientIp());
+            ->setClientIp($this->getClientIp());
 
         if (!$klarnaPaymentTransfer->getDateOfBirth() && $klarnaPaymentTransfer->getInstallmentDateOfBirth()) {
             $klarnaPaymentTransfer->setDateOfBirth($klarnaPaymentTransfer->getInstallmentDateOfBirth());
@@ -183,6 +184,21 @@ class KlarnaHandler
         $klarnaPaymentTransfer = $quoteTransfer->getPayment()->$method();
 
         return $klarnaPaymentTransfer;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getClientIp()
+    {
+        $tmpIp = null;
+
+        //Proxy handling.
+        if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            $tmpIp = $_SERVER['REMOTE_ADDR'];
+        }
+
+        return $tmpIp;
     }
 
 }

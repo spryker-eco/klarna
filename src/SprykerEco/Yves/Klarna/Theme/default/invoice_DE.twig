@@ -9,7 +9,7 @@
     <script>
         new Klarna.Terms.Invoice({
             el: 'invoicexx',
-            eid: '{{ form.klarna_invoice.vars.attr.EID }}',
+            eid: '{{ form.klarnaInvoice.vars.attr.EID }}',
             locale: 'de_DE',
             charge: 0,
             type: 'desktop'
@@ -19,13 +19,13 @@
     {% include '@klarna/error-invoice.twig' %}
 
     <div id="paymentForm_klarna_invoice">
-        {% for key, formRow in form.klarna_invoice.children %}
+        {% for key, formRow in form.klarnaInvoice.children %}
             <div>
                 {% if formRow.vars.name == 'terms' %}
                     {{ form_widget(formRow) }}
                     <label for="paymentForm_klarna_invoice_terms">
                         Mit der Übermittlung der für die Abwicklung der gewählten Klarna Zahlungsmethode und einer Identitäts– und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine
-                        <a href="http://cdn.klarna.com/1.0/shared/content/legal/terms/{{ form.klarna_invoice.vars.attr.EID }}/de_de/consent" >Einwilligung</a>
+                        <a href="http://cdn.klarna.com/1.0/shared/content/legal/terms/{{ form.klarnaInvoice.vars.attr.EID }}/de_de/consent" >Einwilligung</a>
                         kann ich jederzeit mit Wirkung für die Zukunft widerrufen. Es gelten die
                         <a href="/de/agb">AGB des Händlers</a>.
                     </label>

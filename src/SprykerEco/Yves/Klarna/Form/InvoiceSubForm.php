@@ -8,6 +8,7 @@
 namespace SprykerEco\Yves\Klarna\Form;
 
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
+use Generated\Shared\Transfer\PaymentTransfer;
 use Spryker\Shared\Config\Config;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
@@ -26,6 +27,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
 
+    const PAYMENT_METHOD = 'invoice';
     const FIELD_DATE_OF_BIRTH = 'date_of_birth';
     const FIELD_TERMS = 'terms';
 
@@ -176,7 +178,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getName()
     {
-        return strtolower(KlarnaConstants::BRAND_INVOICE);
+        return PaymentTransfer::KLARNA_INVOICE;
     }
 
     /**
@@ -184,7 +186,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getPropertyPath()
     {
-        return strtolower(KlarnaConstants::BRAND_INVOICE);
+        return PaymentTransfer::KLARNA_INVOICE;
     }
 
     /**
@@ -192,7 +194,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
      */
     public function getProviderName()
     {
-        return KlarnaConstants::PROVIDER_NAME;
+        return PaymentTransfer::KLARNA_INSTALLMENT;
     }
 
     /**
@@ -203,7 +205,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     protected function getTemplatePath()
     {
         $templatePath = KlarnaConstants::PROVIDER_NAME .
-            '/' . KlarnaConstants::PAYMENT_METHOD_INVOICE_TEMPLATE .
+            '/' . static::PAYMENT_METHOD .
             '_' . $this->countryIso2;
 
         return $templatePath;

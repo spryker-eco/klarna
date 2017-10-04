@@ -24,8 +24,8 @@ interface KlarnaConstants
     const BRAND_INSTALLMENT = 'KLARNA_INSTALLMENT';
     const BRAND_CHECKOUT = 'KLARNA_CHECKOUT';
 
-    const PAYMENT_METHOD_INVOICE = 'PAYMENT_METHOD_INVOICE';
-    const PAYMENT_METHOD_INSTALLMENT = 'PAYMENT_METHOD_INSTALLMENT';
+    const PAYMENT_METHOD_INVOICE = 'klarnaInvoice';
+    const PAYMENT_METHOD_INSTALLMENT = 'klarnaInstallment';
 
     const PAYMENT_MEHTOD_INVOICE_NAME = 'INVOICE';
     const PAYMENT_METHOD_INSTALLMENT_NAME = 'INSTALLMENT';
@@ -33,7 +33,7 @@ interface KlarnaConstants
     const SHARED_SECRED = 'KLARNA_SHARED_SECRET';
     const EID = 'KLARNA_EID';
     const TEST_MODE = 'KLARNA_TEST_MODE';
-    const KLARNA = 'klarna';
+    const KLARNA = 'Klarna';
     const KLARNA_INVOICE_TYPE_MAIL = 2;
     const KLARNA_INVOICE_TYPE_EMAIL = 1;
     const KLARNA_INVOICE_TYPE_NOMAIL = 0;

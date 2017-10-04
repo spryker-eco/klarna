@@ -242,7 +242,7 @@ class KlarnaCheckoutApi
                 'name' => $orderItem->getName(),
                 'quantity' => $orderItem->getQuantity(),
                 'unit_price' => $orderItem->getUnitGrossPrice(),
-                'discount_rate' => $orderItem->getUnitTotalDiscountAmount(),
+                'discount_rate' => $orderItem->getUnitDiscountAmountFullAggregation(),
                 'tax_rate' => ($orderItem->getTaxRate()) ?: self::DEFAULT_TAX_RATE,
             ];
         }
@@ -255,7 +255,7 @@ class KlarnaCheckoutApi
      */
     protected function getCurrency()
     {
-        return CurrencyManager::getInstance()->getDefaultCurrency()->getIsoCode();
+        return Store::getInstance()->getCurrencyIsoCode();
     }
 
     /**
