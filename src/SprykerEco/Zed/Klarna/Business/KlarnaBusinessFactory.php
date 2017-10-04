@@ -62,7 +62,8 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
             $config->getMailMode(),
             $config->getPclassStoreType(),
             $config->getPclassStoreUri(),
-            $this->getLocaleFacade()
+            $this->getLocaleFacade(),
+            $this->getMoneyFacade()
         );
     }
 

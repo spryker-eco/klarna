@@ -29,8 +29,10 @@ use Klarna_UnknownEncodingException;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
 use Spryker\Shared\Library\Currency\CurrencyManager;
+use Spryker\Zed\Money\Business\MoneyFacade;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 /**
  * Class KlarnaApi
@@ -117,6 +119,11 @@ class KlarnaApi
     protected $klarnaCountryFactory;
 
     /**
+     * @var \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface
+     */
+    protected $moneyFacade;
+
+    /**
      * KlarnaApi constructor.
      *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
@@ -129,6 +136,7 @@ class KlarnaApi
      * @param string $pClassStoreType
      * @param string $pClassStoreUri
      * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface $localeFacade
+     * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface $moneyFacade
      */
     public function __construct(
         $klarnaAdapter,
@@ -138,7 +146,8 @@ class KlarnaApi
         $mailMode,
         $pClassStoreType,
         $pClassStoreUri,
-        KlarnaToLocaleInterface $localeFacade
+        KlarnaToLocaleInterface $localeFacade,
+        KlarnaToMoneyInterface $moneyFacade
     ) {
         $this->klarnaAdapter = $klarnaAdapter;
         $this->merchantId = $merchantId;
@@ -148,14 +157,13 @@ class KlarnaApi
         $this->pClassStoreType = $pClassStoreType;
         $this->pClassStoreUri = $pClassStoreUri;
         $this->localeFacade = $localeFacade;
+        $this->moneyFacade = $moneyFacade;
 
         $this->klarnaCountryFactory = new KlarnaAddressFactory();
     }
 
     /**
      * Creates the basic klarna object.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param string $country
      * @param string $currency
@@ -736,7 +744,7 @@ class KlarnaApi
         foreach ($items as $orderItem) {
             $discountPercentage = 0;
 
-            $discount = $orderItem->getUnitTotalDiscountAmount();
+            $discount = $orderItem->getUnitDiscountAmountFullAggregation();
             if ($discount) {
                 $total = $orderItem->getUnitGrossPrice();
                 $discountPercentage = round((100 / $total) * $discount, 2);
@@ -746,7 +754,7 @@ class KlarnaApi
                 $orderItem->getQuantity(),
                 $orderItem->getSku(),
                 $orderItem->getName(),
-                $this->getCurrencyManager()->convertCentToDecimal($orderItem->getUnitGrossPrice()),
+                $this->moneyFacade->convertIntegerToDecimal($orderItem->getUnitGrossPrice()),
                 ($orderItem->getTaxRate()) ?: self::DEFAULT_TAX_RATE,
                 $discountPercentage,
                 $flags
@@ -816,14 +824,6 @@ class KlarnaApi
     }
 
     /**
-     * @return \Spryker\Shared\Library\Currency\CurrencyManager
-     */
-    protected function getCurrencyManager()
-    {
-        return CurrencyManager::getInstance();
-    }
-
-    /**
      * Add Shipping costs to klarna.
      *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
@@ -841,7 +841,7 @@ class KlarnaApi
                 1,
                 self::KLARNA_SHIPPING_ARTICLE_TYPE,
                 $method->getName(),
-                $this->getCurrencyManager()->convertCentToDecimal($method->getDefaultPrice()),
+                $this->moneyFacade->convertIntegerToDecimal($method->getDefaultPrice()),
                 (float)$method->getTaxRate(),
                 0,
                 KlarnaFlags::INC_VAT | KlarnaFlags::IS_SHIPMENT
