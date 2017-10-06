@@ -7,6 +7,7 @@ composer require spryker-eco/klarna
 ```
 
 ## Documentation
+[Klarna documentation](https://academy.spryker.com/developing_with_spryker/3rd-party_integration/klarna/integration_payment_klarna.html)
 
 ## Code checks
 
