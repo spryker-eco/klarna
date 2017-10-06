@@ -11,7 +11,7 @@ composer require spryker-eco/klarna
 
 ## Code checks
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Respect/Validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Respect/Validation/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/Respect/Validation/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Respect/Validation/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spryker-eco/klarna/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/spryker-eco/klarna/?branch=dev)
+[![Build Status](https://scrutinizer-ci.com/g/spryker-eco/klarna/badges/build.png?b=dev)](https://scrutinizer-ci.com/g/spryker-eco/klarna/build-status/dev)
 
 
