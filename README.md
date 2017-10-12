@@ -1,5 +1,8 @@
 # Klarna Bundle
 
+
+[![Build Status](https://travis-ci.org/spryker-eco/klarna.svg?branch=dev)](https://travis-ci.org/spryker-eco/klarna)
+
 ## Installation
 
 ```
