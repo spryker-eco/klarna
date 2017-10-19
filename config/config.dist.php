@@ -7,20 +7,6 @@ use Spryker\Shared\Sales\SalesConstants;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Spryker\Zed\Oms\OmsConfig;
 
-$config[KernelConstants::DEPENDENCY_INJECTOR_YVES] = [
-    'Checkout' => [
-        'Klarna',
-    ],
-];
-$config[KernelConstants::DEPENDENCY_INJECTOR_ZED] = [
-    'Payment' => [
-        'Klarna',
-    ],
-    'Oms' => [
-        'Klarna',
-    ],
-];
-
 $config[OmsConstants::PROCESS_LOCATION] = [
     OmsConfig::DEFAULT_PROCESS_LOCATION,
     APPLICATION_VENDOR_DIR . '/spryker-eco/klarna/config/Zed/Oms',
