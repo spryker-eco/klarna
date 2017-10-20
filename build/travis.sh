@@ -23,7 +23,8 @@ function runTests {
         result=$((result+1))
     fi
 
-    ./setup_test -f > /dev/null
+    echo "Setup for tests..."
+    ./setup_test -f
 
     echo "Running tests..."
     "$TRAVIS_BUILD_DIR/$SHOP_DIR/vendor/bin/codecept" build -c "vendor/spryker-eco/$MODULE_NAME/"
@@ -39,8 +40,21 @@ function runTests {
     return $result
 }
 
+function checkArchRules {
+    echo "Running Architecture sniffer..."
+    errors=`vendor/bin/phpmd "vendor/spryker-eco/$MODULE_NAME/src" text vendor/spryker/architecture-sniffer/src/ruleset.xml --minimumpriority=2`
+    errorsCount=`echo "$errors" | wc -l`
+
+    if [[ "$errorsCount" = "0" ]]; then
+        buildMessage="$buildMessage\n${GREEN}Architecture sniffer reports no errors"
+    else
+        echo -e "$errors"
+        buildMessage="$buildMessage\n${RED}Architecture sniffer reports $errorsCount error(s)"
+    fi
+}
+
 function checkCodeSniffRules {
-    licenseFile="$TRAVIS_BUILD_DIR/$SHOP_DIR/vendor/spryker-eco/$MODULE_NAME/.license"
+    licenseFile="$TRAVIS_BUILD_DIR/.license"
     if [ -f "$licenseFile" ]; then
         echo "Preparing correct license for code sniffer..."
         cp "$licenseFile" "$TRAVIS_BUILD_DIR/$SHOP_DIR/.license"
@@ -55,19 +69,6 @@ function checkCodeSniffRules {
     else
         echo -e "$errors"
         buildMessage="$buildMessage\n${RED}Code sniffer reports some error(s)"
-    fi
-}
-
-function checkArchRules {
-    echo "Running Architecture sniffer..."
-    errors=`vendor/bin/phpmd "vendor/spryker-eco/$MODULE_NAME/src" text vendor/spryker/architecture-sniffer/src/ruleset.xml --minimumpriority=2`
-    errorsCount=`echo "$errors" | wc -l`
-
-    if [[ "$errorsCount" = "0" ]]; then
-        buildMessage="$buildMessage\n${GREEN}Architecture sniffer reports no errors"
-    else
-        echo -e "$errors"
-        buildMessage="$buildMessage\n${RED}Architecture sniffer reports $errorsCount error(s)"
     fi
 }
 
