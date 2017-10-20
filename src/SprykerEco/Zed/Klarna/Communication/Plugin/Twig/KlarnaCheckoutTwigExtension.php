@@ -22,7 +22,6 @@ use Twig_SimpleFunction;
  */
 class KlarnaCheckoutTwigExtension extends Twig_Extension
 {
-
     /**
      * @var \SprykerEco\Client\Klarna\KlarnaClientInterface
      *
@@ -78,5 +77,4 @@ class KlarnaCheckoutTwigExtension extends Twig_Extension
     {
         return 'KlarnaCheckoutTwigExtension';
     }
-
 }

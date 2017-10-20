@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 class GermanySubFormsCreator extends AbstractSubFormsCreator implements SubFormsCreatorInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array $params
@@ -30,5 +29,4 @@ class GermanySubFormsCreator extends AbstractSubFormsCreator implements SubForms
             PaymentTransfer::KLARNA_INSTALLMENT => $this->createKlarnaInstallmentSubFormPlugin($quoteTransfer),
         ];
     }
-
 }

@@ -33,7 +33,6 @@ use SprykerTest\Shared\Testify\Helper\ConfigHelper;
  */
 class KlarnaOmsFacadeTest extends AbstractFacadeTest
 {
-
     /**
      * @var \Orm\Zed\Sales\Persistence\SpySalesOrderItem
      */
@@ -52,14 +51,27 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     /**
      * @return void
      */
-    protected function _before()
+    protected function setUp()
     {
-        parent::_before();
+        parent::setUp();
 
+        /** @var \SprykerTest\Shared\Testify\Helper\ConfigHelper $configHelper */
         $configHelper = $this->getModule('\\' . ConfigHelper::class);
-        $configHelper->setConfig(KlarnaConstants::EID, '')
-            ->setConfig(KlarnaConstants::SHARED_SECRET, '');
 
+        $config[KlarnaConstants::COUNTRY_AUSTRIA] = 'AT';
+        $config[KlarnaConstants::COUNTRY_GERMANY] = 'DE';
+        $config[KlarnaConstants::COUNTRY_NETHERLAND] = 'NL';
+        $config[KlarnaConstants::EID] = '';
+        $config[KlarnaConstants::SHARED_SECRET] = '';
+        $config[KlarnaConstants::TEST_MODE] = true;
+        $config[KlarnaConstants::NL_PART_PAYMENT_LIMIT] = 0;
+        $config[KlarnaConstants::KLARNA_INVOICE_MAIL_TYPE] = KlarnaConstants::KLARNA_INVOICE_TYPE_EMAIL;
+        $config[KlarnaConstants::KLARNA_PCLASS_STORE_TYPE] = 'json';
+        $config[KlarnaConstants::KLARNA_PCLASS_STORE_URI] = '';
+
+        foreach ($config as $key => $value) {
+            $configHelper->setConfig($key, $value);
+        }
     }
 
     /**
@@ -198,7 +210,10 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
      */
     protected function setUpSalesOrderTestData()
     {
-        $country = SpyCountryQuery::create()->findOneByIso2Code('DE');
+        $country = SpyCountryQuery::create()
+            ->filterByIso2Code('DE')
+            ->findOneOrCreate();
+        $country->save();
 
         $billingAddress = (new SpySalesOrderAddress())
             ->setFkCountry($country->getIdCountry())
@@ -309,5 +324,4 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     {
         return $this->orderItem;
     }
-
 }

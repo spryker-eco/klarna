@@ -13,20 +13,15 @@ use Exception;
  * Class KlarnaRefundMock
  *
  * @package SprykerEcoTest\Zed\Klarna\Business\Api\Mock
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class KlarnaRefundMock extends KlarnaApiMockAbstract
 {
-
     /**
      * @var \Exception
      */
     protected $exception;
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Exception $exception
      *
      * @return void
@@ -37,8 +32,6 @@ class KlarnaRefundMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @throws \Exception
      *
      * @return string
@@ -53,8 +46,6 @@ class KlarnaRefundMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @throws \Exception
      *
      * @return string
@@ -67,5 +58,4 @@ class KlarnaRefundMock extends KlarnaApiMockAbstract
 
         return 'invoicePartNumber';
     }
-
 }

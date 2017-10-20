@@ -19,7 +19,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
  */
 interface SaverInterface
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -29,5 +28,4 @@ interface SaverInterface
      * @return mixed
      */
     public function saveOrderPayment(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer);
-
 }

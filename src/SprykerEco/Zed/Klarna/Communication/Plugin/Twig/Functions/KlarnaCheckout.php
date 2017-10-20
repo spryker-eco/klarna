@@ -17,7 +17,6 @@ use SprykerEco\Client\Klarna\KlarnaClientInterface;
  */
 class KlarnaCheckout
 {
-
     /**
      * @var \SprykerEco\Client\Klarna\KlarnaClientInterface
      *
@@ -56,5 +55,4 @@ class KlarnaCheckout
 
         return $response->getHtml();
     }
-
 }

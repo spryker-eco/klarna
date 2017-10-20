@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class KlarnaHandler
 {
-
     /**
      * @var array
      */
@@ -200,5 +199,4 @@ class KlarnaHandler
 
         return $tmpIp;
     }
-
 }

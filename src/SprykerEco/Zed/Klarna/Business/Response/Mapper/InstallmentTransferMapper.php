@@ -18,7 +18,6 @@ use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
 class InstallmentTransferMapper
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface
      */
@@ -89,5 +88,4 @@ class InstallmentTransferMapper
 
         return $transfer;
     }
-
 }

@@ -22,7 +22,6 @@ use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutSaveOrderPluginInterf
  */
 class KlarnaSaveOrderPlugin extends BaseAbstractPlugin implements CheckoutSaveOrderPluginInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
@@ -44,5 +43,4 @@ class KlarnaSaveOrderPlugin extends BaseAbstractPlugin implements CheckoutSaveOr
     {
         $this->getFacade()->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
     }
-
 }

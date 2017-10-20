@@ -17,7 +17,6 @@ use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
  */
 class AddressUpdater
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      */
@@ -50,5 +49,4 @@ class AddressUpdater
 
         return true;
     }
-
 }

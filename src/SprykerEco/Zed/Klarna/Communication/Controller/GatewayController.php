@@ -23,7 +23,6 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
  */
 class GatewayController extends AbstractGatewayController
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -103,5 +102,4 @@ class GatewayController extends AbstractGatewayController
     {
         return $this->getFacade()->getAddresses($klarnaGetAddressesRequestTransfer);
     }
-
 }

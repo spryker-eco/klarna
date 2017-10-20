@@ -28,7 +28,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
-
     const PAYMENT_METHOD = 'installment';
     const PAYMENT_CHOICES = 'paymentChoices';
     const FIELD_INSTALLMENT_INDEX = 'installment_pay_index';
@@ -309,5 +308,4 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
 
         return $countries;
     }
-
 }

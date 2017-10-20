@@ -24,7 +24,6 @@ use SprykerEco\Yves\Klarna\Handler\KlarnaHandler;
  */
 class KlarnaFactory extends AbstractFactory
 {
-
     /**
      * @param string $countryIso2
      *
@@ -122,5 +121,4 @@ class KlarnaFactory extends AbstractFactory
     {
         return Store::getInstance();
     }
-
 }

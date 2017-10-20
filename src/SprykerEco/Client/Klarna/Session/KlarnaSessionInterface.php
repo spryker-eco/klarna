@@ -18,7 +18,6 @@ use Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer;
  */
 interface KlarnaSessionInterface
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -78,5 +77,4 @@ interface KlarnaSessionInterface
      * @return bool
      */
     public function hasKlarnaOrderId();
-
 }

@@ -11,7 +11,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface SubFormsCreatorInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array $params
@@ -19,5 +18,4 @@ interface SubFormsCreatorInterface
      * @return \Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface[]
      */
     public function createPaymentMethodsSubForms(QuoteTransfer $quoteTransfer, $params = []);
-
 }

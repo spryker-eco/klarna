@@ -20,7 +20,6 @@ use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
  */
 class ReserveAmount
 {
-
     const RESERVE_AMOUNT_KEY_REF_NO = 0;
     const RESERVE_AMOUNT_KEY_STATUS = 1;
     const RESERVE_AMOUNT_KEY_ERROR = 2;
@@ -84,5 +83,4 @@ class ReserveAmount
 
         return $reserveAmountTransfer;
     }
-
 }

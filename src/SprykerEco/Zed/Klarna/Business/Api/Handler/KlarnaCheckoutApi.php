@@ -13,7 +13,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Klarna_Checkout_Order;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Shared\Kernel\Store;
-use Spryker\Shared\Library\Currency\CurrencyManager;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 
@@ -26,7 +25,6 @@ use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
  */
 class KlarnaCheckoutApi
 {
-
     /**
      * @const int
      */
@@ -198,14 +196,12 @@ class KlarnaCheckoutApi
             $order = $this->fetchKlarnaOrder($klarnaCheckoutTransfer);
 
             if ($order['status'] === KlarnaConstants::STATUS_COMPLETE) {
-
                 $update = [];
                 $update['status'] = 'created';
 
                 $order->update($update);
             }
         } catch (Exception $e) {
-
         }
     }
 
@@ -353,5 +349,4 @@ class KlarnaCheckoutApi
 
         return $create;
     }
-
 }

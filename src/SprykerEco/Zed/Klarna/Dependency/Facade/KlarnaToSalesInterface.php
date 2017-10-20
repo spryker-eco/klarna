@@ -16,12 +16,10 @@ namespace SprykerEco\Zed\Klarna\Dependency\Facade;
  */
 interface KlarnaToSalesInterface
 {
-
     /**
      * @param int $idSalesOrder
      *
      * @return \Generated\Shared\Transfer\OrderTransfer
      */
     public function getOrderByIdSalesOrder($idSalesOrder);
-
 }

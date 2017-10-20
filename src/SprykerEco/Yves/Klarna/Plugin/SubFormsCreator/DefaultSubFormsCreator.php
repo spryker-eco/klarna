@@ -15,7 +15,6 @@ use SprykerEco\Client\Klarna\KlarnaClientInterface;
 
 class DefaultSubFormsCreator extends AbstractSubFormsCreator implements SubFormsCreatorInterface
 {
-
     /**
      * @var \SprykerEco\Client\Klarna\KlarnaClientInterface
      */
@@ -65,5 +64,4 @@ class DefaultSubFormsCreator extends AbstractSubFormsCreator implements SubForms
 
         return $paymentMethodsSubForms;
     }
-
 }

@@ -19,17 +19,15 @@ use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\ShipmentTransfer;
 use Klarna;
+use Klarna_UnknownEncodingException;
 use KlarnaCountry;
 use KlarnaCurrency;
 use KlarnaEncoding;
 use KlarnaException;
 use KlarnaFlags;
 use KlarnaPClass;
-use Klarna_UnknownEncodingException;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
-use Spryker\Shared\Library\Currency\CurrencyManager;
-use Spryker\Zed\Money\Business\MoneyFacade;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
@@ -43,7 +41,6 @@ use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
  */
 class KlarnaApi
 {
-
     const ISO_CODE_DE = 'DE';
 
     const ISO_CODE_NL = 'NL';
@@ -344,7 +341,6 @@ class KlarnaApi
             if ($activateShipping) {
                 $this->logApiResult('activateShipping', $paymentEntity->getIdPaymentKlarna(), $result[0], $msg);
             }
-
         } catch (KlarnaException $exception) {
             $result = [0, '', $exception->getMessage()];
             $this->logApiResult(
@@ -449,7 +445,6 @@ class KlarnaApi
                 $paymentEntity->setShippingInvoiceId($shippingActivationResult[1]);
                 $paymentEntity->save();
             }
-
         } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'activateShippingError',
@@ -527,7 +522,6 @@ class KlarnaApi
                     $this->logApiResult('creditShipping', $paymentEntity->getIdPaymentKlarna(), 'ok', $result);
                 }
             }
-
         } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'creditPartError',
@@ -561,7 +555,6 @@ class KlarnaApi
                 );
                 $this->logApiResult('creditShipping', $paymentEntity->getIdPaymentKlarna(), 'ok', $shippingRefundResult);
             }
-
         } catch (Exception $exception) {
             $this->logApiResult(
                 'creditShippingError',
@@ -590,7 +583,6 @@ class KlarnaApi
             $result = $klarnaApi->cancelReservation($paymentEntity->getPreCheckId());
 
             $this->logApiResult('cancel', $paymentEntity->getIdPaymentKlarna(), $result);
-
         } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'cancelError',
@@ -654,9 +646,7 @@ class KlarnaApi
                 KlarnaFlags::NO_FLAG,
                 $pclass
             );
-
         } catch (KlarnaException $exception) {
-
             $result = [
                 0, '', utf8_encode($exception->getMessage()),
             ];
@@ -869,7 +859,6 @@ class KlarnaApi
             $result = $isUpdated ? self::UPDATE_SUCCESS : self::UPDATE_ERROR;
 
             $this->logApiResult('update', $paymentTransfer->getFkSalesOrder(), $result);
-
         } catch (KlarnaException $exception) {
             $this->logApiResult(
                 'updateError',
@@ -979,5 +968,4 @@ class KlarnaApi
 
         $logEntity->save();
     }
-
 }

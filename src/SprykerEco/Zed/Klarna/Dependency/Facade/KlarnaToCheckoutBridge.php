@@ -19,7 +19,6 @@ use Spryker\Zed\Checkout\Business\CheckoutFacadeInterface;
  */
 class KlarnaToCheckoutBridge implements KlarnaToCheckoutBridgeInterface
 {
-
     /**
      * @var \Spryker\Zed\Checkout\Business\CheckoutFacadeInterface
      *
@@ -50,5 +49,4 @@ class KlarnaToCheckoutBridge implements KlarnaToCheckoutBridgeInterface
     {
         return $this->checkoutFacade->placeOrder($quoteTransfer);
     }
-
 }

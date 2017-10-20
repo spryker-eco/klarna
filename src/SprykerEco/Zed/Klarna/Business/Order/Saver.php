@@ -23,7 +23,6 @@ use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
  */
 class Saver implements SaverInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
@@ -113,5 +112,4 @@ class Saver implements SaverInterface
 
         $logEntity->save();
     }
-
 }

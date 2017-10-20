@@ -16,7 +16,6 @@ namespace SprykerEco\Zed\Klarna\Business\Order;
  */
 interface SalesHelperInterface
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -35,5 +34,4 @@ interface SalesHelperInterface
      * @return string
      */
     public function getInvoicePdfUrl($pdfUrlPattern, $salesOrderId);
-
 }

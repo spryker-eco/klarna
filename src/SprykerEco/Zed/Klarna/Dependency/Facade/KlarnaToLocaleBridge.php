@@ -12,7 +12,6 @@ namespace SprykerEco\Zed\Klarna\Dependency\Facade;
  */
 class KlarnaToLocaleBridge implements KlarnaToLocaleInterface
 {
-
     /**
      * @var \Spryker\Zed\Locale\Business\LocaleFacadeInterface
      */
@@ -33,5 +32,4 @@ class KlarnaToLocaleBridge implements KlarnaToLocaleInterface
     {
         return $this->localeFacade->getCurrentLocaleName();
     }
-
 }

@@ -19,7 +19,6 @@ use SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface;
  */
 class Log
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface
      *
@@ -65,5 +64,4 @@ class Log
 
         return $log;
     }
-
 }

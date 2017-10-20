@@ -19,9 +19,8 @@ use Silex\Application;
  */
 class KlarnaControllerProvider extends AbstractYvesControllerProvider
 {
-
-    const CHECKOUT_KlARNA_SUCCESS = 'checkout-klarna-success';
-    const CHECKOUT_KlARNA_PUSH = 'checkout-klarna-push';
+    const CHECKOUT_KLARNA_SUCCESS = 'checkout-klarna-success';
+    const CHECKOUT_KLARNA_PUSH = 'checkout-klarna-push';
     const KLARNA_GET_ADDRESSES = 'klarna-get-addresses';
     const KLARNA_PAYMENT_METHOD = 'klarna-payment-method';
     const KLARNA_INSTALLMENTS = 'klarna-installments';
@@ -33,9 +32,9 @@ class KlarnaControllerProvider extends AbstractYvesControllerProvider
      */
     protected function defineControllers(Application $app)
     {
-        $this->createController('/checkout/klarna/success', self::CHECKOUT_KlARNA_SUCCESS, 'Klarna', 'Klarna', 'success')
+        $this->createController('/checkout/klarna/success', self::CHECKOUT_KLARNA_SUCCESS, 'Klarna', 'Klarna', 'success')
              ->method('GET|POST');
-        $this->createController('/checkout/klarna/push', self::CHECKOUT_KlARNA_PUSH, 'Klarna', 'Klarna', 'push')
+        $this->createController('/checkout/klarna/push', self::CHECKOUT_KLARNA_PUSH, 'Klarna', 'Klarna', 'push')
              ->method('GET|POST');
         $this->createController('/klarna/get-addresses', self::KLARNA_GET_ADDRESSES, 'Klarna', 'Klarna', 'getAddresses')
             ->method('GET|POST');
@@ -44,5 +43,4 @@ class KlarnaControllerProvider extends AbstractYvesControllerProvider
         $this->createController('/klarna/installments', self::KLARNA_INSTALLMENTS, 'Klarna', 'Klarna', 'installments')
             ->method('GET|POST');
     }
-
 }

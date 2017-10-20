@@ -25,7 +25,6 @@ use SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition\IsOrderStatusApprov
 
 class OmsDependencyInjector extends AbstractDependencyInjector
 {
-
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -80,5 +79,4 @@ class OmsDependencyInjector extends AbstractDependencyInjector
 
         return $container;
     }
-
 }

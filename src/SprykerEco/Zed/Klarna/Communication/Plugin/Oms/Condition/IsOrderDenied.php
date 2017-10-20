@@ -22,7 +22,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
  */
 class IsOrderDenied extends AbstractPlugin implements ConditionInterface
 {
-
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
      *
@@ -34,5 +33,4 @@ class IsOrderDenied extends AbstractPlugin implements ConditionInterface
 
         return (int)$paymentEntity->getStatus() === KlarnaConstants::ORDER_PENDING_DENIED;
     }
-
 }

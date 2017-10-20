@@ -13,7 +13,6 @@ use SprykerEco\Yves\Klarna\Plugin\KlarnaInvoiceSubFormPlugin;
 
 abstract class AbstractSubFormsCreator
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -33,5 +32,4 @@ abstract class AbstractSubFormsCreator
     {
         return new KlarnaInvoiceSubFormPlugin($quoteTransfer->getBillingAddress()->getIso2Code());
     }
-
 }

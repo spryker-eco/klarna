@@ -1,32 +1,30 @@
 <?php
-/*
- * This file is part of the TWT eCommerce platform package.
- *
- * (c) TWT Interactive GmbH <info@twt.de>
- *
- * For the full copyright, license and further information contact TWT.
-*/
+
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
+namespace SprykerEcoTest\Zed\Klarna\Business\Payment;
 
 use Codeception\TestCase\Test;
+use Generated\Shared\Transfer\CurrencyTransfer;
+use Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer;
 use Generated\Shared\Transfer\KlarnaPaymentTransfer;
+use Generated\Shared\Transfer\KlarnaPClassTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
+use KlarnaPClass;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest;
+use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper;
+use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
-/**
- * Class IntallmentTest
- *
- * @author   Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
-class IntallmentTest extends Test
+class InstallmentTest extends Test
 {
-
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testGetInstallments()
@@ -36,6 +34,7 @@ class IntallmentTest extends Test
         $totalTransfer = new TotalsTransfer();
         $totalTransfer->setGrandTotal(20);
         $quoteTransfer->setTotals($totalTransfer);
+        $quoteTransfer->setCurrency($this->getCurrency());
 
         $klarnaPaymentTransfer = new KlarnaPaymentTransfer();
         $paymentTransfer = new PaymentTransfer();
@@ -45,14 +44,13 @@ class IntallmentTest extends Test
         $installment = $this->getInstallmentObject();
         $return = $installment->getInstallments($quoteTransfer);
 
-        $this->assertInstanceOf('\Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer', $return);
+        $this->assertInstanceOf(KlarnaInstallmentResponseTransfer::class, $return);
 
         $payments = $return->getPayments();
         $this->assertCount(1, $payments);
 
-        /** @var \Generated\Shared\Transfer\KlarnaPClassTransfer $payment */
         $payment = current($payments);
-        $this->assertInstanceOf('\Generated\Shared\Transfer\KlarnaPClassTransfer', $payment);
+        $this->assertInstanceOf(KlarnaPClassTransfer::class, $payment);
         $this->assertSame(10.0, $payment->getMinAmount());
         $this->assertSame(1, $payment->getExpire());
         $this->assertSame(123, $payment->getId());
@@ -63,8 +61,6 @@ class IntallmentTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
      */
     protected function getInstallmentObject()
@@ -74,7 +70,7 @@ class IntallmentTest extends Test
             ->setMethods(['getPclasses'])
             ->getMock();
 
-        $klarnaPclassObject = new \KlarnaPClass();
+        $klarnaPclassObject = new KlarnaPClass();
         $klarnaPclassObject->setMinAmount(10);
         $klarnaPclassObject->setExpire(1);
         $klarnaPclassObject->setId(123);
@@ -84,7 +80,7 @@ class IntallmentTest extends Test
         $klarnaPclassObject->setInvoiceFee(2);
         $klarnaPclassObject->setCountry(81);
 
-        $klarnaPclassObjectFail = new \KlarnaPClass();
+        $klarnaPclassObjectFail = new KlarnaPClass();
         $klarnaPclassObjectFail->setMinAmount(100);
 
         $return = [
@@ -99,10 +95,8 @@ class IntallmentTest extends Test
 
         return new InstallmentRequest(
             $klarnaApiMock,
-            new \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper(),
-            new \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper(
-                $this->createMoneyFacade()
-            )
+            new PClassRequestTransferMapper(),
+            new InstallmentTransferMapper($this->createMoneyFacade())
         );
     }
 
@@ -121,4 +115,12 @@ class IntallmentTest extends Test
         return $moneyFacade;
     }
 
+    /**
+     * @return \Generated\Shared\Transfer\CurrencyTransfer
+     */
+    private function getCurrency()
+    {
+        return (new CurrencyTransfer())
+            ->setCode('EUR');
+    }
 }

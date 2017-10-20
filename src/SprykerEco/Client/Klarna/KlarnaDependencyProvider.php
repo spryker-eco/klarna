@@ -19,7 +19,6 @@ use Spryker\Client\Kernel\Container;
  */
 class KlarnaDependencyProvider extends AbstractDependencyProvider
 {
-
     const SERVICE_ZED = 'zed service';
     const CLIENT_SESSION = 'session client';
 
@@ -39,5 +38,4 @@ class KlarnaDependencyProvider extends AbstractDependencyProvider
 
         return $container;
     }
-
 }

@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer;
 
 class AddressesResponseTransferMapper
 {
-
     /**
      * @param array $klarnaAddresses
      *
@@ -45,5 +44,4 @@ class AddressesResponseTransferMapper
 
         return $klarnaGetAddressesResponseTransfer;
     }
-
 }

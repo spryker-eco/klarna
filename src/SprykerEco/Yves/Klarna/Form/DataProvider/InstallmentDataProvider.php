@@ -27,7 +27,6 @@ use SprykerEco\Yves\Klarna\Form\InstallmentSubForm;
  */
 class InstallmentDataProvider implements StepEngineFormDataProviderInterface
 {
-
     /**
      * @var \SprykerEco\Client\Klarna\KlarnaClientInterface
      *
@@ -216,5 +215,4 @@ class InstallmentDataProvider implements StepEngineFormDataProviderInterface
 
         return implode(', ', $labelParts);
     }
-
 }

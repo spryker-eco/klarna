@@ -11,7 +11,6 @@ use KlarnaCountry;
 
 class AustriaKlarnaAddressCreator implements KlarnaAddressCreatorInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
      *
@@ -34,5 +33,4 @@ class AustriaKlarnaAddressCreator implements KlarnaAddressCreatorInterface
             null                          // House extension (NL only)
         );
     }
-
 }

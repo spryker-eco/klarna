@@ -36,7 +36,6 @@ use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface;
  */
 class KlarnaCheckout
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi
      *
@@ -349,5 +348,4 @@ class KlarnaCheckout
 
         return $shippingItem;
     }
-
 }

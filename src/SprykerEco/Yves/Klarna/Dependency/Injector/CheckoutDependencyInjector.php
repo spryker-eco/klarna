@@ -19,7 +19,6 @@ use SprykerEco\Yves\Klarna\Plugin\PluginCountryFactory;
 
 class CheckoutDependencyInjector implements DependencyInjectorInterface
 {
-
     /**
      * @param \Spryker\Shared\Kernel\ContainerInterface|\Spryker\Yves\Kernel\Container $container
      *
@@ -107,5 +106,4 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
 
         return $paymentMethodsSubForms;
     }
-
 }

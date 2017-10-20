@@ -20,7 +20,6 @@ use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginInterface;
  */
 class KlarnaInstallmentSubFormPlugin extends AbstractPlugin implements SubFormPluginInterface
 {
-
     /**
      * @var string
      */
@@ -58,5 +57,4 @@ class KlarnaInstallmentSubFormPlugin extends AbstractPlugin implements SubFormPl
     {
         return $this->getFactory()->createInstallmentDataProvider();
     }
-
 }

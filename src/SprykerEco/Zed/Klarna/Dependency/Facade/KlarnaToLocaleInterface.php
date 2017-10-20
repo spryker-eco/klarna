@@ -12,10 +12,8 @@ namespace SprykerEco\Zed\Klarna\Dependency\Facade;
  */
 interface KlarnaToLocaleInterface
 {
-
     /**
      * @return string
      */
     public function getCurrentLocaleName();
-
 }

@@ -38,7 +38,6 @@ use SprykerEco\Zed\Klarna\KlarnaDependencyProvider;
  */
 class KlarnaBusinessFactory extends AbstractBusinessFactory
 {
-
     /**
      * @return \SprykerEco\Zed\Klarna\Business\Order\SaverInterface
      */
@@ -281,5 +280,4 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     {
         return $this->getProvidedDependency(KlarnaDependencyProvider::FACADE_MONEY);
     }
-
 }

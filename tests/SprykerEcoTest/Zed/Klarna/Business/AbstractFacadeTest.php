@@ -8,19 +8,15 @@
 namespace SprykerEcoTest\Zed\Klarna\Business;
 
 use Codeception\TestCase\Test;
+use SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory;
+use SprykerEco\Zed\Klarna\Business\KlarnaFacade;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface;
+use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 use SprykerEco\Zed\Klarna\KlarnaConfig;
 use SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainer;
 
-/**
- * Class AbstractFacadeTest
- *
- * @package SprykerEcoTest\Zed\Klarna\Business\Order
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class AbstractFacadeTest extends Test
 {
-
     /**
      * @param \SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaApiMockAbstract $adapter
      *
@@ -28,8 +24,7 @@ class AbstractFacadeTest extends Test
      */
     public function generateFacade($adapter)
     {
-        $localeBridge = $this->getMockBuilder('SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleBridge')
-            ->disableOriginalConstructor()
+        $localeBridge = $this->getMockBuilder(KlarnaToLocaleInterface::class)
             ->setMethods(['getCurrentLocaleName'])
             ->getMock();
         $localeBridge->expects($this->any())
@@ -48,6 +43,14 @@ class AbstractFacadeTest extends Test
             ->method('getLocaleFacade')
             ->willReturn($localeBridge);
 
+        $moneyFacade = $this->getMockBuilder(KlarnaToMoneyInterface::class)
+            ->setMethods(['convertIntegerToDecimal', 'convertDecimalToInteger'])
+            ->getMock();
+
+        $businessFactoryMock
+            ->method('getMoneyFacade')
+            ->willReturn($moneyFacade);
+
         // Business factory always requires a valid query container. Since we're creating
         // functional/integration tests there's no need to mock the database layer.
         $queryContainer = new KlarnaQueryContainer();
@@ -55,7 +58,7 @@ class AbstractFacadeTest extends Test
 
         // Mock the facade to override getFactory() and have it return out
         // previously created mock.
-        $facade = $this->getMockBuilder('SprykerEco\Zed\Klarna\Business\KlarnaFacade')
+        $facade = $this->getMockBuilder(KlarnaFacade::class)
             ->setMethods(['getFactory'])
             ->getMock();
         $facade->expects($this->any())
@@ -70,11 +73,10 @@ class AbstractFacadeTest extends Test
      */
     protected function getBusinessFactoryMock()
     {
-        $businessFactoryMock = $this->getMockBuilder(
-            'SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory'
-        )->setMethods(['createAdapter', 'getLocaleFacade'])->getMock();
+        $businessFactoryMock = $this->getMockBuilder(KlarnaBusinessFactory::class)
+            ->setMethods(['createAdapter', 'getLocaleFacade', 'getMoneyFacade'])
+            ->getMock();
 
         return $businessFactoryMock;
     }
-
 }

@@ -20,7 +20,6 @@ use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface;
  */
 class HasCapturePlugin extends AbstractPlugin implements ConditionInterface
 {
-
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
      *
@@ -42,5 +41,4 @@ class HasCapturePlugin extends AbstractPlugin implements ConditionInterface
 
         return $return;
     }
-
 }

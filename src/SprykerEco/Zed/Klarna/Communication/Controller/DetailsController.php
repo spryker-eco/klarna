@@ -23,7 +23,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class DetailsController extends AbstractController
 {
-
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -74,5 +73,4 @@ class DetailsController extends AbstractController
 
         return $this->jsonResponse($statusLogTable->fetchData());
     }
-
 }

@@ -25,7 +25,6 @@ use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToSalesBridge;
  */
 class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
 {
-
     const FACADE_SALES = 'sales facade';
     const FACADE_CHECKOUT = 'checkout facade';
     const FACADE_LOCALE = 'locale facade';
@@ -70,5 +69,4 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
 
         return $container;
     }
-
 }

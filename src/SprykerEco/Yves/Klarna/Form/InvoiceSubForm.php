@@ -26,7 +26,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
-
     const PAYMENT_METHOD = 'invoice';
     const FIELD_DATE_OF_BIRTH = 'date_of_birth';
     const FIELD_TERMS = 'terms';
@@ -236,5 +235,4 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
 
         return $countries;
     }
-
 }

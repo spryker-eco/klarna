@@ -22,7 +22,6 @@ use Spryker\Client\ZedRequest\ZedRequestClient;
  */
 class KlarnaStub implements KlarnaStubInterface
 {
-
     /**
      * @var \Spryker\Client\ZedRequest\ZedRequestClient
      */
@@ -115,5 +114,4 @@ class KlarnaStub implements KlarnaStubInterface
     {
         return $this->zedRequestClient->call('/klarna/gateway/get-addresses', $klarnaGetAddressesRequestTransfer);
     }
-
 }

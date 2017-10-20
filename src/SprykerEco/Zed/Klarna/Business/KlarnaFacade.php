@@ -27,7 +27,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class KlarnaFacade extends AbstractFacade
 {
-
     /**
      * @api
      *
@@ -342,5 +341,4 @@ class KlarnaFacade extends AbstractFacade
 
         return $this->getFactory()->createAddressUpdater($klarnaPayment[0]);
     }
-
 }

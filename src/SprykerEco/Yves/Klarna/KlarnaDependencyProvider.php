@@ -18,7 +18,6 @@ use Spryker\Yves\Kernel\Plugin\Pimple;
  */
 class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
 {
-
     const CLIENT_KLARNA = 'klarna client';
     const CLIENT_CART = 'cart client';
     const CLIENT_GLOSSARY = 'glossary client';
@@ -72,5 +71,4 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
 
         return $container;
     }
-
 }

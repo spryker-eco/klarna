@@ -21,7 +21,6 @@ use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandByOrderInterface;
  */
 class ShipPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
-
     /**
      * @param array $orderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
@@ -37,5 +36,4 @@ class ShipPlugin extends AbstractPlugin implements CommandByOrderInterface
 
         return [];
     }
-
 }

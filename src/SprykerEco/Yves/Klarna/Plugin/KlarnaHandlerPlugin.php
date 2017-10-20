@@ -24,7 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
-
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Generated\Shared\Transfer\QuoteTransfer|\Spryker\Shared\Kernel\Transfer\AbstractTransfer $quoteTransfer
@@ -79,5 +78,4 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
     {
         return Store::getInstance();
     }
-
 }

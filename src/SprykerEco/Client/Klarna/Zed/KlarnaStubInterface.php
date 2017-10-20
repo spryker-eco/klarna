@@ -21,7 +21,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
  */
 interface KlarnaStubInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -78,5 +77,4 @@ interface KlarnaStubInterface
      * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer
      */
     public function getAddresses(KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer);
-
 }

@@ -7,7 +7,6 @@
 
 namespace SprykerEcoTest\Zed\Klarna\Business;
 
-use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaReserveMock;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
@@ -29,6 +28,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use PHPUnit_Framework_TestResult;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaReserveMock;
 
 /**
  * Class KlarnaFacadeTest
@@ -39,7 +39,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
  */
 class KlarnaFacadeTest extends AbstractFacadeTest
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -259,5 +258,4 @@ class KlarnaFacadeTest extends AbstractFacadeTest
     {
         // TODO: Implement run() method.
     }
-
 }

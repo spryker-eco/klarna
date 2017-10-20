@@ -14,7 +14,6 @@ use Generated\Shared\Transfer\KlarnaPaymentMethodTransfer;
 
 class CheckoutServiceResponseTransferMapper
 {
-
     /**
      * @param \CheckoutServiceResponse $checkoutServiceResponse
      *
@@ -65,5 +64,4 @@ class CheckoutServiceResponseTransferMapper
 
         return $checkoutServiceTransfer;
     }
-
 }

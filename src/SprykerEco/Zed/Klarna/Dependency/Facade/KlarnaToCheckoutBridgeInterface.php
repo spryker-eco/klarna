@@ -18,7 +18,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
  */
 interface KlarnaToCheckoutBridgeInterface
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -27,5 +26,4 @@ interface KlarnaToCheckoutBridgeInterface
      * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
      */
     public function placeOrder(QuoteTransfer $quoteTransfer);
-
 }

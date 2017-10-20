@@ -22,7 +22,6 @@ use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandByOrderInterface;
  */
 class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -40,5 +39,4 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
 
         return [];
     }
-
 }

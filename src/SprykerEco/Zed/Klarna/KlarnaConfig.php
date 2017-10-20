@@ -19,7 +19,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
  */
 class KlarnaConfig extends AbstractBundleConfig
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -137,5 +136,4 @@ class KlarnaConfig extends AbstractBundleConfig
     {
         return $this->get(KlarnaConstants::CURRENCY);
     }
-
 }

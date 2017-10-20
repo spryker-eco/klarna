@@ -16,7 +16,6 @@ use Spryker\Yves\Kernel\AbstractPlugin;
  */
 class KlarnaSubFormsPlugin extends AbstractPlugin
 {
-
     /**
      * @var \SprykerEco\Yves\Klarna\Plugin\PluginCountryFactory
      */
@@ -58,5 +57,4 @@ class KlarnaSubFormsPlugin extends AbstractPlugin
 
         return $paymentMethodsSubForms;
     }
-
 }

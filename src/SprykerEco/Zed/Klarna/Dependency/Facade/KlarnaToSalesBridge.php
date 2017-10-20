@@ -18,7 +18,6 @@ use Spryker\Zed\Sales\Business\SalesFacadeInterface;
  */
 class KlarnaToSalesBridge implements KlarnaToSalesInterface
 {
-
     /**
      * @var \Spryker\Zed\Sales\Business\SalesFacadeInterface
      */
@@ -41,5 +40,4 @@ class KlarnaToSalesBridge implements KlarnaToSalesInterface
     {
         return $this->salesFacade->getOrderByIdSalesOrder($idSalesOrder);
     }
-
 }

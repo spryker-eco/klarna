@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class KlarnaSession implements KlarnaSessionInterface
 {
-
     const KLARNA_INSTALLMENT_SESSION_IDENTIFIER = 'klarna_installment_session_identifier';
 
     const KLARNA_ORDERID_SESSION_IDENTIFIER = 'klarna_orderid_session_identifier';
@@ -138,5 +137,4 @@ class KlarnaSession implements KlarnaSessionInterface
     {
         return $this->session->has(self::KLARNA_ORDERID_SESSION_IDENTIFIER);
     }
-
 }

@@ -18,7 +18,6 @@ use SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface;
  */
 class SalesHelper implements SalesHelperInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface
      *
@@ -62,5 +61,4 @@ class SalesHelper implements SalesHelperInterface
     {
         return sprintf($pdfUrlPattern, $salesOrderId);
     }
-
 }

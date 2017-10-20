@@ -20,7 +20,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
  */
 class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQueryContainerInterface
 {
-
     /**
      * @api
      *
@@ -82,5 +81,4 @@ class KlarnaQueryContainer extends AbstractQueryContainer implements KlarnaQuery
             ->queryTransactionStatusLog()
             ->filterByFkPaymentKlarna($idPayment);
     }
-
 }

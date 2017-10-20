@@ -17,7 +17,6 @@ use Spryker\Zed\Money\Business\MoneyFacadeInterface;
  */
 class KlarnaToMoneyBridge implements KlarnaToMoneyInterface
 {
-
     /**
      * @var \Spryker\Zed\Money\Business\MoneyFacadeInterface
      */
@@ -60,5 +59,4 @@ class KlarnaToMoneyBridge implements KlarnaToMoneyInterface
     {
         return $this->moneyFacade->convertDecimalToInteger($value);
     }
-
 }

@@ -24,7 +24,6 @@ use Spryker\Client\Kernel\AbstractClient;
  */
 class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 {
-
     /**
      * @api
      *
@@ -232,5 +231,4 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     {
         return $this->getFactory()->createKlarnaStub()->getAddresses($klarnaGetAddressesRequestTransfer);
     }
-
 }

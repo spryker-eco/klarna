@@ -23,7 +23,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
  */
 class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -77,5 +76,4 @@ class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
             ->getSalesFacade()
             ->getOrderTotalsByIdSalesOrder($orderEntity->getIdSalesOrder());
     }
-
 }

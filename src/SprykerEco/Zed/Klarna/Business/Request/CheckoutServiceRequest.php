@@ -18,7 +18,6 @@ use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransf
  */
 class CheckoutServiceRequest
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      */
@@ -56,5 +55,4 @@ class CheckoutServiceRequest
 
         return $checkoutServiceTransfer;
     }
-
 }

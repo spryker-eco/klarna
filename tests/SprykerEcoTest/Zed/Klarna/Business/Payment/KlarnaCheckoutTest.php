@@ -1,31 +1,25 @@
 <?php
-/*
- * This file is part of the TWT eCommerce platform package.
- *
- * (c) TWT Interactive GmbH <info@twt.de>
- *
- * For the full copyright, license and further information contact TWT.
-*/
+
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
+namespace SprykerEcoTest\Zed\Klarna\Business\Payment;
 
 use Codeception\TestCase\Test;
+use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
+use Klarna_Checkout_Order;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout;
 
-/**
- * Class KlarnaCheckoutTest
- *
- * @author   Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class KlarnaCheckoutTest extends Test
 {
-
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testGetCheckoutHtml()
@@ -41,8 +35,6 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testGetCheckoutHtmlFail()
@@ -58,8 +50,6 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testGetSuccessHtml()
@@ -76,8 +66,6 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testGetSuccessHtmlFail()
@@ -94,8 +82,6 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testCreateCheckoutOrder()
@@ -110,8 +96,6 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param bool $returnUpdateError
      *
      * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
@@ -122,7 +106,7 @@ class KlarnaCheckoutTest extends Test
             'SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface'
         )->setMethods(['placeOrder'])
         ->getMock();
-        $checkoutResponseTransfer = new \Generated\Shared\Transfer\CheckoutResponseTransfer();
+        $checkoutResponseTransfer = new CheckoutResponseTransfer();
         $checkoutFacadeMock->expects($this->any())->method('placeOrder')->willReturn($checkoutResponseTransfer);
 
         $klarnaCheckoutApiMock = $this->getMockBuilder(KlarnaCheckoutApi::class)
@@ -189,7 +173,7 @@ class KlarnaCheckoutTest extends Test
         ];
 
         $connector = $this->createMock('\Klarna_Checkout_ConnectorInterface');
-        $fetchKlarnaOrderReturn = new \Klarna_Checkout_Order($connector);
+        $fetchKlarnaOrderReturn = new Klarna_Checkout_Order($connector);
         $fetchKlarnaOrderReturn->parse($fetchKlarnaOrderReturnData);
 
         $klarnaCheckoutApiMock
@@ -201,8 +185,6 @@ class KlarnaCheckoutTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param bool $returnUpdateError
      *
      * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
@@ -214,7 +196,7 @@ class KlarnaCheckoutTest extends Test
         )->setMethods(['placeOrder'])
         ->getMock();
 
-        $klarnaCheckoutApiMock = $this->getMockBuilder(\SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi::class)->disableOriginalConstructor()->setMethods(['getCheckoutValues', 'getSuccessValues'])
+        $klarnaCheckoutApiMock = $this->getMockBuilder(KlarnaCheckoutApi::class)->disableOriginalConstructor()->setMethods(['getCheckoutValues', 'getSuccessValues'])
         ->getMock();
 
         if ($returnUpdateError) {
@@ -257,5 +239,4 @@ class KlarnaCheckoutTest extends Test
 
         return new KlarnaCheckout($klarnaCheckoutApiMock, $checkoutFacadeMock);
     }
-
 }

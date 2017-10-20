@@ -13,20 +13,15 @@ use Exception;
  * Class KlarnaCaptureMock
  *
  * @package SprykerEcoTest\Zed\Klarna\Business\Api\Mock
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class KlarnaCaptureMock extends KlarnaApiMockAbstract
 {
-
     /**
      * @var \Exception
      */
     protected $exception;
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Exception $exception
      *
      * @return void
@@ -37,8 +32,6 @@ class KlarnaCaptureMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @throws \Exception
      *
      * @return array
@@ -56,12 +49,9 @@ class KlarnaCaptureMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function setActivateInfo()
     {
     }
-
 }

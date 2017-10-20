@@ -15,7 +15,6 @@ namespace SprykerEco\Zed\Klarna\Dependency\Facade;
  */
 interface KlarnaToMoneyInterface
 {
-
     /**
      * Specification
      * - Converts an integer value into decimal value
@@ -39,5 +38,4 @@ interface KlarnaToMoneyInterface
      * @return int
      */
     public function convertDecimalToInteger($value);
-
 }

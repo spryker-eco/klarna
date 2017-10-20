@@ -16,7 +16,6 @@ namespace SprykerEco\Shared\Klarna;
  */
 interface KlarnaConstants
 {
-
     const PROVIDER_NAME = 'Klarna';
     const KLARNA_BUNDLE_VERSION = 'Spryker_KPM 1.0';
 
@@ -75,5 +74,4 @@ interface KlarnaConstants
     const NL_PART_PAYMENT_LIMIT = 'NL_PART_PAYMENT_LIMIT';
 
     const FIELD_PNO = 'pno_no';
-
 }

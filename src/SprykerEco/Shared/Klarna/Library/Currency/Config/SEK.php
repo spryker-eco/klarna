@@ -9,7 +9,6 @@ use Spryker\Shared\Library\Currency\CurrencyInterface;
 
 class SEK implements CurrencyInterface
 {
-
     /**
      * @return string
      */
@@ -57,5 +56,4 @@ class SEK implements CurrencyInterface
     {
         return '{v} {s}';
     }
-
 }

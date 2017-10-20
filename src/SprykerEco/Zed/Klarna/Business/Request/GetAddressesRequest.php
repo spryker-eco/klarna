@@ -13,7 +13,6 @@ use SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapp
 
 class GetAddressesRequest
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      */
@@ -51,5 +50,4 @@ class GetAddressesRequest
 
         return $this->addressesResponseTransferMapper->map($klarnaAddresses);
     }
-
 }

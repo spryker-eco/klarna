@@ -23,7 +23,6 @@ use SprykerEco\Zed\Klarna\KlarnaDependencyProvider;
  */
 class KlarnaCommunicationFactory extends AbstractCommunicationFactory
 {
-
     /**
      * @return \SprykerEco\Zed\Klarna\Communication\Table\Payments
      */
@@ -55,5 +54,4 @@ class KlarnaCommunicationFactory extends AbstractCommunicationFactory
     {
         return $this->getProvidedDependency(KlarnaDependencyProvider::FACADE_SALES);
     }
-
 }

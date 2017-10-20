@@ -14,7 +14,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 class NetherlandSubFormsCreator extends AbstractSubFormsCreator implements SubFormsCreatorInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array $params
@@ -39,5 +38,4 @@ class NetherlandSubFormsCreator extends AbstractSubFormsCreator implements SubFo
 
         return $paymentMethodsSubForms;
     }
-
 }

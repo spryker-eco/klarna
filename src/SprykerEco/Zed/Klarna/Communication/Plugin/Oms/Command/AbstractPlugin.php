@@ -19,7 +19,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin as BaseAbstractPlugin;
  */
 class AbstractPlugin extends BaseAbstractPlugin
 {
-
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
      *
@@ -31,5 +30,4 @@ class AbstractPlugin extends BaseAbstractPlugin
 
         return $payment;
     }
-
 }

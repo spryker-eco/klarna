@@ -23,7 +23,6 @@ use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
  */
 class InstallmentRequest
 {
-
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
      */
@@ -75,5 +74,4 @@ class InstallmentRequest
 
         return $klarnaInstallmentResponseTransfer;
     }
-
 }

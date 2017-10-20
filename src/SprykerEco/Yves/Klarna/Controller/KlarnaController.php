@@ -31,7 +31,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class KlarnaController extends AbstractController
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -165,5 +164,4 @@ class KlarnaController extends AbstractController
             'installments' => $installments,
         ];
     }
-
 }

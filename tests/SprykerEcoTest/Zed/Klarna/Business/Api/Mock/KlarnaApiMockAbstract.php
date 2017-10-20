@@ -16,7 +16,6 @@ namespace SprykerEcoTest\Zed\Klarna\Business\Api\Mock;
  */
 class KlarnaApiMockAbstract
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -70,5 +69,4 @@ class KlarnaApiMockAbstract
     public function addArtNo()
     {
     }
-
 }

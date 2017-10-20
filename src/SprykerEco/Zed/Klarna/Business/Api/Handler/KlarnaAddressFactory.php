@@ -14,7 +14,6 @@ use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaAddressCreator\NetherlandKl
 
 class KlarnaAddressFactory
 {
-
     const DEFAULT_COUNTRY = 'default';
 
     /**
@@ -55,5 +54,4 @@ class KlarnaAddressFactory
 
         return $klarnaAddressCreator;
     }
-
 }

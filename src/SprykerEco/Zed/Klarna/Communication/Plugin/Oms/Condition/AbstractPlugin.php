@@ -19,7 +19,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin as BaseAbstractPlugin;
  */
 class AbstractPlugin extends BaseAbstractPlugin
 {
-
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
@@ -35,5 +34,4 @@ class AbstractPlugin extends BaseAbstractPlugin
 
         return $payment;
     }
-
 }

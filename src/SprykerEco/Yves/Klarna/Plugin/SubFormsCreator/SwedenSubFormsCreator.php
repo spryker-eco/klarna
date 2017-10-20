@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 class SwedenSubFormsCreator extends AbstractSubFormsCreator implements SubFormsCreatorInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param array $params
@@ -31,5 +30,4 @@ class SwedenSubFormsCreator extends AbstractSubFormsCreator implements SubFormsC
 
         return $paymentMethods;
     }
-
 }

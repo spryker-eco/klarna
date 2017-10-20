@@ -20,7 +20,6 @@ use SprykerEco\Client\Klarna\Zed\KlarnaStub;
  */
 class KlarnaFactory extends AbstractFactory
 {
-
     /**
      * @return \SprykerEco\Client\Klarna\Zed\KlarnaStub
      */
@@ -54,5 +53,4 @@ class KlarnaFactory extends AbstractFactory
     {
         return $this->getProvidedDependency(KlarnaDependencyProvider::CLIENT_SESSION);
     }
-
 }

@@ -23,7 +23,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
  */
 class KlarnaPreCheckPlugin extends BaseAbstractPlugin implements CheckoutPreCheckPluginInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
@@ -56,7 +55,6 @@ class KlarnaPreCheckPlugin extends BaseAbstractPlugin implements CheckoutPreChec
                     (int)($klarnaReserveAmountResponseTransfer->getStatus() !== KlarnaConstants::ORDER_PENDING_ACCEPTED)
                 )
                 ->setStatus($this->mapStatus($klarnaReserveAmountResponseTransfer->getStatus()));
-
         }
 
         if ($klarnaReserveAmountResponseTransfer->getError()) {
@@ -87,5 +85,4 @@ class KlarnaPreCheckPlugin extends BaseAbstractPlugin implements CheckoutPreChec
 
         return $status;
     }
-
 }

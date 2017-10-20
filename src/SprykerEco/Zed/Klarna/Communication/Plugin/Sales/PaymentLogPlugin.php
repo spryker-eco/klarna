@@ -21,7 +21,6 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class PaymentLogPlugin extends AbstractPlugin
 {
-
     /**
      * @param \Propel\Runtime\Collection\ObjectCollection $orders
      *
@@ -31,5 +30,4 @@ class PaymentLogPlugin extends AbstractPlugin
     {
         return $this->getFacade()->getPaymentLogs($orders);
     }
-
 }

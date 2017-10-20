@@ -33,15 +33,8 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory;
 use SprykerEco\Zed\Klarna\Business\Order\Saver;
 
-/**
- * Class SaverTest
- *
- * @package SprykerEcoTest\Zed\Klarna\Business\Order
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class SaverTest extends Test
 {
-
     /**
      * @return void
      */
@@ -186,7 +179,10 @@ class SaverTest extends Test
      */
     private function createOrderEntity()
     {
-        $country = SpyCountryQuery::create()->findOneByIso2Code('DE');
+        $country = SpyCountryQuery::create()
+            ->filterByIso2Code('DE')
+            ->findOneOrCreate();
+        $country->save();
 
         $billingAddress = (new SpySalesOrderAddress())
             ->setFkCountry($country->getIdCountry())
@@ -279,5 +275,4 @@ class SaverTest extends Test
 
         return $checkoutResponseTransfer;
     }
-
 }

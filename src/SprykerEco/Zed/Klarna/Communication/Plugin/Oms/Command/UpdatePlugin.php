@@ -31,7 +31,6 @@ use SprykerEco\Zed\Klarna\Communication\Plugin\Exception\KlarnaUpdateException;
  */
 class UpdatePlugin extends AbstractPlugin implements CommandByOrderInterface
 {
-
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
@@ -93,5 +92,4 @@ class UpdatePlugin extends AbstractPlugin implements CommandByOrderInterface
 
         return [];
     }
-
 }

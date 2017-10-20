@@ -21,7 +21,6 @@ use Spryker\Zed\Gui\Communication\Table\TableConfiguration;
  */
 class StatusLog extends AbstractTable
 {
-
     const FIELD_DETAILS = 'FIELD_DETAILS';
 
     /**
@@ -166,5 +165,4 @@ class StatusLog extends AbstractTable
 
         return $detailsText;
     }
-
 }

@@ -27,7 +27,6 @@ use SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\SwedenSubFormsCreator;
  */
 class PluginCountryFactory extends AbstractPlugin
 {
-
     const DEFAULT_COUNTRY = 'default';
 
     /**
@@ -81,5 +80,4 @@ class PluginCountryFactory extends AbstractPlugin
 
         return $subFormsCreator;
     }
-
 }

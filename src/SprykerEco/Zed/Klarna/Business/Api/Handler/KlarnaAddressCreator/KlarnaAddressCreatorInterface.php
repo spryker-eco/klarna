@@ -9,12 +9,10 @@ use Generated\Shared\Transfer\AddressTransfer;
 
 interface KlarnaAddressCreatorInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
      *
      * @return \KlarnaAddr
      */
     public function createKlarnaAddress(AddressTransfer $addressTransfer);
-
 }

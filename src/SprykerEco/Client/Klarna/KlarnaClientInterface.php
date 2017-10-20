@@ -23,7 +23,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
  */
 interface KlarnaClientInterface
 {
-
     /**
      * @api
      *
@@ -181,5 +180,4 @@ interface KlarnaClientInterface
      * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer
      */
     public function getAddresses(KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer);
-
 }

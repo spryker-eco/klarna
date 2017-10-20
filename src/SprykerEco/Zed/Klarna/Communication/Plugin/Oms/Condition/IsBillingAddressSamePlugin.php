@@ -21,7 +21,6 @@ use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface;
  */
 class IsBillingAddressSamePlugin extends AbstractPlugin implements ConditionInterface
 {
-
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem $orderItem
      *
@@ -55,5 +54,4 @@ class IsBillingAddressSamePlugin extends AbstractPlugin implements ConditionInte
 
         return $sPaymentHash === $sOrderHash;
     }
-
 }

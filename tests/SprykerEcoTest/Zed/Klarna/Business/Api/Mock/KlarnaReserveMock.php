@@ -11,20 +11,15 @@ namespace SprykerEcoTest\Zed\Klarna\Business\Api\Mock;
  * Class KlarnaReserveMock
  *
  * @package SprykerEcoTest\Zed\Klarna\Business\Api\Mock
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class KlarnaReserveMock extends KlarnaApiMockAbstract
 {
-
     /**
      * @var \Exception
      */
     protected $exception;
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Exception $exception
      *
      * @return void
@@ -35,8 +30,6 @@ class KlarnaReserveMock extends KlarnaApiMockAbstract
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @throws \Exception
      *
      * @return array
@@ -49,5 +42,4 @@ class KlarnaReserveMock extends KlarnaApiMockAbstract
 
         return ['testRefNo', 'testStatus'];
     }
-
 }

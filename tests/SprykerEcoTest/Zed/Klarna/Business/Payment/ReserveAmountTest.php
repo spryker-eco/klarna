@@ -1,28 +1,20 @@
 <?php
-/*
- * This file is part of the TWT eCommerce platform package.
- *
- * (c) TWT Interactive GmbH <info@twt.de>
- *
- * For the full copyright, license and further information contact TWT.
-*/
+
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
+namespace SprykerEcoTest\Zed\Klarna\Business\Payment;
 
 use Codeception\TestCase\Test;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Request\ReserveAmount;
 
-/**
- * Class ReserveAmountTest
- *
- * @author   Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class ReserveAmountTest extends Test
 {
-
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testReserveAmount()
@@ -37,8 +29,6 @@ class ReserveAmountTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testUpdateReservation()
@@ -51,8 +41,6 @@ class ReserveAmountTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return void
      */
     public function testUpdateReservationFailed()
@@ -66,8 +54,6 @@ class ReserveAmountTest extends Test
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param bool $returnUpdateError
      *
      * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmount
@@ -95,9 +81,6 @@ class ReserveAmountTest extends Test
             $klarnaApiMock->expects($this->any())->method('update')->willReturn('ok');
         }
 
-        $reserveAmount = new ReserveAmount($klarnaApiMock);
-
-        return $reserveAmount;
+        return new ReserveAmount($klarnaApiMock);
     }
-
 }

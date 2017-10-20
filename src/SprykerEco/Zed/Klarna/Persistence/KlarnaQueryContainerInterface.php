@@ -16,7 +16,6 @@ namespace SprykerEco\Zed\Klarna\Persistence;
  */
 interface KlarnaQueryContainerInterface
 {
-
     /**
      * @api
      *
@@ -57,5 +56,4 @@ interface KlarnaQueryContainerInterface
      * @return \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery
      */
     public function queryTransactionStatusLogByPaymentId($idPayment);
-
 }

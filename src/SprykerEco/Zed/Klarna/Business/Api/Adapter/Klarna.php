@@ -12,7 +12,6 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
 
 class Klarna extends KlarnaLib
 {
-
     /**
      * Updates version string. There is no other way to change it accordingly.
      */
@@ -21,5 +20,4 @@ class Klarna extends KlarnaLib
         parent::__construct();
         $this->VERSION = $this->VERSION . ':' . KlarnaConstants::KLARNA_BUNDLE_VERSION;
     }
-
 }

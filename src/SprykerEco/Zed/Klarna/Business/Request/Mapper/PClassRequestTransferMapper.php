@@ -13,7 +13,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 class PClassRequestTransferMapper
 {
-
     /**
      * @param \Generated\Shared\Transfer\KlarnaPClassRequestTransfer $klarnaPClassRequestTransfer
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -37,5 +36,4 @@ class PClassRequestTransferMapper
 
         return $klarnaPClassRequestTransfer;
     }
-
 }
