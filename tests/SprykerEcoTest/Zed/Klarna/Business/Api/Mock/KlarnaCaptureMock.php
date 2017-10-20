@@ -5,18 +5,18 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\SprykerEco\Zed\Klarna\Business\Api\Mock;
+namespace SprykerEcoTest\Zed\Klarna\Business\Api\Mock;
 
 use Exception;
 
 /**
- * Class KlarnaRefundMock
+ * Class KlarnaCaptureMock
  *
- * @package Functional\SprykerEco\Zed\Klarna\Business\Api\Mock
+ * @package SprykerEcoTest\Zed\Klarna\Business\Api\Mock
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class KlarnaRefundMock extends KlarnaApiMockAbstract
+class KlarnaCaptureMock extends KlarnaApiMockAbstract
 {
 
     /**
@@ -41,31 +41,27 @@ class KlarnaRefundMock extends KlarnaApiMockAbstract
      *
      * @throws \Exception
      *
-     * @return string
+     * @return array
      */
-    public function creditInvoice()
+    public function activate()
     {
         if ($this->exception) {
             throw $this->exception;
         }
 
-        return 'invoiceNumber';
+        return [
+            'riskStatus',
+            'invoiceNumber',
+        ];
     }
 
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
-     * @throws \Exception
-     *
-     * @return string
+     * @return void
      */
-    public function creditPart()
+    public function setActivateInfo()
     {
-        if ($this->exception) {
-            throw $this->exception;
-        }
-
-        return 'invoicePartNumber';
     }
 
 }

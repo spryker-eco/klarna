@@ -5,10 +5,10 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\SprykerEco\Zed\Klarna\Business;
+namespace SprykerEcoTest\Zed\Klarna\Business;
 
-use Functional\SprykerEco\Zed\Klarna\Business\Api\Mock\KlarnaCaptureMock;
-use Functional\SprykerEco\Zed\Klarna\Business\Api\Mock\KlarnaRefundMock;
+use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaCaptureMock;
+use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaRefundMock;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 use KlarnaException;
@@ -27,7 +27,7 @@ use SprykerEco\Shared\Klarna\KlarnaConstants;
 /**
  * Class KlarnaOmsFacadeTest
  *
- * @package Functional\SprykerEco\Zed\Klarna\Business
+ * @package SprykerEcoTest\Zed\Klarna\Business
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class KlarnaOmsFacadeTest extends AbstractFacadeTest

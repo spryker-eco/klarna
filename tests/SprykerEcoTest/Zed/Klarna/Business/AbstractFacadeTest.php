@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\SprykerEco\Zed\Klarna\Business;
+namespace SprykerEcoTest\Zed\Klarna\Business;
 
 use Codeception\TestCase\Test;
 use SprykerEco\Zed\Klarna\KlarnaConfig;
@@ -14,7 +14,7 @@ use SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainer;
 /**
  * Class AbstractFacadeTest
  *
- * @package Functional\SprykerEco\Zed\Klarna\Business\Order
+ * @package SprykerEcoTest\Zed\Klarna\Business\Order
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
@@ -22,7 +22,7 @@ class AbstractFacadeTest extends Test
 {
 
     /**
-     * @param \Functional\SprykerEco\Zed\Klarna\Business\Api\Mock\KlarnaApiMockAbstract $adapter
+     * @param \SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaApiMockAbstract $adapter
      *
      * @return \SprykerEco\Zed\Klarna\Business\KlarnaFacade
      */

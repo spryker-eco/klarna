@@ -5,12 +5,12 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\SprykerEco\Zed\Klarna\Business\Api\Mock;
+namespace SprykerEcoTest\Zed\Klarna\Business\Api\Mock;
 
 /**
  * Class KlarnaApiMockAbstract
  *
- * @package Functional\SprykerEco\Zed\Klarna\Business\Api\Mock
+ * @package SprykerEcoTest\Zed\Klarna\Business\Api\Mock
  *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */

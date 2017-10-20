@@ -5,9 +5,9 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Functional\SprykerEco\Zed\Klarna\Business\Order;
+namespace SprykerEcoTest\Zed\Klarna\Business;
 
-use Codeception\TestCase\Test;
+use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaReserveMock;
 use Generated\Shared\Transfer\AddressTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\CustomerTransfer;
@@ -16,105 +16,48 @@ use Generated\Shared\Transfer\KlarnaPaymentTransfer;
 use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\SaveOrderTransfer;
+use Generated\Shared\Transfer\ShipmentMethodTransfer;
+use Generated\Shared\Transfer\ShipmentTransfer;
 use Orm\Zed\Country\Persistence\SpyCountryQuery;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Orm\Zed\Customer\Persistence\SpyCustomer;
 use Orm\Zed\Klarna\Persistence\Map\SpyPaymentKlarnaTableMap;
-use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
-use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery;
-use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
-use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
+use PHPUnit_Framework_TestResult;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
-use SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory;
-use SprykerEco\Zed\Klarna\Business\Order\Saver;
 
 /**
- * Class SaverTest
+ * Class KlarnaFacadeTest
  *
- * @package Functional\SprykerEco\Zed\Klarna\Business\Order
+ * @package SprykerEcoTest\Zed\Klarna\Business
+ *
  * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
-class SaverTest extends Test
+class KlarnaFacadeTest extends AbstractFacadeTest
 {
 
     /**
+     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     *
      * @return void
      */
-    public function testSaveOrderPaymentCreatesPersistentPaymentData()
+    public function testReserveAmount()
     {
         $checkoutResponseTransfer = $this->createCheckoutResponse();
         $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $orderManager = new Saver($this->getKlarnaBusinessFactory());
+        $adapterMock = new KlarnaReserveMock();
+        $facade = $this->generateFacade($adapterMock);
+        $return = $facade->reserveAmount($quoteTransfer);
 
-        $orderManager->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
+        $this->assertInstanceOf(KlarnaReserveAmountResponseTransfer::class, $return);
 
-        $paymentEntity = SpyPaymentKlarnaQuery::create()->findOneByFkSalesOrder(
-            $checkoutResponseTransfer->getSaveOrder()->getIdSalesOrder()
-        );
-        $this->assertInstanceOf(SpyPaymentKlarna::class, $paymentEntity);
-
-        $paymentOrderItemEntities = $paymentEntity->getSpyPaymentKlarnaOrderItems();
-        $this->assertCount(1, $paymentOrderItemEntities);
-
-        $statusLogEntity = SpyPaymentKlarnaTransactionStatusLogQuery::create()->findOneByFkPaymentKlarna(
-            $paymentEntity->getIdPaymentKlarna()
-        );
-
-        $this->assertInstanceOf(SpyPaymentKlarnaTransactionStatusLog::class, $statusLogEntity);
-        $this->assertSame('1', $statusLogEntity->getProcessingStatus());
-        $this->assertSame('save', $statusLogEntity->getProcessingType());
-    }
-
-    /**
-     * @return void
-     */
-    public function testSaveOrderPaymentHasAddressData()
-    {
-        $checkoutResponseTransfer = $this->createCheckoutResponse();
-        $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $orderManager = new Saver($this->getKlarnaBusinessFactory());
-
-        $orderManager->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
-
-        $paymentTransfer = $quoteTransfer->getPayment()->getKlarna();
-        $addressTransfer = $paymentTransfer->getAddress();
-        /** @var \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity */
-        $paymentEntity = SpyPaymentKlarnaQuery::create()->findOneByFkSalesOrder($checkoutResponseTransfer->getSaveOrder()->getIdSalesOrder());
-        $this->assertEquals($addressTransfer->getCity(), $paymentEntity->getCity());
-        $this->assertEquals($addressTransfer->getIso2Code(), $paymentEntity->getCountryIso2Code());
-        $this->assertEquals($addressTransfer->getZipCode(), $paymentEntity->getZipCode());
-        $this->assertEquals($addressTransfer->getEmail(), $paymentEntity->getEmail());
-        $this->assertEquals($addressTransfer->getFirstName(), $paymentEntity->getFirstName());
-        $this->assertEquals($addressTransfer->getLastName(), $paymentEntity->getLastName());
-        $this->assertEquals($addressTransfer->getSalutation(), $paymentEntity->getSalutation());
-        $this->assertEquals($addressTransfer->getPhone(), $paymentEntity->getPhone());
-        $this->assertEquals($addressTransfer->getCellPhone(), $paymentEntity->getCellPhone());
-        $this->assertEquals(
-            trim(
-                sprintf(
-                    '%s %s %s',
-                    $addressTransfer->getAddress1(),
-                    $addressTransfer->getAddress2(),
-                    $addressTransfer->getAddress3()
-                )
-            ),
-            $paymentEntity->getStreet()
-        );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory
-     */
-    private function getKlarnaBusinessFactory()
-    {
-        $businessFactory = new KlarnaBusinessFactory();
-
-        return $businessFactory;
+        $this->assertEquals('testStatus', $return->getStatus());
+        $this->assertEquals('testRefNo', $return->getReservationNo());
+        $this->assertNull($return->getError());
     }
 
     /**
@@ -149,7 +92,7 @@ class SaverTest extends Test
             ->setDateOfBirth('1970-01-02')
             ->setClientIp('127.0.0.1')
             ->setAccountBrand(KlarnaConstants::BRAND_INVOICE)
-            ->setLanguageIso2Code('de')
+            ->setLanguageIso2Code('DE')
             ->setCurrencyIso3Code('EUR')
             ->setAddress($paymentAddressTransfer);
 
@@ -158,7 +101,15 @@ class SaverTest extends Test
         $customerTransfer = new CustomerTransfer();
         $customerTransfer->setEmail($email);
         $customerTransfer->setIsGuest(true);
+        $quoteTransfer->setBillingAddress($paymentAddressTransfer);
         $quoteTransfer->setCustomer($customerTransfer);
+
+        $shipmentMethodTransfer = new ShipmentMethodTransfer();
+
+        $shipmentTransfer = new ShipmentTransfer();
+        $shipmentTransfer->setMethod($shipmentMethodTransfer);
+
+        $quoteTransfer->setShipment($shipmentTransfer);
 
         $checkoutResponseTransfer->getSaveOrder()->setIdSalesOrder($orderEntity->getIdSalesOrder());
 
@@ -278,6 +229,35 @@ class SaverTest extends Test
         $checkoutResponseTransfer->setSaveOrder($saveOrderTransfer);
 
         return $checkoutResponseTransfer;
+    }
+
+    /**
+     * Count elements of an object
+     *
+     * @link http://php.net/manual/en/countable.count.php
+     *
+     * @since 5.1.0
+     *
+     * @return int The custom count as an integer.
+     * </p>
+     * <p>
+     * The return value is cast to an integer.
+     */
+    public function count()
+    {
+        // TODO: Implement count() method.
+    }
+
+    /**
+     * Runs a test and collects its result in a TestResult instance.
+     *
+     * @param \PHPUnit_Framework_TestResult|null $result
+     *
+     * @return \PHPUnit_Framework_TestResult
+     */
+    public function run(PHPUnit_Framework_TestResult $result = null)
+    {
+        // TODO: Implement run() method.
     }
 
 }
