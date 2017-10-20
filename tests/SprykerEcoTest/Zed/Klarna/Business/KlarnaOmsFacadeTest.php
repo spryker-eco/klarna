@@ -7,8 +7,6 @@
 
 namespace SprykerEcoTest\Zed\Klarna\Business;
 
-use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaCaptureMock;
-use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaRefundMock;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 use KlarnaException;
@@ -23,6 +21,9 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaCaptureMock;
+use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaRefundMock;
+use SprykerTest\Shared\Testify\Helper\ConfigHelper;
 
 /**
  * Class KlarnaOmsFacadeTest
@@ -47,6 +48,17 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
      * @var \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna
      */
     private $paymentEntity;
+
+    /**
+     * @return void
+     */
+    protected function _before()
+    {
+        parent::_before();
+
+        $this->getModule('\\' . ConfigHelper::class)->setConfig(KlarnaConstants::EID, '');
+
+    }
 
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
