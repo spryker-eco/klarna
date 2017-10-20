@@ -27,7 +27,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getSharedSecret()
     {
-        return $this->get(KlarnaConstants::SHARED_SECRED);
+        return $this->get(KlarnaConstants::SHARED_SECRET);
     }
 
     /**

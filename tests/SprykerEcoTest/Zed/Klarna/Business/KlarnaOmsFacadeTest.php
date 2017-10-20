@@ -56,7 +56,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     {
         parent::_before();
 
-        $this->getModule('\\' . ConfigHelper::class)->setConfig(KlarnaConstants::EID, '');
+        $configHelper = $this->getModule('\\' . ConfigHelper::class);
+        $configHelper->setConfig(KlarnaConstants::EID, '')
+            ->setConfig(KlarnaConstants::SHARED_SECRET, '');
 
     }
 
