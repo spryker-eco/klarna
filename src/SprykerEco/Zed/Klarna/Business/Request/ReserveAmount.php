@@ -10,14 +10,8 @@ namespace SprykerEco\Zed\Klarna\Business\Request;
 use Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
 
-/**
- * Class ReserveAmount
- *
- * @package SprykerEco\Zed\Klarna\Business\Payment
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class ReserveAmount
 {
     const RESERVE_AMOUNT_KEY_REF_NO = 0;
@@ -25,30 +19,24 @@ class ReserveAmount
     const RESERVE_AMOUNT_KEY_ERROR = 2;
 
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
+     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi
      */
     protected $klarnaApi;
 
     /**
-     * ReserveAmount constructor.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
+     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi
      */
-    public function __construct(KlarnaApi $klarnaApi)
+    public function __construct(KlarnaApiInterface $klarnaApi)
     {
         $this->klarnaApi = $klarnaApi;
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
      */
-    public function reserveAmount(QuoteTransfer $quoteTransfer)
+    public function createReserveAmountTransfer(QuoteTransfer $quoteTransfer)
     {
         $apiResult = $this->klarnaApi->reserveAmount($quoteTransfer);
 
@@ -63,13 +51,11 @@ class ReserveAmount
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
      */
-    public function updateReservation(QuoteTransfer $quoteTransfer)
+    public function createUpdateReserveAmountTransfer(QuoteTransfer $quoteTransfer)
     {
         $apiResult = $this->klarnaApi->update($quoteTransfer);
 

@@ -20,8 +20,6 @@ use SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\NorwaySubFormsCreator;
 use SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\SwedenSubFormsCreator;
 
 /**
- * Class PluginCountryFactory
- *
  * @package SprykerEco\Yves\Klarna\Plugin
  * @method \SprykerEco\Yves\Klarna\KlarnaFactory getFactory()
  */
@@ -49,7 +47,7 @@ class PluginCountryFactory extends AbstractPlugin
             Config::getInstance()->get(KlarnaConstants::COUNTRY_DENMARK) => function () {
                 return new DenmarkSubFormsCreator();
             },
-            // For next counties we use checkoutService. But temporary use concrete subFormCreator
+            // For next countries we use checkoutService. But temporary use concrete subFormCreator
             Config::getInstance()->get(KlarnaConstants::COUNTRY_GERMANY) => function () {
                  return new GermanySubFormsCreator();
             },
@@ -70,7 +68,7 @@ class PluginCountryFactory extends AbstractPlugin
      *
      * @return \SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\SubFormsCreatorInterface
      */
-    public function createSubFormsCreator($countryIso2Code)
+    public function getSubFormsCreator($countryIso2Code)
     {
         if (isset($this->subFormsCreators[$countryIso2Code])) {
             $subFormsCreator = $this->subFormsCreators[$countryIso2Code]();

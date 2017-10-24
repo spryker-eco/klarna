@@ -8,7 +8,7 @@
 namespace SprykerEco\Zed\Klarna\Business\Api\Adapter;
 
 use Klarna as KlarnaLib;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 
 class Klarna extends KlarnaLib
 {
@@ -18,6 +18,6 @@ class Klarna extends KlarnaLib
     public function __construct()
     {
         parent::__construct();
-        $this->VERSION = $this->VERSION . ':' . KlarnaConstants::KLARNA_BUNDLE_VERSION;
+        $this->VERSION = $this->VERSION . ':' . KlarnaConfig::KLARNA_BUNDLE_VERSION;
     }
 }

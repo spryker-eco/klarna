@@ -10,7 +10,7 @@ namespace SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Command;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Zed\Oms\Business\Util\ReadOnlyArrayObject;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandByOrderInterface;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 
 /**
  * Class CapturePlugin
@@ -38,7 +38,7 @@ class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
         $paymentEntity = $this->getPaymentEntity($orderEntity);
 
         $result = $this->getFacade()->capturePartPayment($orderItems, $paymentEntity, $orderTransfer);
-        if ($result[0] === KlarnaConstants::KLARNA_ACTIVATE_SUCCESS) {
+        if ($result[0] === KlarnaConfig::KLARNA_ACTIVATE_SUCCESS) {
             $articleIds = [];
             foreach ($orderItems as $orderItem) {
                 $articleIds[] = $orderItem->getIdSalesOrderItem();

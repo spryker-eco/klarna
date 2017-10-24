@@ -51,7 +51,7 @@ class KlarnaSubFormsPlugin extends AbstractPlugin
             return [];
         }
         $subFormsCreator = $this->pluginCountryFactory
-            ->createSubFormsCreator($quoteTransfer->getBillingAddress()->getIso2Code());
+            ->getSubFormsCreator($quoteTransfer->getBillingAddress()->getIso2Code());
 
         $paymentMethodsSubForms = $subFormsCreator->createPaymentMethodsSubForms($quoteTransfer, ['create' => $create]);
 

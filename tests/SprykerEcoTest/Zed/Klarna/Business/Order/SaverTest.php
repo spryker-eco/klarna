@@ -29,7 +29,7 @@ use Orm\Zed\Oms\Persistence\SpyOmsOrderProcess;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory;
 use SprykerEco\Zed\Klarna\Business\Order\Saver;
 
@@ -42,7 +42,7 @@ class SaverTest extends Test
     {
         $checkoutResponseTransfer = $this->createCheckoutResponse();
         $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $orderManager = new Saver($this->getKlarnaBusinessFactory());
+        $orderManager = new Saver($this->createKlarnaBusinessFactory());
 
         $orderManager->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
 
@@ -70,7 +70,7 @@ class SaverTest extends Test
     {
         $checkoutResponseTransfer = $this->createCheckoutResponse();
         $quoteTransfer = $this->getQuoteTransfer($checkoutResponseTransfer);
-        $orderManager = new Saver($this->getKlarnaBusinessFactory());
+        $orderManager = new Saver($this->createKlarnaBusinessFactory());
 
         $orderManager->saveOrderPayment($quoteTransfer, $checkoutResponseTransfer);
 
@@ -103,11 +103,9 @@ class SaverTest extends Test
     /**
      * @return \SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory
      */
-    private function getKlarnaBusinessFactory()
+    private function createKlarnaBusinessFactory()
     {
-        $businessFactory = new KlarnaBusinessFactory();
-
-        return $businessFactory;
+        return new KlarnaBusinessFactory();
     }
 
     /**
@@ -141,7 +139,7 @@ class SaverTest extends Test
             ->setGender(SpyPaymentKlarnaTableMap::COL_GENDER_MALE)
             ->setDateOfBirth('1970-01-02')
             ->setClientIp('127.0.0.1')
-            ->setAccountBrand(KlarnaConstants::BRAND_INVOICE)
+            ->setAccountBrand(KlarnaConfig::BRAND_INVOICE)
             ->setLanguageIso2Code('de')
             ->setCurrencyIso3Code('EUR')
             ->setAddress($paymentAddressTransfer);

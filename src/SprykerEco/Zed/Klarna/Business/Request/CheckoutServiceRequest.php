@@ -8,8 +8,9 @@
 namespace SprykerEco\Zed\Klarna\Business\Request;
 
 use Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer;
-use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapper;
+use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface;
 
 /**
  * Class Installment
@@ -19,22 +20,22 @@ use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransf
 class CheckoutServiceRequest
 {
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
+     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface
      */
     protected $klarnaApi;
 
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapper
+     * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface
      */
     protected $installmentTransferMapper;
 
     /**
-     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
-     * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapper $checkoutServiceResponseTransferMapper
+     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi
+     * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface $checkoutServiceResponseTransferMapper
      */
     public function __construct(
-        KlarnaApi $klarnaApi,
-        CheckoutServiceResponseTransferMapper $checkoutServiceResponseTransferMapper
+        KlarnaApiInterface $klarnaApi,
+        CheckoutServiceResponseTransferMapperInterface $checkoutServiceResponseTransferMapper
     ) {
         $this->klarnaApi = $klarnaApi;
         $this->checkoutServiceResponseTransferMapper = $checkoutServiceResponseTransferMapper;

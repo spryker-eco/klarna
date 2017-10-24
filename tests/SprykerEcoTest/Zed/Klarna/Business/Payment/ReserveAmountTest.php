@@ -20,7 +20,7 @@ class ReserveAmountTest extends Test
     public function testReserveAmount()
     {
         $reserveAmount = $this->getReserveAmountObject();
-        $return = $reserveAmount->reserveAmount(new QuoteTransfer());
+        $return = $reserveAmount->createReserveAmountTransfer(new QuoteTransfer());
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
         $this->assertSame('testStatus', $return->getStatus());
@@ -34,7 +34,7 @@ class ReserveAmountTest extends Test
     public function testUpdateReservation()
     {
         $reserveAmount = $this->getReserveAmountObject();
-        $return = $reserveAmount->updateReservation(new QuoteTransfer());
+        $return = $reserveAmount->createUpdateReserveAmountTransfer(new QuoteTransfer());
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
         $this->assertSame(1, $return->getStatus());
@@ -46,7 +46,7 @@ class ReserveAmountTest extends Test
     public function testUpdateReservationFailed()
     {
         $reserveAmount = $this->getReserveAmountObject(true);
-        $return = $reserveAmount->updateReservation(new QuoteTransfer());
+        $return = $reserveAmount->createUpdateReserveAmountTransfer(new QuoteTransfer());
         $this->assertInstanceOf('Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer', $return);
 
         $this->assertSame(0, $return->getStatus());

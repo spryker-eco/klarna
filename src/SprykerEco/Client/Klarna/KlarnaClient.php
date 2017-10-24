@@ -123,7 +123,7 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer)
     {
@@ -201,7 +201,7 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
      *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
-     * @return mixed
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {

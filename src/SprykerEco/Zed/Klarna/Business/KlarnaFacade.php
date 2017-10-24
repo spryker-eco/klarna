@@ -55,7 +55,7 @@ class KlarnaFacade extends AbstractFacade
      */
     public function reserveAmount(QuoteTransfer $quoteTransfer)
     {
-        return $this->getFactory()->createReserveAmount()->reserveAmount($quoteTransfer);
+        return $this->getFactory()->createReserveAmount()->createReserveAmountTransfer($quoteTransfer);
     }
 
     /**
@@ -69,7 +69,7 @@ class KlarnaFacade extends AbstractFacade
      */
     public function updatePayment(QuoteTransfer $quoteTransfer)
     {
-        return $this->getFactory()->createReserveAmount()->updateReservation($quoteTransfer);
+        return $this->getFactory()->createReserveAmount()->createUpdateReserveAmountTransfer($quoteTransfer);
     }
 
     /**

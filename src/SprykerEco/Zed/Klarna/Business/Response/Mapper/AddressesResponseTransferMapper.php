@@ -10,19 +10,17 @@ namespace SprykerEco\Zed\Klarna\Business\Response\Mapper;
 use Generated\Shared\Transfer\KlarnaAddressTransfer;
 use Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer;
 
-class AddressesResponseTransferMapper
+class AddressesResponseTransferMapper implements AddressesResponseTransferMapperInterface
 {
     /**
-     * @param array $klarnaAddresses
+     * @param \KlarnaAddr[] $klarnaAddresses
      *
      * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer
      */
-    public function map(
-        $klarnaAddresses
-    ) {
+    public function map(array $klarnaAddresses)
+    {
         $klarnaGetAddressesResponseTransfer = new KlarnaGetAddressesResponseTransfer();
 
-        /** @var \KlarnaAddr $klarnaAddress */
         foreach ($klarnaAddresses as $klarnaAddress) {
             $klarnaAddressTransfer = new KlarnaAddressTransfer();
             $klarnaAddressTransfer->setEmail($klarnaAddress->getEmail());

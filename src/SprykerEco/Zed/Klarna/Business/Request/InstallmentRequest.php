@@ -10,8 +10,11 @@ namespace SprykerEco\Zed\Klarna\Business\Request;
 use Generated\Shared\Transfer\KlarnaPClassRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
 use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper;
+use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapperInterface;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
+use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface;
 
 /**
  * Class Installment
@@ -24,31 +27,31 @@ use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
 class InstallmentRequest
 {
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
+     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface
      */
     protected $klarnaApi;
 
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper
+     * @var \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapperInterface
      */
     protected $pClassRequestTransferMapper;
 
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper
+     * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface
      */
     protected $installmentTransferMapper;
 
     /**
      * Installment constructor.
      *
-     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
-     * @param \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper $pClassRequestTransferMapper
-     * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper $installmentTransferMapper
+     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi
+     * @param \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapperInterface $pClassRequestTransferMapper
+     * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface $installmentTransferMapper
      */
     public function __construct(
-        KlarnaApi $klarnaApi,
-        PClassRequestTransferMapper $pClassRequestTransferMapper,
-        InstallmentTransferMapper $installmentTransferMapper
+        KlarnaApiInterface $klarnaApi,
+        PClassRequestTransferMapperInterface $pClassRequestTransferMapper,
+        InstallmentTransferMapperInterface $installmentTransferMapper
     ) {
         $this->klarnaApi = $klarnaApi;
         $this->pClassRequestTransferMapper = $pClassRequestTransferMapper;

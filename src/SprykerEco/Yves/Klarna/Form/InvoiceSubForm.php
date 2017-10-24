@@ -13,6 +13,7 @@ use Spryker\Shared\Config\Config;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,8 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Class InvoiceSubForm
  *
  * @package SprykerEco\Yves\Klarna\Form
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, SubFormProviderNameInterface
 {
@@ -53,8 +52,6 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
      *
@@ -82,7 +79,7 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     public function addPNO(FormBuilderInterface $builder)
     {
         $builder->add(
-            KlarnaConstants::FIELD_PNO,
+            KlarnaConfig::FIELD_PNO,
             'text',
             [
                 'label' => 'customer.PNO',
@@ -97,8 +94,6 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      *
      * @return \SprykerEco\Yves\Klarna\Form\InvoiceSubForm
@@ -197,13 +192,11 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface, Su
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return mixed
      */
     protected function getTemplatePath()
     {
-        $templatePath = KlarnaConstants::PROVIDER_NAME .
+        $templatePath = KlarnaConfig::PROVIDER_NAME .
             '/' . static::PAYMENT_METHOD .
             '_' . $this->countryIso2;
 

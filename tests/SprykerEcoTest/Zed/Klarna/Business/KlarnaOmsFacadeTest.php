@@ -20,6 +20,7 @@ use Orm\Zed\Oms\Persistence\SpyOmsOrderItemState;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaCaptureMock;
 use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaRefundMock;
@@ -65,9 +66,9 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
         $config[KlarnaConstants::SHARED_SECRET] = '';
         $config[KlarnaConstants::TEST_MODE] = true;
         $config[KlarnaConstants::NL_PART_PAYMENT_LIMIT] = 0;
-        $config[KlarnaConstants::KLARNA_INVOICE_MAIL_TYPE] = KlarnaConstants::KLARNA_INVOICE_TYPE_EMAIL;
-        $config[KlarnaConstants::KLARNA_PCLASS_STORE_TYPE] = 'json';
-        $config[KlarnaConstants::KLARNA_PCLASS_STORE_URI] = '';
+        $config[KlarnaConstants::INVOICE_MAIL_TYPE] = KlarnaConfig::KLARNA_INVOICE_TYPE_EMAIL;
+        $config[KlarnaConstants::PCLASS_STORE_TYPE] = 'json';
+        $config[KlarnaConstants::PCLASS_STORE_URI] = '';
 
         foreach ($config as $key => $value) {
             $configHelper->setConfig($key, $value);
@@ -278,7 +279,7 @@ class KlarnaOmsFacadeTest extends AbstractFacadeTest
     {
         $this->paymentEntity = (new SpyPaymentKlarna())
             ->setFkSalesOrder($this->getOrderEntity()->getIdSalesOrder())
-            ->setAccountBrand(KlarnaConstants::BRAND_INVOICE)
+            ->setAccountBrand(KlarnaConfig::BRAND_INVOICE)
             ->setClientIp('127.0.0.1')
             ->setFirstName('Jane')
             ->setLastName('Doe')

@@ -11,16 +11,9 @@ use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface;
 use SprykerEco\Client\Klarna\KlarnaClientInterface;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class KlarnaHandler
- *
- * @package SprykerEco\Yves\Klarna\Handler
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class KlarnaHandler
 {
     /**
@@ -35,8 +28,8 @@ class KlarnaHandler
      * @var array
      */
     protected static $klarnaPaymentMethodMapper = [
-        PaymentTransfer::KLARNA_INVOICE => KlarnaConstants::BRAND_INVOICE,
-        PaymentTransfer::KLARNA_INSTALLMENT => KlarnaConstants::BRAND_INSTALLMENT,
+        PaymentTransfer::KLARNA_INVOICE => KlarnaConfig::BRAND_INVOICE,
+        PaymentTransfer::KLARNA_INSTALLMENT => KlarnaConfig::BRAND_INSTALLMENT,
     ];
 
     /**
@@ -53,17 +46,11 @@ class KlarnaHandler
     protected $klarnaClient;
 
     /**
-     * @var \Pyz\Yves\Application\Business\Model\FlashMessengerInterface
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @var \Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface
      */
     protected $flashMessenger;
 
     /**
-     * KlarnaHandler constructor.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \SprykerEco\Client\Klarna\KlarnaClientInterface $klarnaClient
      * @param \Spryker\Yves\Messenger\FlashMessenger\FlashMessengerInterface $flashMessenger
      */
@@ -90,8 +77,6 @@ class KlarnaHandler
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
@@ -110,7 +95,7 @@ class KlarnaHandler
     protected function setPaymentProviderAndMethod(QuoteTransfer $quoteTransfer, $paymentSelection)
     {
         $quoteTransfer->getPayment()
-            ->setPaymentProvider(KlarnaConstants::PROVIDER_NAME)
+            ->setPaymentProvider(KlarnaConfig::PROVIDER_NAME)
             ->setPaymentMethod(static::$paymentMethods[$paymentSelection]);
     }
 
@@ -144,34 +129,6 @@ class KlarnaHandler
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return void
-     */
-    public function executePaymentReservation(QuoteTransfer $quoteTransfer)
-    {
-        $klarnaPaymentTransfer = $quoteTransfer->getPayment()->getKlarna();
-        if ($klarnaPaymentTransfer->getPreCheckId()) {
-            $return = $this->updatePayment($quoteTransfer);
-        } else {
-            $return = $this->reservePayment($quoteTransfer);
-
-            if ($return->getReservationNo()) {
-                $klarnaPaymentTransfer->setPreCheckId($return->getReservationNo());
-            }
-        }
-
-        if ($return->getError()) {
-            $quoteTransfer->setPayment(null);
-            $this->flashMessenger->addErrorMessage($return->getError());
-        }
-    }
-
-    /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param string $paymentSelection
      *
@@ -180,9 +137,7 @@ class KlarnaHandler
     protected function getKlarnaPaymentTransfer(QuoteTransfer $quoteTransfer, $paymentSelection)
     {
         $method = 'get' . ucfirst($paymentSelection);
-        $klarnaPaymentTransfer = $quoteTransfer->getPayment()->$method();
-
-        return $klarnaPaymentTransfer;
+        return $quoteTransfer->getPayment()->$method();
     }
 
     /**

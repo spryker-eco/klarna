@@ -16,24 +16,17 @@ use Generated\Shared\Transfer\PaymentTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\TotalsTransfer;
 use Pyz\Yves\Checkout\Plugin\Provider\CheckoutControllerProvider;
-use Spryker\Yves\Application\Controller\AbstractController;
+use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class KlarnaController
- *
- * @package SprykerEco\Yves\Klarna\Controller
  * @method \SprykerEco\Yves\Klarna\KlarnaFactory getFactory()
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class KlarnaController extends AbstractController
 {
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse

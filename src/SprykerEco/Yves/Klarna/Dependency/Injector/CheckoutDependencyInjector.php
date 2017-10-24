@@ -13,7 +13,7 @@ use Spryker\Shared\Kernel\Dependency\Injector\DependencyInjectorInterface;
 use Spryker\Yves\Checkout\CheckoutDependencyProvider;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginCollection;
 use Spryker\Yves\StepEngine\Dependency\Plugin\Handler\StepHandlerPluginCollection;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Yves\Klarna\Plugin\KlarnaHandlerPlugin;
 use SprykerEco\Yves\Klarna\Plugin\PluginCountryFactory;
 
@@ -66,8 +66,8 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
         $container->extend(CheckoutDependencyProvider::PAYMENT_METHOD_HANDLER, function (StepHandlerPluginCollection $paymentMethodHandler) {
             $klarnaHandlerPlugin = new KlarnaHandlerPlugin();
 
-            $paymentMethodHandler->add($klarnaHandlerPlugin, KlarnaConstants::PAYMENT_METHOD_INVOICE);
-            $paymentMethodHandler->add($klarnaHandlerPlugin, KlarnaConstants::PAYMENT_METHOD_INSTALLMENT);
+            $paymentMethodHandler->add($klarnaHandlerPlugin, KlarnaConfig::PAYMENT_METHOD_INVOICE);
+            $paymentMethodHandler->add($klarnaHandlerPlugin, KlarnaConfig::PAYMENT_METHOD_INSTALLMENT);
 
             return $paymentMethodHandler;
         });
@@ -100,7 +100,7 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
             return [];
         }
         $subFormsCreator = $pluginCountryFactory
-            ->createSubFormsCreator($quoteTransfer->getBillingAddress()->getIso2Code());
+            ->getSubFormsCreator($quoteTransfer->getBillingAddress()->getIso2Code());
 
         $paymentMethodsSubForms = $subFormsCreator->createPaymentMethodsSubForms($quoteTransfer, ['create' => $create]);
 

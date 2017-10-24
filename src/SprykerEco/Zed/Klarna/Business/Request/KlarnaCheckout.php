@@ -22,7 +22,7 @@ use Generated\Shared\Transfer\TotalsTransfer;
 use Klarna_Checkout_Order;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Shared\Shipment\ShipmentConstants;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface;
@@ -116,7 +116,7 @@ class KlarnaCheckout
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
         $order = $this->klarnaCheckoutApi->fetchKlarnaOrder($klarnaCheckoutTransfer);
-        if ($order['status'] === KlarnaConstants::STATUS_COMPLETE) {
+        if ($order['status'] === KlarnaConfig::STATUS_COMPLETE) {
             $quoteTransfer = new QuoteTransfer();
             $shippingItem = $this->addCartItemsToQuote($order, $quoteTransfer);
             $this->addShippingToQuote($shippingItem, $quoteTransfer);
@@ -128,7 +128,7 @@ class KlarnaCheckout
             $this->addTotalsToQuote($order, $quoteTransfer);
 
             $return = $this->checkoutFacade->placeOrder($quoteTransfer);
-            if (count($return->getErrors())) {
+            if ($return->getErrors()->count() > 0) {
                 return false;
             }
 
@@ -183,9 +183,9 @@ class KlarnaCheckout
         QuoteTransfer $quoteTransfer
     ) {
         $paymentTransfer = new PaymentTransfer();
-        $paymentTransfer->setPaymentMethod(KlarnaConstants::BRAND_CHECKOUT)
-                        ->setPaymentProvider(KlarnaConstants::PROVIDER_NAME)
-                        ->setPaymentSelection(KlarnaConstants::CHECKOUT_PAYMENT_METHOD);
+        $paymentTransfer->setPaymentMethod(KlarnaConfig::BRAND_CHECKOUT)
+                        ->setPaymentProvider(KlarnaConfig::PROVIDER_NAME)
+                        ->setPaymentSelection(KlarnaConfig::CHECKOUT_PAYMENT_METHOD);
         $billingAddress = $order['billing_address'];
         $klarnaPaymentTransfer = new KlarnaPaymentTransfer();
         $klarnaPaymentTransfer->setEmail($billingAddress['email'])
@@ -195,7 +195,7 @@ class KlarnaCheckout
                               ->setCurrencyIso3Code($order['purchase_currency'])
                               ->setPreCheckId($order['reservation'])
                               ->setClientIp($quoteTransfer->getClientIp())
-                              ->setAccountBrand(KlarnaConstants::BRAND_CHECKOUT)
+                              ->setAccountBrand(KlarnaConfig::BRAND_CHECKOUT)
                               ->setAddress($billingTransfer);
 
         if (isset($billingAddress['phone'])) {
@@ -239,7 +239,7 @@ class KlarnaCheckout
                          ->setZipCode($shippingAddress['postal_code'])
                          ->setAddress1($shippingAddress['street_name'])
                          ->setAddress2($shippingAddress['street_number'])
-                         ->setSalutation(($shippingAddress['title'] === KlarnaConstants::CHECKOUT_API_MR)
+                         ->setSalutation(($shippingAddress['title'] === KlarnaConfig::CHECKOUT_API_MR)
                                             ? SpyCustomerTableMap::COL_SALUTATION_MR
                                             : SpyCustomerTableMap::COL_SALUTATION_MRS)
                          ->setIso2Code(strtoupper($shippingAddress['country']));
@@ -268,7 +268,7 @@ class KlarnaCheckout
         $customerTransfer->setFirstName($billingAddress['given_name'])
                          ->setLastName($billingAddress['family_name'])
                          ->setDateOfBirth($order['customer']['date_of_birth'])
-                         ->setSalutation(($billingAddress['title'] === KlarnaConstants::CHECKOUT_API_MR)
+                         ->setSalutation(($billingAddress['title'] === KlarnaConfig::CHECKOUT_API_MR)
                                             ? SpyCustomerTableMap::COL_SALUTATION_MR
                                             : SpyCustomerTableMap::COL_SALUTATION_MRS)
                          ->setEmail($billingAddress['email'])
@@ -303,7 +303,7 @@ class KlarnaCheckout
                         ->setZipCode($billingAddress['postal_code'])
                         ->setAddress1($billingAddress['street_name'])
                         ->setAddress2($billingAddress['street_number'])
-                        ->setSalutation(($billingAddress['title'] === KlarnaConstants::CHECKOUT_API_MR)
+                        ->setSalutation(($billingAddress['title'] === KlarnaConfig::CHECKOUT_API_MR)
                                             ? SpyCustomerTableMap::COL_SALUTATION_MR
                                             : SpyCustomerTableMap::COL_SALUTATION_MRS)
                         ->setIso2Code(strtoupper($billingAddress['country']));
@@ -331,7 +331,7 @@ class KlarnaCheckout
         $shippingItem = [];
 
         foreach ($order['cart']['items'] as $item) {
-            if ($item['type'] === KlarnaConstants::SHIPPING_TYPE) {
+            if ($item['type'] === KlarnaConfig::SHIPPING_TYPE) {
                 $shippingItem = $item;
             } else {
                 $transferItem = new ItemTransfer();

@@ -56,7 +56,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getMailMode()
     {
-        return $this->get(KlarnaConstants::KLARNA_INVOICE_MAIL_TYPE);
+        return $this->get(KlarnaConstants::INVOICE_MAIL_TYPE);
     }
 
     /**
@@ -66,7 +66,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getPclassStoreType()
     {
-        return $this->get(KlarnaConstants::KLARNA_PCLASS_STORE_TYPE);
+        return $this->get(KlarnaConstants::PCLASS_STORE_TYPE);
     }
 
     /**
@@ -76,7 +76,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getPclassStoreUri()
     {
-        return $this->get(KlarnaConstants::KLARNA_PCLASS_STORE_URI);
+        return $this->get(KlarnaConstants::PCLASS_STORE_URI);
     }
 
     /**
@@ -86,7 +86,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getCheckoutConfirmationUri()
     {
-        return $this->get(KlarnaConstants::KLARNA_CHECKOUT_CONFIRMATION_URI);
+        return $this->get(KlarnaConstants::CHECKOUT_CONFIRMATION_URI);
     }
 
     /**
@@ -96,7 +96,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getCheckoutTermsUri()
     {
-        return $this->get(KlarnaConstants::KLARNA_CHECKOUT_TERMS_URI);
+        return $this->get(KlarnaConstants::CHECKOUT_TERMS_URI);
     }
 
     /**
@@ -106,7 +106,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getCheckoutPushUri()
     {
-        return $this->get(KlarnaConstants::KLARNA_CHECKOUT_PUSH_URI);
+        return $this->get(KlarnaConstants::CHECKOUT_PUSH_URI);
     }
 
     /**
@@ -116,7 +116,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getCheckoutUri()
     {
-        return $this->get(KlarnaConstants::KLARNA_CHECKOUT_URI);
+        return $this->get(KlarnaConstants::CHECKOUT_URI);
     }
 
     /**
@@ -126,7 +126,7 @@ class KlarnaConfig extends AbstractBundleConfig
      */
     public function getPdfUrlPattern()
     {
-        return $this->get(KlarnaConstants::KLARNA_PDF_URL_PATTERN);
+        return $this->get(KlarnaConstants::PDF_URL_PATTERN);
     }
 
     /**

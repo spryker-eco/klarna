@@ -13,21 +13,12 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Klarna_Checkout_Order;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Shared\Kernel\Store;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig as SharedConfig;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
+use SprykerEco\Zed\Klarna\KlarnaConfig;
 
-/**
- * Class KlarnaCheckoutApi
- *
- * @package SprykerEco\Zed\Klarna\Business\Api\Handler
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
-class KlarnaCheckoutApi
+class KlarnaCheckoutApi implements KlarnaCheckoutApiInterface
 {
-    /**
-     * @const int
-     */
     const DEFAULT_TAX_RATE = 19;
 
     const CUSTOMER_GENDER_MALE = 'male';
@@ -83,27 +74,18 @@ class KlarnaCheckoutApi
      *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
-     * @param string $merchantId
-     * @param string $confirmationUri
-     * @param string $pushUri
-     * @param string $termsUri
-     * @param string $checkoutUri
+     * @param \SprykerEco\Zed\Klarna\KlarnaConfig $config
      * @param \Klarna_Checkout_ConnectorInterface $connector
      */
     public function __construct(
-        $merchantId,
-        $confirmationUri,
-        $pushUri,
-        $termsUri,
-        $checkoutUri,
+        KlarnaConfig $config,
         $connector
     ) {
-        $this->merchantId = $merchantId;
-
-        $this->confirmationUri = $confirmationUri;
-        $this->pushUri = $pushUri;
-        $this->termsUri = $termsUri;
-        $this->checkoutUri = $checkoutUri;
+        $this->merchantId = $config->getEid();
+        $this->confirmationUri = $config->getCheckoutConfirmationUri();
+        $this->pushUri = $config->getCheckoutPushUri();
+        $this->termsUri = $config->getCheckoutTermsUri();
+        $this->checkoutUri = $config->getCheckoutUri();
         $this->connector = $connector;
     }
 
@@ -126,7 +108,7 @@ class KlarnaCheckoutApi
             if ($shipmentMmethod) {
                 $cart[] =
                     [
-                        'type' => KlarnaConstants::SHIPPING_TYPE,
+                        'type' => SharedConfig::SHIPPING_TYPE,
                         'reference' => (string)$shipmentMmethod->getIdShipmentMethod(),
                         'name' => $shipmentMmethod->getName(),
                         'quantity' => 1,
@@ -195,7 +177,7 @@ class KlarnaCheckoutApi
         try {
             $order = $this->fetchKlarnaOrder($klarnaCheckoutTransfer);
 
-            if ($order['status'] === KlarnaConstants::STATUS_COMPLETE) {
+            if ($order['status'] === SharedConfig::STATUS_COMPLETE) {
                 $update = [];
                 $update['status'] = 'created';
 
@@ -289,15 +271,15 @@ class KlarnaCheckoutApi
             if (isset($defaultAddress)) {
                 $customerData['country'] = $defaultAddress->getIso2Code();
                 ;
-                $customerData['address']['street_name'] = ($defaultAddress->getAddress1()) ?: '';
-                $customerData['address']['street_number'] = ($defaultAddress->getAddress2()) ?: '';
-                $customerData['address']['postal_code'] = ($defaultAddress->getZipCode()) ?: '';
-                $customerData['address']['city'] = ($defaultAddress->getCity()) ?: '';
-                $customerData['address']['phone'] = ($defaultAddress->getPhone()) ?: '';
+                $customerData['address']['street_name'] = $defaultAddress->getAddress1() ?: '';
+                $customerData['address']['street_number'] = $defaultAddress->getAddress2() ?: '';
+                $customerData['address']['postal_code'] = $defaultAddress->getZipCode() ?: '';
+                $customerData['address']['city'] = $defaultAddress->getCity() ?: '';
+                $customerData['address']['phone'] = $defaultAddress->getPhone() ?: '';
                 $customerData['address']['title'] =
-                    ($defaultAddress->getSalutation() == SpyCustomerTableMap::COL_SALUTATION_MR)
-                    ? KlarnaConstants::CHECKOUT_API_MR
-                    : KlarnaConstants::CHECKOUT_API_MRS;
+                    ($defaultAddress->getSalutation() === SpyCustomerTableMap::COL_SALUTATION_MR)
+                    ? SharedConfig::CHECKOUT_API_MR
+                    : SharedConfig::CHECKOUT_API_MRS;
             }
 
             $customerData['customer'] = [
@@ -336,7 +318,6 @@ class KlarnaCheckoutApi
         $create['purchase_currency'] = $this->getCurrency();
         $create['locale'] = str_replace('_', '-', $store->getCurrentLocale());
 
-        // $create['recurring'] = true;
         $create['merchant'] = [
             'id' => $this->merchantId,
             'terms_uri' => $this->termsUri,

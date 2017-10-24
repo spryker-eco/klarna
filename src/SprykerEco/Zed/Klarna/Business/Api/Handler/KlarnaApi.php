@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Api\Handler;
 
+use ArrayObject;
 use DateTime;
 use Exception;
 use Generated\Shared\Transfer\AddressTransfer;
@@ -28,18 +29,12 @@ use KlarnaFlags;
 use KlarnaPClass;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarna;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig as SharedConfig;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
+use SprykerEco\Zed\Klarna\KlarnaConfig;
 
-/**
- * Class KlarnaApi
- *
- * @package SprykerEco\Zed\Klarna\Business\Api
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
-class KlarnaApi
+class KlarnaApi implements KlarnaApiInterface
 {
     const ISO_CODE_DE = 'DE';
 
@@ -58,50 +53,36 @@ class KlarnaApi
 
     /**
      * @var string
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $merchantId;
 
     /**
      * @var string
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $sharedSecret;
 
     /**
      * @var bool
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $testMode;
 
     /**
      * @var \Klarna
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $klarnaAdapter;
 
     /**
      * @var int
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $mailMode;
 
     /**
      * @var string
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $pClassStoreType;
 
     /**
      * @var string
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $pClassStoreUri;
 
@@ -123,36 +104,24 @@ class KlarnaApi
     /**
      * KlarnaApi constructor.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Klarna $klarnaAdapter
-     * @param string $merchantId
-     * @param string $sharedSecret
-     * @param bool $testMode
-     * @param int $mailMode
-     * @param string $pClassStoreType
-     * @param string $pClassStoreUri
+     * @param \SprykerEco\Zed\Klarna\KlarnaConfig $config
      * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface $localeFacade
      * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface $moneyFacade
      */
     public function __construct(
         $klarnaAdapter,
-        $merchantId,
-        $sharedSecret,
-        $testMode,
-        $mailMode,
-        $pClassStoreType,
-        $pClassStoreUri,
+        KlarnaConfig $config,
         KlarnaToLocaleInterface $localeFacade,
         KlarnaToMoneyInterface $moneyFacade
     ) {
         $this->klarnaAdapter = $klarnaAdapter;
-        $this->merchantId = $merchantId;
-        $this->sharedSecret = $sharedSecret;
-        $this->testMode = $testMode;
-        $this->mailMode = $mailMode;
-        $this->pClassStoreType = $pClassStoreType;
-        $this->pClassStoreUri = $pClassStoreUri;
+        $this->merchantId = $config->getEid();
+        $this->sharedSecret = $config->getSharedSecret();
+        $this->testMode = $config->isTestMode();
+        $this->mailMode = $config->getMailMode();
+        $this->pClassStoreType = $config->getPclassStoreType();
+        $this->pClassStoreUri = $config->getPclassStoreUri();
         $this->localeFacade = $localeFacade;
         $this->moneyFacade = $moneyFacade;
 
@@ -263,9 +232,9 @@ class KlarnaApi
         $klarnaApi->setActivateInfo('orderid2', $orderTransfer->getInvoiceReference());
 
         try {
-            $mailMode = ($this->mailMode === KlarnaConstants::KLARNA_INVOICE_TYPE_NOMAIL)
+            $mailMode = ($this->mailMode === SharedConfig::KLARNA_INVOICE_TYPE_NOMAIL)
                 ? null
-                : ($this->mailMode === KlarnaConstants::KLARNA_INVOICE_TYPE_MAIL)
+                : ($this->mailMode === SharedConfig::KLARNA_INVOICE_TYPE_MAIL)
                     ? KlarnaFlags::RSRV_SEND_BY_MAIL
                     : KlarnaFlags::RSRV_SEND_BY_EMAIL;
             $result = $klarnaApi->activate(
@@ -332,7 +301,7 @@ class KlarnaApi
             $result = $klarnaApi->activate(
                 $paymentEntity->getPreCheckId(),
                 null, // OCR Number
-                ($this->mailMode === KlarnaConstants::KLARNA_INVOICE_TYPE_MAIL)
+                ($this->mailMode === SharedConfig::KLARNA_INVOICE_TYPE_MAIL)
                 ? KlarnaFlags::RSRV_SEND_BY_MAIL
                 : KlarnaFlags::RSRV_SEND_BY_EMAIL
             );
@@ -441,7 +410,7 @@ class KlarnaApi
             $msg = isset($shippingActivationResult[1])?$shippingActivationResult[1]:'';
             $this->logApiResult('activateShipping', $paymentEntity->getIdPaymentKlarna(), $shippingActivationResult[0], $msg);
 
-            if ($shippingActivationResult[0] === KlarnaConstants::KLARNA_ACTIVATE_SUCCESS) {
+            if ($shippingActivationResult[0] === SharedConfig::KLARNA_ACTIVATE_SUCCESS) {
                 $paymentEntity->setShippingInvoiceId($shippingActivationResult[1]);
                 $paymentEntity->save();
             }
@@ -493,7 +462,7 @@ class KlarnaApi
                     $item = $items[$klarnaOrderItem->getFkSalesOrderItem()];
                     $quantity = $item['quantity'];
                     $sku = $item['sku'];
-                    $invoiceId = $klarnaOrderItem->getInvoiceId();
+                    $invoiceId = (int)$klarnaOrderItem->getInvoiceId();
                     if (!isset($invoiceItems[$invoiceId])) {
                         $invoiceItems[$invoiceId] = [];
                     }
@@ -511,7 +480,7 @@ class KlarnaApi
                 }
 
                 $creditShipping = false;
-                if ($paymentEntity->getShippingInvoiceId() == $invoiceId) {
+                if ((int)$paymentEntity->getShippingInvoiceId() === $invoiceId) {
                     $klarnaApi->addArtNo(1, self::KLARNA_SHIPPING_ARTICLE_TYPE);
                     $creditShipping = true;
                 }
@@ -635,7 +604,7 @@ class KlarnaApi
         }
 
         try {
-            $pclass = ($paymentTransfer->getAccountBrand() === KlarnaConstants::BRAND_INSTALLMENT)
+            $pclass = ($paymentTransfer->getAccountBrand() === SharedConfig::BRAND_INSTALLMENT)
                 ? $paymentTransfer->getInstallmentPayIndex()
                 : KlarnaPClass::INVOICE;
 
@@ -722,15 +691,13 @@ class KlarnaApi
      *
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
-     * @param array $items
+     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $items
      * @param \Klarna $klarnaApi
      *
      * @return void
      */
-    public function addOrderItems($items, $klarnaApi)
+    public function addOrderItems(ArrayObject $items, $klarnaApi)
     {
-        $flags = KlarnaFlags::INC_VAT;
-        /** @var \Generated\Shared\Transfer\ItemTransfer $orderItem */
         foreach ($items as $orderItem) {
             $discountPercentage = 0;
 
@@ -747,7 +714,7 @@ class KlarnaApi
                 $this->moneyFacade->convertIntegerToDecimal($orderItem->getUnitGrossPrice()),
                 ($orderItem->getTaxRate()) ?: self::DEFAULT_TAX_RATE,
                 $discountPercentage,
-                $flags
+                KlarnaFlags::INC_VAT
             );
         }
     }
@@ -764,18 +731,18 @@ class KlarnaApi
      */
     public function createKlarnaAddress(AddressTransfer $addressTransfer, KlarnaPaymentTransfer $paymentTransfer = null)
     {
-        if (!$addressTransfer->getEmail() && $paymentTransfer !== null) {
+        if ($paymentTransfer !== null && !$addressTransfer->getEmail()) {
             $addressTransfer->setEmail($paymentTransfer->getEmail());
         }
-        if (!$addressTransfer->getPhone()
+        if ($paymentTransfer !== null
+            && !$addressTransfer->getPhone()
             && !$addressTransfer->getCellPhone()
-            && $paymentTransfer !== null
         ) {
             $addressTransfer->setPhone($paymentTransfer->getPhone());
         }
 
         $klarnaAddressCreator = $this->klarnaCountryFactory
-            ->createKlarnaAddressCreator($addressTransfer->getIso2Code());
+            ->getKlarnaAddressCreator($addressTransfer->getIso2Code());
 
         $klarnaAddress = $klarnaAddressCreator->createKlarnaAddress($addressTransfer);
 
@@ -793,19 +760,19 @@ class KlarnaApi
      */
     public function checkOrderStatus(SpyPaymentKlarna $paymentEntity)
     {
-        if ((int)$paymentEntity->getStatus() == KlarnaConstants::ORDER_PENDING_ACCEPTED) {
-            return KlarnaConstants::ORDER_PENDING_ACCEPTED;
+        if ((int)$paymentEntity->getStatus() === SharedConfig::ORDER_PENDING_ACCEPTED) {
+            return SharedConfig::ORDER_PENDING_ACCEPTED;
         }
 
         $klarnaApi = $this->createKlarnaObjectByPaymentKlarnaEntity($paymentEntity);
         $status = (int)$klarnaApi->checkOrderStatus($paymentEntity->getPreCheckId());
 
         if ($status === KlarnaFlags::ACCEPTED) {
-            $return = KlarnaConstants::ORDER_PENDING_ACCEPTED;
+            $return = SharedConfig::ORDER_PENDING_ACCEPTED;
         } elseif ($status === KlarnaFlags::DENIED) {
-            $return = KlarnaConstants::ORDER_PENDING_DENIED;
+            $return = SharedConfig::ORDER_PENDING_DENIED;
         } else {
-            $return = KlarnaConstants::ORDER_PENDING;
+            $return = SharedConfig::ORDER_PENDING;
         }
 
         $this->logApiResult('checkOrderStatus', $paymentEntity->getIdPaymentKlarna(), $status, "Klarna status:" . $status . "; our:" . $return);

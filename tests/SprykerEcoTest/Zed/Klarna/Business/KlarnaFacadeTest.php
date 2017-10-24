@@ -27,7 +27,7 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderAddress;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use PHPUnit_Framework_TestResult;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEcoTest\Zed\Klarna\Business\Api\Mock\KlarnaReserveMock;
 
 /**
@@ -90,7 +90,7 @@ class KlarnaFacadeTest extends AbstractFacadeTest
             ->setGender(SpyPaymentKlarnaTableMap::COL_GENDER_MALE)
             ->setDateOfBirth('1970-01-02')
             ->setClientIp('127.0.0.1')
-            ->setAccountBrand(KlarnaConstants::BRAND_INVOICE)
+            ->setAccountBrand(KlarnaConfig::BRAND_INVOICE)
             ->setLanguageIso2Code('DE')
             ->setCurrencyIso3Code('EUR')
             ->setAddress($paymentAddressTransfer);

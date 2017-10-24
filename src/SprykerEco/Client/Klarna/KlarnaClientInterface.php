@@ -24,9 +24,10 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface KlarnaClientInterface
 {
     /**
-     * @api
+     * Specification:
+     * - update payment
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -35,9 +36,10 @@ interface KlarnaClientInterface
     public function updatePayment(QuoteTransfer $quoteTransfer);
 
     /**
-     * @api
+     * Specification:
+     * - get installments from quote
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -46,27 +48,30 @@ interface KlarnaClientInterface
     public function getInstallments(QuoteTransfer $quoteTransfer);
 
     /**
-     * @api
+     * Specification:
+     * - get Klarna session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
      */
     public function getSession();
 
     /**
-     * @api
+     * Specification:
+     * - check is there are installments in session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return bool
      */
     public function hasInstallmentsInSession();
 
     /**
-     * @api
+     * Specification:
+     * - store installments into session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $installmentResponseTransfer
      *
@@ -75,38 +80,42 @@ interface KlarnaClientInterface
     public function storeInstallmentsInSession(KlarnaInstallmentResponseTransfer $installmentResponseTransfer);
 
     /**
-     * @api
+     * Specification:
+     * - remove installments
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return bool
      */
     public function removeInstallmentsFromSession();
 
     /**
-     * @api
+     * Specification:
+     * - get installments from session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallmentsFromSession();
 
     /**
-     * @api
+     * Specification:
+     * - get checkout HTML
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer);
 
     /**
-     * @api
+     * Specification:
+     * - store Klarna order id in session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param string $orderId
      *
@@ -115,36 +124,40 @@ interface KlarnaClientInterface
     public function storeKlarnaOrderIdInSession($orderId);
 
     /**
-     * @api
+     * Specification:
+     * - get Klarna id from session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return string
      */
     public function getKlarnaOrderIdFromSession();
 
     /**
-     * @api
+     * Specification:
+     * - remove Klarna order id from session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return bool
      */
     public function removeKlarnaOrderIdFromSession();
 
     /**
-     * @api
+     * Specification:
+     * - returns true if there's Klarna order id in session
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @return bool
      */
     public function hasKlarnaOrderIdInSession();
 
     /**
-     * @api
+     * Specification:
+     * - renders success HTML transfer object
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
@@ -153,17 +166,21 @@ interface KlarnaClientInterface
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 
     /**
-     * @api
+     * Specification:
+     * - create checkout order from Klarna checkout data
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
+     * @api
      *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
-     * @return mixed
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 
     /**
+     * Specification:
+     * - query Klarna service
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer
@@ -173,6 +190,9 @@ interface KlarnaClientInterface
     public function checkoutService(KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer);
 
     /**
+     * Specification:
+     * - query Klarna service for address
+     *
      * @api
      *
      * @param \Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer

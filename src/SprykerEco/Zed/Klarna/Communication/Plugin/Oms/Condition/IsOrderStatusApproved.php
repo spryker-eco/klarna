@@ -8,16 +8,13 @@
 namespace SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition;
 
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
-use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionInterface;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use Spryker\Zed\Oms\Dependency\Plugin\Condition\ConditionInterface;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 
 /**
- * Class IsOrderStatusApproved
- *
  * @package SprykerEco\Zed\Klarna\Communication\Plugin\Oms\Condition
  * @method \SprykerEco\Zed\Klarna\Business\KlarnaFacade getFacade()
  * @method \SprykerEco\Zed\Klarna\Communication\KlarnaCommunicationFactory getFactory()
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class IsOrderStatusApproved extends AbstractPlugin implements ConditionInterface
 {
@@ -30,6 +27,6 @@ class IsOrderStatusApproved extends AbstractPlugin implements ConditionInterface
     {
         $paymentEntity = $this->getPaymentEntity($orderItem);
 
-        return ((int)$paymentEntity->getStatus() === KlarnaConstants::ORDER_PENDING_ACCEPTED);
+        return ((int)$paymentEntity->getStatus() === KlarnaConfig::ORDER_PENDING_ACCEPTED);
     }
 }

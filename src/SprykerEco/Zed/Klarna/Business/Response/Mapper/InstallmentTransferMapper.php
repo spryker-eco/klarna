@@ -16,7 +16,7 @@ use KlarnaFlags;
 use KlarnaPClass;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface;
 
-class InstallmentTransferMapper
+class InstallmentTransferMapper implements InstallmentTransferMapperInterface
 {
     /**
      * @var \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToMoneyInterface
@@ -37,10 +37,8 @@ class InstallmentTransferMapper
      *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
-    public function map(
-        QuoteTransfer $quoteTransfer,
-        $pClasses
-    ) {
+    public function map(QuoteTransfer $quoteTransfer, array $pClasses)
+    {
         $orderAmount = $quoteTransfer->getTotals()->getGrandTotal();
         $payments = new ArrayObject();
         foreach ($pClasses as $key => $pClass) {

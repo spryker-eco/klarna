@@ -11,7 +11,7 @@ use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Kernel\Dependency\Injector\AbstractDependencyInjector;
 use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPluginCollection;
 use Spryker\Zed\Payment\PaymentDependencyProvider;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Checkout\KlarnaPreCheckPlugin;
 use SprykerEco\Zed\Klarna\Communication\Plugin\Checkout\KlarnaSaveOrderPlugin;
 
@@ -37,8 +37,8 @@ class PaymentDependencyInjector extends AbstractDependencyInjector
     protected function injectPaymentPlugins(Container $container)
     {
         $container->extend(PaymentDependencyProvider::CHECKOUT_PLUGINS, function (CheckoutPluginCollection $pluginCollection) {
-            $pluginCollection->add(new KlarnaPreCheckPlugin(), KlarnaConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_PRE_CHECK_PLUGINS);
-            $pluginCollection->add(new KlarnaSaveOrderPlugin(), KlarnaConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_ORDER_SAVER_PLUGINS);
+            $pluginCollection->add(new KlarnaPreCheckPlugin(), KlarnaConfig::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_PRE_CHECK_PLUGINS);
+            $pluginCollection->add(new KlarnaSaveOrderPlugin(), KlarnaConfig::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_ORDER_SAVER_PLUGINS);
 
             return $pluginCollection;
         });

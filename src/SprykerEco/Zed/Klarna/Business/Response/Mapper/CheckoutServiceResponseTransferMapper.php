@@ -12,8 +12,12 @@ use Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer;
 use Generated\Shared\Transfer\KlarnaPaymentMethodDetailTransfer;
 use Generated\Shared\Transfer\KlarnaPaymentMethodTransfer;
 
-class CheckoutServiceResponseTransferMapper
+class CheckoutServiceResponseTransferMapper implements CheckoutServiceResponseTransferMapperInterface
 {
+    const HTTP_STATUS_CODE = 'http_status_code';
+    const INTERNAL_MESSAGE = 'internal_message';
+    const PUBLIC_CODE = 'public_code';
+
     /**
      * @param \CheckoutServiceResponse $checkoutServiceResponse
      *
@@ -23,10 +27,10 @@ class CheckoutServiceResponseTransferMapper
     {
         $checkoutServiceTransfer = new KlarnaCheckoutServiceResponseTransfer();
         $responseData = $checkoutServiceResponse->getData();
-        if (isset($responseData['http_status_code']) && $responseData['http_status_code'] == 400) {
-            $checkoutServiceTransfer->setHttpStatusCode($responseData['http_status_code']);
-            $checkoutServiceTransfer->setInternalMessage($responseData['internal_message']);
-            $checkoutServiceTransfer->setPublicCode($responseData['public_code']);
+        if (isset($responseData[self::HTTP_STATUS_CODE]) && $responseData[self::HTTP_STATUS_CODE] == 400) {
+            $checkoutServiceTransfer->setHttpStatusCode($responseData[self::HTTP_STATUS_CODE]);
+            $checkoutServiceTransfer->setInternalMessage($responseData[self::INTERNAL_MESSAGE]);
+            $checkoutServiceTransfer->setPublicCode($responseData[self::PUBLIC_CODE]);
 
             return $checkoutServiceTransfer;
         }

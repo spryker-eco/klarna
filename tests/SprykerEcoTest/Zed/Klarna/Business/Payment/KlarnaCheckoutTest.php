@@ -12,7 +12,7 @@ use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Klarna_Checkout_Order;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout;
@@ -115,11 +115,11 @@ class KlarnaCheckoutTest extends Test
             ->getMock();
 
         $fetchKlarnaOrderReturnData = [
-            'status' => KlarnaConstants::STATUS_COMPLETE,
+            'status' => KlarnaConfig::STATUS_COMPLETE,
             'cart' => [
                 'items' => [
                     [
-                        'type' => KlarnaConstants::SHIPPING_TYPE,
+                        'type' => KlarnaConfig::SHIPPING_TYPE,
                         'reference' => '',
                         'name' => 'shipping',
                         'quantity' => 1,

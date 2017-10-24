@@ -47,20 +47,13 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
+     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface
      */
     public function createKlarnaApi()
     {
-        $config = $this->getConfig();
-
         return new KlarnaApi(
             $this->createAdapter(),
-            $config->getEid(),
-            $config->getSharedSecret(),
-            $config->isTestMode(),
-            $config->getMailMode(),
-            $config->getPclassStoreType(),
-            $config->getPclassStoreUri(),
+            $this->getConfig(),
             $this->getLocaleFacade(),
             $this->getMoneyFacade()
         );
@@ -71,14 +64,8 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
      */
     public function createKlarnaCheckoutApi()
     {
-        $config = $this->getConfig();
-
         return new KlarnaCheckoutApi(
-            $config->getEid(),
-            $config->getCheckoutConfirmationUri(),
-            $config->getCheckoutPushUri(),
-            $config->getCheckoutTermsUri(),
-            $config->getCheckoutUri(),
+            $this->getConfig(),
             $this->getKlarnaCheckoutConnector()
         );
     }
@@ -250,7 +237,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapper
+     * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface
      */
     public function createCheckoutServiceResponseTransferMapper()
     {
@@ -258,7 +245,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper
+     * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface
      */
     public function createInstallmentTransferMapper()
     {
@@ -266,7 +253,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapper
+     * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapperInterface
      */
     public function createAddressesResponseTransferMapper()
     {

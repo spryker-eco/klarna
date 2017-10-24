@@ -9,29 +9,31 @@ namespace SprykerEco\Zed\Klarna\Business\Request;
 
 use Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
+use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapper;
+use SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapperInterface;
 
 class GetAddressesRequest
 {
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi
+     * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface
      */
     protected $klarnaApi;
 
     /**
-     * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapper
+     * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapperInterface
      */
     protected $addressesResponseTransferMapper;
 
     /**
      * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
-     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi $klarnaApi
-     * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapper $addressesResponseTransferMapper
+     * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi
+     * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapperInterface $addressesResponseTransferMapper
      */
     public function __construct(
-        KlarnaApi $klarnaApi,
-        AddressesResponseTransferMapper $addressesResponseTransferMapper
+        KlarnaApiInterface $klarnaApi,
+        AddressesResponseTransferMapperInterface $addressesResponseTransferMapper
     ) {
         $this->klarnaApi = $klarnaApi;
         $this->addressesResponseTransferMapper = $addressesResponseTransferMapper;

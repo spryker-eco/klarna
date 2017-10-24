@@ -17,7 +17,7 @@ class KlarnaAddressFactory
     const DEFAULT_COUNTRY = 'default';
 
     /**
-     * @var \Pyz\Yves\Klarna\Plugin\SubFormsCreator\SubFormsCreatorInterface[]
+     * @var \SprykerEco\Yves\Klarna\Plugin\SubFormsCreator\SubFormsCreatorInterface[]
      */
     protected $klarnaAddressCreators = [];
 
@@ -44,14 +44,11 @@ class KlarnaAddressFactory
      *
      * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaAddressCreator\KlarnaAddressCreatorInterface
      */
-    public function createKlarnaAddressCreator($countryIso2Code)
+    public function getKlarnaAddressCreator($countryIso2Code)
     {
         if (isset($this->klarnaAddressCreators[$countryIso2Code])) {
-            $klarnaAddressCreator = $this->klarnaAddressCreators[$countryIso2Code]();
-        } else {
-            $klarnaAddressCreator = $this->klarnaAddressCreators[self::DEFAULT_COUNTRY]();
+            return $this->klarnaAddressCreators[$countryIso2Code]();
         }
-
-        return $klarnaAddressCreator;
+        return $this->klarnaAddressCreators[self::DEFAULT_COUNTRY]();
     }
 }

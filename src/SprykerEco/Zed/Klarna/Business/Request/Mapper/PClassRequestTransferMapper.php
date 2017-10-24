@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\KlarnaObjectInitTransfer;
 use Generated\Shared\Transfer\KlarnaPClassRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-class PClassRequestTransferMapper
+class PClassRequestTransferMapper implements PClassRequestTransferMapperInterface
 {
     /**
      * @param \Generated\Shared\Transfer\KlarnaPClassRequestTransfer $klarnaPClassRequestTransfer

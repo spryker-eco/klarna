@@ -13,6 +13,7 @@ use Spryker\Shared\Config\Config;
 use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormProviderNameInterface;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 use SprykerEco\Shared\Klarna\KlarnaConstants;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -109,7 +110,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
     public function addPNO(FormBuilderInterface $builder)
     {
         $builder->add(
-            KlarnaConstants::FIELD_PNO,
+            KlarnaConfig::FIELD_PNO,
             'text',
             [
                 'label' => 'customer.PNO',
@@ -231,7 +232,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
      */
     protected function getTemplatePath()
     {
-        $templatePath = KlarnaConstants::PROVIDER_NAME .
+        $templatePath = KlarnaConfig::PROVIDER_NAME .
             '/' . static::PAYMENT_METHOD .
             '_' . $this->countryIso2;
 
@@ -280,7 +281,7 @@ class InstallmentSubForm extends AbstractSubFormType implements SubFormInterface
      */
     public function getProviderName()
     {
-        return KlarnaConstants::PROVIDER_NAME;
+        return KlarnaConfig::PROVIDER_NAME;
     }
 
     /**

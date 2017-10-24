@@ -30,8 +30,8 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideDependencies(Container $container)
     {
-        $container = $this->provideClients($container);
-        $container = $this->providePlugins($container);
+        $container = $this->addClients($container);
+        $container = $this->addPlugins($container);
 
         return $container;
     }
@@ -41,7 +41,7 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Yves\Kernel\Container
      */
-    protected function provideClients(Container $container)
+    protected function addClients(Container $container)
     {
         $container[static::CLIENT_KLARNA] = function (Container $container) {
             return $container->getLocator()->klarna()->client();
@@ -61,7 +61,7 @@ class KlarnaDependencyProvider extends AbstractBundleDependencyProvider
      *
      * @return \Spryker\Yves\Kernel\Container
      */
-    protected function providePlugins(Container $container)
+    protected function addPlugins(Container $container)
     {
         $container[self::PLUGIN_APPLICATION] = function () {
             $pimplePlugin = new Pimple();

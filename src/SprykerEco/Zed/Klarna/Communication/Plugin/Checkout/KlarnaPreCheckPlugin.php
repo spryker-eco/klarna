@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use KlarnaFlags;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin as BaseAbstractPlugin;
 use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPreCheckPluginInterface;
-use SprykerEco\Shared\Klarna\KlarnaConstants;
+use SprykerEco\Shared\Klarna\KlarnaConfig;
 
 /**
  * Class KlarnaPreCheckPlugin
@@ -52,7 +52,7 @@ class KlarnaPreCheckPlugin extends BaseAbstractPlugin implements CheckoutPreChec
             $klarnaPaymentTransfer
                 ->setPreCheckId($klarnaReserveAmountResponseTransfer->getReservationNo())
                 ->setPendingStatus(
-                    (int)($klarnaReserveAmountResponseTransfer->getStatus() !== KlarnaConstants::ORDER_PENDING_ACCEPTED)
+                    (int)($klarnaReserveAmountResponseTransfer->getStatus() !== KlarnaConfig::ORDER_PENDING_ACCEPTED)
                 )
                 ->setStatus($this->mapStatus($klarnaReserveAmountResponseTransfer->getStatus()));
         }
@@ -76,11 +76,11 @@ class KlarnaPreCheckPlugin extends BaseAbstractPlugin implements CheckoutPreChec
     protected function mapStatus($klarnaStatus)
     {
         if ($klarnaStatus === KlarnaFlags::ACCEPTED) {
-            $status = KlarnaConstants::ORDER_PENDING_ACCEPTED;
+            $status = KlarnaConfig::ORDER_PENDING_ACCEPTED;
         } elseif ($klarnaStatus === KlarnaFlags::DENIED) {
-            $status = KlarnaConstants::ORDER_PENDING_DENIED;
+            $status = KlarnaConfig::ORDER_PENDING_DENIED;
         } else {
-            $status = KlarnaConstants::ORDER_PENDING;
+            $status = KlarnaConfig::ORDER_PENDING;
         }
 
         return $status;
