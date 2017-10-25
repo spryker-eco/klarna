@@ -11,17 +11,10 @@ use Spryker\Client\Kernel\AbstractFactory;
 use SprykerEco\Client\Klarna\Session\KlarnaSession;
 use SprykerEco\Client\Klarna\Zed\KlarnaStub;
 
-/**
- * Class KlarnaFactory
- *
- * @package SprykerEco\Client\Klarna
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class KlarnaFactory extends AbstractFactory
 {
     /**
-     * @return \SprykerEco\Client\Klarna\Zed\KlarnaStub
+     * @return \SprykerEco\Client\Klarna\Zed\KlarnaStubInterface
      */
     public function createKlarnaStub()
     {
@@ -29,9 +22,7 @@ class KlarnaFactory extends AbstractFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
+     * @return \SprykerEco\Client\Klarna\Session\KlarnaSessionInterface
      */
     public function createKlarnaSession()
     {
@@ -39,7 +30,7 @@ class KlarnaFactory extends AbstractFactory
     }
 
     /**
-     * @return mixed
+     * @return \Spryker\Client\ZedRequest\ZedRequestClientInterface
      */
     protected function getZedService()
     {
@@ -47,7 +38,7 @@ class KlarnaFactory extends AbstractFactory
     }
 
     /**
-     * @return mixed
+     * @return \Spryker\Client\Session\SessionClientInterface
      */
     protected function getSessionClient()
     {

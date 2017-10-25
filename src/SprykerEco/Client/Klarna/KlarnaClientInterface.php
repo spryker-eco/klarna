@@ -49,16 +49,6 @@ interface KlarnaClientInterface
 
     /**
      * Specification:
-     * - get Klarna session
-     *
-     * @api
-     *
-     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
-     */
-    public function getSession();
-
-    /**
-     * Specification:
      * - check is there are installments in session
      *
      * @api

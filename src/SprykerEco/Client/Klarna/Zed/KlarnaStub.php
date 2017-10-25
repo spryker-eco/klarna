@@ -11,36 +11,27 @@ use Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer;
 use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
 use Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Client\ZedRequest\ZedRequestClient;
+use Spryker\Client\ZedRequest\ZedRequestClientInterface;
 
-/**
- * Class KlarnaStub
- *
- * @package SprykerEco\Client\Klarna\Zed
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class KlarnaStub implements KlarnaStubInterface
 {
     /**
-     * @var \Spryker\Client\ZedRequest\ZedRequestClient
+     * @var \Spryker\Client\ZedRequest\ZedRequestClientInterface
      */
     protected $zedRequestClient;
 
     /**
-     * @param \Spryker\Client\ZedRequest\ZedRequestClient $zedRequestClient
+     * @param \Spryker\Client\ZedRequest\ZedRequestClientInterface $zedRequestClient
      */
-    public function __construct(ZedRequestClient $zedRequestClient)
+    public function __construct(ZedRequestClientInterface $zedRequestClient)
     {
         $this->zedRequestClient = $zedRequestClient;
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function updatePayment(QuoteTransfer $quoteTransfer)
     {
@@ -48,11 +39,9 @@ class KlarnaStub implements KlarnaStubInterface
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallments(QuoteTransfer $quoteTransfer)
     {
@@ -60,11 +49,9 @@ class KlarnaStub implements KlarnaStubInterface
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer)
     {
@@ -72,11 +59,9 @@ class KlarnaStub implements KlarnaStubInterface
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
-     * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\KlarnaCheckoutTransfer
      */
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer)
     {
@@ -84,8 +69,6 @@ class KlarnaStub implements KlarnaStubInterface
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
@@ -98,7 +81,7 @@ class KlarnaStub implements KlarnaStubInterface
     /**
      * @param \Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\KlarnaCheckoutServiceResponseTransfer
      */
     public function checkoutService(KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer)
     {
@@ -108,7 +91,7 @@ class KlarnaStub implements KlarnaStubInterface
     /**
      * @param \Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface|\Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer
      */
     public function getAddresses(KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer)
     {

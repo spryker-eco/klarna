@@ -102,8 +102,6 @@ class KlarnaApi implements KlarnaApiInterface
     protected $moneyFacade;
 
     /**
-     * KlarnaApi constructor.
-     *
      * @param \Klarna $klarnaAdapter
      * @param \SprykerEco\Zed\Klarna\KlarnaConfig $config
      * @param \SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToLocaleInterface $localeFacade
@@ -216,8 +214,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Activate Invoice at klarna.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
@@ -260,8 +256,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Activate Invoice at klarna.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param array $spyOrderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
@@ -327,8 +321,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Get Part Payments.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaPClassRequestTransfer $klarnaPClassRequestTransfer
      *
      * @return \KlarnaPClass[]
@@ -353,8 +345,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Refund Invoice.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
@@ -429,8 +419,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Refund article.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param array $orderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
@@ -538,8 +526,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Cancel reservation.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return bool
@@ -568,8 +554,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Reserve Invoice Amount.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -626,8 +610,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Add reservation values to passed klarna instance.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\KlarnaPaymentTransfer $paymentTransfer
@@ -689,8 +671,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Add order items to klarna instance.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $items
      * @param \Klarna $klarnaApi
      *
@@ -722,8 +702,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Convert addressTransfer to klarna address.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\AddressTransfer $addressTransfer
      * @param \Generated\Shared\Transfer\KlarnaPaymentTransfer|null $paymentTransfer
      *
@@ -751,8 +729,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Check order Status
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
@@ -783,8 +759,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Add Shipping costs to klarna.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\ShipmentTransfer $shipment
      * @param \Klarna $klarnaApi
      *
@@ -808,8 +782,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Update an reservation.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -844,8 +816,6 @@ class KlarnaApi implements KlarnaApiInterface
     /**
      * Send invoice by email.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return string
@@ -859,8 +829,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Send invoice by postal service.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
@@ -913,8 +881,6 @@ class KlarnaApi implements KlarnaApiInterface
 
     /**
      * Log Api Results to transaction status table.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param string $type
      * @param string $paymentId

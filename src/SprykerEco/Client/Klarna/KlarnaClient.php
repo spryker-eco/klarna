@@ -55,19 +55,15 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @return \SprykerEco\Client\Klarna\Session\KlarnaSession
+     * @return \SprykerEco\Client\Klarna\Session\KlarnaSessionInterface
      */
-    public function getSession()
+    protected function getSession()
     {
         return $this->getFactory()->createKlarnaSession();
     }
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @return bool
      */
@@ -78,8 +74,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer $installmentResponseTransfer
      *
@@ -95,8 +89,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return bool
      */
     public function removeInstallmentsFromSession()
@@ -107,8 +99,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return \Generated\Shared\Transfer\KlarnaInstallmentResponseTransfer
      */
     public function getInstallmentsFromSession()
@@ -118,8 +108,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -133,8 +121,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param string $orderId
      *
      * @return void
@@ -147,8 +133,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return string
      */
     public function getKlarnaOrderIdFromSession()
@@ -158,8 +142,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @return bool
      */
@@ -171,8 +153,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @return bool
      */
     public function hasKlarnaOrderIdInSession()
@@ -182,8 +162,6 @@ class KlarnaClient extends AbstractClient implements KlarnaClientInterface
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *

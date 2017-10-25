@@ -21,7 +21,7 @@ class CheckoutServiceRequest implements CheckoutServiceRequestInterface
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface
      */
-    protected $installmentTransferMapper;
+    protected $checkoutServiceResponseTransferMapper;
 
     /**
      * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi

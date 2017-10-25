@@ -15,7 +15,7 @@
     "spryker/propel-orm": "^1.0.0",
     "spryker/sales": "^8.0.0",
     "spryker/transfer": "^3.0.0",
-    "spryker/utiltext": "^1.2.0",
+    "spryker/util-text": "^1.0.0",
     "klarna/php-xmlrpc": "4.0",
     "klarna/checkout": "4.0"
   },

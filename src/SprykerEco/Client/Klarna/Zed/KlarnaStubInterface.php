@@ -12,43 +12,30 @@ use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
 use Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-/**
- * Class KlarnaStub
- *
- * @package SprykerEco\Client\Klarna\Zed
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 interface KlarnaStubInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function updatePayment(QuoteTransfer $quoteTransfer);
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function getInstallments(QuoteTransfer $quoteTransfer);
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function getKlarnaCheckoutHtml(QuoteTransfer $quoteTransfer);
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
@@ -56,11 +43,9 @@ interface KlarnaStubInterface
     public function getSuccessHtml(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
-     * @return \Spryker\Shared\Transfer\TransferInterface
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
     public function createCheckoutOrder(KlarnaCheckoutTransfer $klarnaCheckoutTransfer);
 

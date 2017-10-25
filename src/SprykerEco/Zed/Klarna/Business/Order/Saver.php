@@ -18,11 +18,12 @@ use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLog;
  * Class Saver
  *
  * @package SprykerEco\Zed\Klarna\Business\Order
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class Saver implements SaverInterface
 {
+
+    const TYPE_SAVE = 'save';
+
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
@@ -78,12 +79,12 @@ class Saver implements SaverInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ItemTransfer[] $orderItemTransfers
+     * @param \ArrayObject|\Generated\Shared\Transfer\ItemTransfer[] $orderItemTransfers
      * @param int $idPayment
      *
      * @return void
      */
-    protected function savePaymentForOrderItems($orderItemTransfers, $idPayment)
+    protected function savePaymentForOrderItems(\ArrayObject $orderItemTransfers, $idPayment)
     {
         foreach ($orderItemTransfers as $orderItemTransfer) {
             $paymentOrderItemEntity = new SpyPaymentKlarnaOrderItem();
@@ -97,17 +98,15 @@ class Saver implements SaverInterface
     /**
      * Save to klarna status log.
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @param string $idPaymentKlarna
+     * @param int $idPaymentKlarna
      *
      * @return void
      */
     protected function saveKlarnaPaymentStatusLog($idPaymentKlarna)
     {
         $logEntity = new SpyPaymentKlarnaTransactionStatusLog();
-        $logEntity->setProcessingType('save');
-        $logEntity->setProcessingStatus(1);
+        $logEntity->setProcessingType(self::TYPE_SAVE);
+        $logEntity->setProcessingStatus('1');
         $logEntity->setFkPaymentKlarna($idPaymentKlarna);
 
         $logEntity->save();
