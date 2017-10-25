@@ -18,19 +18,12 @@ use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * Class KlarnaFacade
- *
- * @package SprykerEco\Zed\Klarna\Business
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- * @method \SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory getFactory()
+ * @method KlarnaBusinessFactory getFactory()
  */
-class KlarnaFacade extends AbstractFacade
+class KlarnaFacade extends AbstractFacade implements KlarnaFacadeInterface
 {
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
@@ -47,8 +40,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
@@ -61,8 +52,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaReserveAmountResponseTransfer
@@ -74,8 +63,6 @@ class KlarnaFacade extends AbstractFacade
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentKlarna
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
@@ -90,8 +77,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentKlarna
      *
      * @return string
@@ -103,8 +88,6 @@ class KlarnaFacade extends AbstractFacade
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentKlarna
      *
@@ -118,8 +101,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentKlarna
      *
      * @return string
@@ -131,8 +112,6 @@ class KlarnaFacade extends AbstractFacade
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -146,8 +125,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Propel\Runtime\Collection\ObjectCollection $orders
      *
      * @return array
@@ -159,8 +136,6 @@ class KlarnaFacade extends AbstractFacade
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
@@ -174,8 +149,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaCheckoutTransfer
@@ -188,8 +161,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Generated\Shared\Transfer\KlarnaCheckoutTransfer $klarnaCheckoutTransfer
      *
      * @return bool
@@ -201,8 +172,6 @@ class KlarnaFacade extends AbstractFacade
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param array $orderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentKlarna
@@ -232,8 +201,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param array $orderItems
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentKlarna
      *
@@ -249,8 +216,6 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
      * @return int
@@ -262,8 +227,6 @@ class KlarnaFacade extends AbstractFacade
 
     /**
      * @api
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $paymentEntity
      *
@@ -277,23 +240,19 @@ class KlarnaFacade extends AbstractFacade
     /**
      * @api
      *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param int $salesOrderId
      *
      * @return array
      */
     public function getKlarnaPaymentById($salesOrderId)
     {
-        return $this->getFactory()->getKlarnaPaymentById($salesOrderId);
+        return $this->getFactory()
+            ->createSalesHelper()
+            ->getKlarnaPaymentById($salesOrderId);
     }
 
     /**
      * @api
-     *
-     * @pai
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param int $salesOrderId
      *
@@ -301,7 +260,9 @@ class KlarnaFacade extends AbstractFacade
      */
     public function getInvoicePdfUrl($salesOrderId)
     {
-        return $this->getFactory()->getInvoicePdfUrl($salesOrderId);
+        return $this->getFactory()
+            ->createSalesHelper()
+            ->getInvoicePdfUrl($salesOrderId);
     }
 
     /**
@@ -313,7 +274,9 @@ class KlarnaFacade extends AbstractFacade
      */
     public function checkoutService(KlarnaCheckoutServiceRequestTransfer $klarnaCheckoutServiceRequestTransfer)
     {
-        return $this->getFactory()->createCheckoutServiceRequest()->getInstallments($klarnaCheckoutServiceRequestTransfer);
+        return $this->getFactory()
+            ->createCheckoutServiceRequest()
+            ->getInstallments($klarnaCheckoutServiceRequestTransfer);
     }
 
     /**
@@ -325,20 +288,8 @@ class KlarnaFacade extends AbstractFacade
      */
     public function getAddresses(KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer)
     {
-        return $this->getFactory()->createGetAddressesRequest()->getAddresses($klarnaGetAddressesRequestTransfer);
-    }
-
-    /**
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\OrderTransfer $salesOrderTransfer
-     *
-     * @return \SprykerEco\Zed\Klarna\Business\Address\AddressUpdater
-     */
-    public function getAddressUpdater(OrderTransfer $salesOrderTransfer)
-    {
-        $klarnaPayment = $this->getKlarnaPaymentById($salesOrderTransfer->getIdSalesOrder());
-
-        return $this->getFactory()->createAddressUpdater($klarnaPayment[0]);
+        return $this->getFactory()
+            ->createGetAddressesRequest()
+            ->getAddresses($klarnaGetAddressesRequestTransfer);
     }
 }

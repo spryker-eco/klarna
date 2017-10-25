@@ -24,7 +24,7 @@ use SprykerEco\Zed\Klarna\KlarnaDependencyProvider;
 class KlarnaCommunicationFactory extends AbstractCommunicationFactory
 {
     /**
-     * @return \SprykerEco\Zed\Klarna\Communication\Table\Payments
+     * @return \SprykerEco\Zed\Klarna\Communication\Table\TableInterface
      */
     public function createPaymentsTable()
     {
@@ -34,11 +34,9 @@ class KlarnaCommunicationFactory extends AbstractCommunicationFactory
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param int $idPayment
      *
-     * @return \SprykerEco\Zed\Klarna\Communication\Table\StatusLog
+     * @return \SprykerEco\Zed\Klarna\Communication\Table\TableInterface
      */
     public function createStatusLogTable($idPayment)
     {

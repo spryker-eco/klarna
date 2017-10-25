@@ -7,6 +7,7 @@
     }
   },
   "require": {
+    "spryker/utiltext": "^1.2.0",
     "klarna/php-xmlrpc": "4.0",
     "klarna/checkout": "4.0"
   },

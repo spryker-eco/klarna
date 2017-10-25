@@ -9,13 +9,6 @@ namespace SprykerEco\Zed\Klarna\Dependency\Facade;
 
 use Spryker\Zed\Sales\Business\SalesFacadeInterface;
 
-/**
- * Class KlarnaToSalesBridge
- *
- * @package SprykerEco\Zed\Klarna\Dependency\Facade
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class KlarnaToSalesBridge implements KlarnaToSalesInterface
 {
     /**
@@ -26,7 +19,7 @@ class KlarnaToSalesBridge implements KlarnaToSalesInterface
     /**
      * @param \Spryker\Zed\Sales\Business\SalesFacadeInterface $salesFacade
      */
-    public function __construct(SalesFacadeInterface $salesFacade)
+    public function __construct($salesFacade)
     {
         $this->salesFacade = $salesFacade;
     }

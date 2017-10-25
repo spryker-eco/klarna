@@ -7,15 +7,9 @@
 
 namespace SprykerEco\Zed\Klarna\Communication\Controller;
 
-use Spryker\Zed\Application\Communication\Controller\AbstractController;
+use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 
 /**
- * Class IndexController
- *
- * @package SprykerEco\Zed\Klarna\Communication\Controller
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- *
  * @method \SprykerEco\Zed\Klarna\Communication\KlarnaCommunicationFactory getFactory()
  */
 class IndexController extends AbstractController

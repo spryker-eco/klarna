@@ -9,22 +9,11 @@ namespace SprykerEco\Zed\Klarna\Business\Request;
 
 use Generated\Shared\Transfer\KlarnaPClassRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
-use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapperInterface;
-use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface;
 
-/**
- * Class Installment
- *
- * @package SprykerEco\Zed\Klarna\Business\Payment
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- * @author Sergey Sikachev <sergey.sikachev@spryker.com>
- */
-class InstallmentRequest
+class InstallmentRequest implements InstallmentRequestInterface
 {
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface
@@ -42,8 +31,6 @@ class InstallmentRequest
     protected $installmentTransferMapper;
 
     /**
-     * Installment constructor.
-     *
      * @param \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface $klarnaApi
      * @param \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapperInterface $pClassRequestTransferMapper
      * @param \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface $installmentTransferMapper

@@ -16,11 +16,7 @@ use SprykerEco\Yves\Klarna\Handler\Exception\KlarnaHandlerException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class KlarnaHandlerPlugin
- *
- * @package SprykerEco\Yves\Klarna\Plugin
  * @method \SprykerEco\Yves\Klarna\KlarnaFactory getFactory()
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
  */
 class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInterface
 {
@@ -32,7 +28,7 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
      */
     public function addToDataClass(Request $request, AbstractTransfer $quoteTransfer)
     {
-        $this->addToQuote($request, $quoteTransfer);
+        return $this->addToQuote($request, $quoteTransfer);
     }
 
     /**
@@ -44,38 +40,21 @@ class KlarnaHandlerPlugin extends AbstractPlugin implements StepHandlerPluginInt
     public function addToQuote(Request $request, QuoteTransfer $quoteTransfer)
     {
         try {
-            $klarnaHandler = $this->getFactory()->createKlarnaHandler();
-            $klarnaHandler->addPaymentToQuote($request, $quoteTransfer);
+            return $this->getFactory()
+                ->createKlarnaHandler()
+                ->addPaymentToQuote($request, $quoteTransfer);
         } catch (KlarnaHandlerException $e) {
-            $factory = $this->getFactory();
             $quoteTransfer->setPayment(null);
-            $factory->getFlashMessenger()
+            $this->getFactory()
+                ->getFlashMessenger()
                 ->addErrorMessage(
-                    $factory->getTranslatorClient()->translate(
+                    $this->getFactory()->getTranslatorClient()->translate(
                         $e->getMessage(),
-                        $factory->getStore()->getCurrentLocale()
+                        $this->getFactory()->getStore()->getCurrentLocale()
                     )
                 );
         }
-    }
 
-    /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @return \Spryker\Client\Glossary\GlossaryClient
-     */
-    public function getTranslatorClient()
-    {
-        return $this->getFactory()->getTranslatorClient();
-    }
-
-    /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @return \Spryker\Shared\Kernel\Store
-     */
-    public function getStore()
-    {
-        return Store::getInstance();
+        return $quoteTransfer;
     }
 }

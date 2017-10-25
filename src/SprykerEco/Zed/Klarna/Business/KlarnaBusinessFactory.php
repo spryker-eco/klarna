@@ -60,9 +60,9 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi
+     * @return \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApiInterface
      */
-    public function createKlarnaCheckoutApi()
+    protected function createKlarnaCheckoutApi()
     {
         return new KlarnaCheckoutApi(
             $this->getConfig(),
@@ -73,7 +73,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \Klarna_Checkout_ConnectorInterface
      */
-    public function getKlarnaCheckoutConnector()
+    protected function getKlarnaCheckoutConnector()
     {
         $config = $this->getConfig();
 
@@ -86,7 +86,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmount
+     * @return \SprykerEco\Zed\Klarna\Business\Request\ReserveAmountInterface
      */
     public function createReserveAmount()
     {
@@ -98,13 +98,13 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \Klarna
      */
-    public function createAdapter()
+    protected function createAdapter()
     {
         return new Klarna();
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\CheckoutServiceRequest
+     * @return \SprykerEco\Zed\Klarna\Business\Request\CheckoutServiceRequestInterface
      */
     public function createCheckoutServiceRequest()
     {
@@ -115,7 +115,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequest
+     * @return \SprykerEco\Zed\Klarna\Business\Request\InstallmentRequestInterface
      */
     public function createInstallment()
     {
@@ -127,7 +127,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\GetAddressesRequest
+     * @return \SprykerEco\Zed\Klarna\Business\Request\GetAddressesRequestInterface
      */
     public function createGetAddressesRequest()
     {
@@ -138,7 +138,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Log\Log
+     * @return \SprykerEco\Zed\Klarna\Business\Log\LogInterface
      */
     public function createPaymentLog()
     {
@@ -148,7 +148,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckout
+     * @return \SprykerEco\Zed\Klarna\Business\Request\KlarnaCheckoutInterface
      */
     public function createKlarnaCheckout()
     {
@@ -175,63 +175,20 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Klarna\Business\Order\SalesHelper
+     * @return \SprykerEco\Zed\Klarna\Business\Order\SalesHelperInterface
      */
-    protected function createSalesHelper()
+    public function createSalesHelper()
     {
         return new SalesHelper(
-            $this->getQueryContainer()
+            $this->getQueryContainer(),
+            $this->getConfig()
         );
     }
 
     /**
-     * @param int $salesOrderId
-     *
-     * @return string
+     * @return \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapperInterface
      */
-    public function getInvoicePdfUrl($salesOrderId)
-    {
-        return $this->createSalesHelper()->getInvoicePdfUrl(
-            $this->getConfig()->getPdfUrlPattern(),
-            $salesOrderId
-        );
-    }
-
-    /**
-     * @param int $salesOrderId
-     *
-     * @return array
-     */
-    public function getKlarnaPaymentById($salesOrderId)
-    {
-        return $this->createSalesHelper()->getKlarnaPaymentById($salesOrderId);
-    }
-
-    /**
-     * @return \Spryker\Yves\Application\Application
-     */
-    public function getApplication()
-    {
-        return $this->getProvidedDependency(KlarnaDependencyProvider::PLUGIN_APPLICATION);
-    }
-
-    /**
-     * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarna $spyPayment
-     *
-     * @return \SprykerEco\Zed\Klarna\Business\Address\AddressUpdater
-     */
-    public function createAddressUpdater(SpyPaymentKlarna $spyPayment)
-    {
-        return new AddressUpdater(
-            $this->createKlarnaApi(),
-            $spyPayment
-        );
-    }
-
-    /**
-     * @return \SprykerEco\Zed\Klarna\Business\Request\Mapper\PClassRequestTransferMapper
-     */
-    public function createPClassRequestTransferMapper()
+    protected function createPClassRequestTransferMapper()
     {
         return new PClassRequestTransferMapper();
     }
@@ -239,7 +196,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface
      */
-    public function createCheckoutServiceResponseTransferMapper()
+    protected function createCheckoutServiceResponseTransferMapper()
     {
         return new CheckoutServiceResponseTransferMapper();
     }
@@ -247,7 +204,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\InstallmentTransferMapperInterface
      */
-    public function createInstallmentTransferMapper()
+    protected function createInstallmentTransferMapper()
     {
         return new InstallmentTransferMapper($this->getMoneyFacade());
     }
@@ -255,7 +212,7 @@ class KlarnaBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapperInterface
      */
-    public function createAddressesResponseTransferMapper()
+    protected function createAddressesResponseTransferMapper()
     {
         return new AddressesResponseTransferMapper();
     }

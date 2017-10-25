@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEco\Zed\Klarna\Business\Api\Handler;
 
 use Generated\Shared\Transfer\KlarnaCheckoutTransfer;
@@ -7,7 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface KlarnaCheckoutApiInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *

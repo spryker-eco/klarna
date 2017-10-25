@@ -10,26 +10,15 @@ namespace SprykerEco\Zed\Klarna\Business\Log;
 use Propel\Runtime\Collection\ObjectCollection;
 use SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface;
 
-/**
- * Class Log
- *
- * @package SprykerEco\Zed\Klarna\Business\Payment
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
-class Log
+class Log implements LogInterface
 {
     /**
      * @var \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $queryContainer;
 
     /**
      * Log constructor.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
      */
@@ -39,8 +28,6 @@ class Log
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Propel\Runtime\Collection\ObjectCollection $orders
      *
      * @return array

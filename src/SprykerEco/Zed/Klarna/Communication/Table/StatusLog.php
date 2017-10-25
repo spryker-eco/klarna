@@ -12,14 +12,7 @@ use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaTransactionStatusLogQuery;
 use Spryker\Zed\Gui\Communication\Table\AbstractTable;
 use Spryker\Zed\Gui\Communication\Table\TableConfiguration;
 
-/**
- * Class StatusLog
- *
- * @package SprykerEco\Zed\Klarna\Communication\Table
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
-class StatusLog extends AbstractTable
+class StatusLog extends AbstractTable implements TableInterface
 {
     const FIELD_DETAILS = 'FIELD_DETAILS';
 

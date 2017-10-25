@@ -7,39 +7,33 @@
 
 namespace SprykerEco\Zed\Klarna\Business\Order;
 
+use SprykerEco\Zed\Klarna\KlarnaConfig;
 use SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface;
 
-/**
- * Class SalesHelper
- *
- * @package SprykerEco\Zed\Klarna\Business\Order
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
 class SalesHelper implements SalesHelperInterface
 {
     /**
      * @var \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $queryContainer;
 
     /**
+     * @var KlarnaConfig
+     */
+    protected $config;
+
+    /**
      * SalesHelper constructor.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
      */
-    public function __construct(KlarnaQueryContainerInterface $queryContainer)
+    public function __construct(KlarnaQueryContainerInterface $queryContainer, KlarnaConfig $config)
     {
         $this->queryContainer = $queryContainer;
+        $this->config = $config;
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param int $salesOrderId
      *
      * @return array
@@ -50,15 +44,12 @@ class SalesHelper implements SalesHelperInterface
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
-     * @param string $pdfUrlPattern
      * @param int $salesOrderId
      *
      * @return string
      */
-    public function getInvoicePdfUrl($pdfUrlPattern, $salesOrderId)
+    public function getInvoicePdfUrl($salesOrderId)
     {
-        return sprintf($pdfUrlPattern, $salesOrderId);
+        return sprintf($this->config->getPdfUrlPattern(), $salesOrderId);
     }
 }

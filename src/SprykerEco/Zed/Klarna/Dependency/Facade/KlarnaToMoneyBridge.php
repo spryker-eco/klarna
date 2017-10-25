@@ -25,7 +25,7 @@ class KlarnaToMoneyBridge implements KlarnaToMoneyInterface
     /**
      * @param \Spryker\Zed\Money\Business\MoneyFacadeInterface $moneyFacade
      */
-    public function __construct(MoneyFacadeInterface $moneyFacade)
+    public function __construct($moneyFacade)
     {
         $this->moneyFacade = $moneyFacade;
     }

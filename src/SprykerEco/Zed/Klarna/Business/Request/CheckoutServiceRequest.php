@@ -12,12 +12,7 @@ use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface;
 
-/**
- * Class Installment
- *
- * @package SprykerEco\Zed\Klarna\Business\Payment
- */
-class CheckoutServiceRequest
+class CheckoutServiceRequest implements CheckoutServiceRequestInterface
 {
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface

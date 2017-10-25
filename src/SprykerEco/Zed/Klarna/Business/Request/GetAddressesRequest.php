@@ -8,12 +8,10 @@
 namespace SprykerEco\Zed\Klarna\Business\Request;
 
 use Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer;
-use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
-use SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\AddressesResponseTransferMapperInterface;
 
-class GetAddressesRequest
+class GetAddressesRequest implements GetAddressesRequestInterface
 {
     /**
      * @var \SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface
@@ -40,8 +38,6 @@ class GetAddressesRequest
     }
 
     /**
-     * Get Addresses. Method get_addresses
-     *
      * @param \Generated\Shared\Transfer\KlarnaGetAddressesRequestTransfer $klarnaGetAddressesRequestTransfer
      *
      * @return \Generated\Shared\Transfer\KlarnaGetAddressesResponseTransfer

@@ -7,17 +7,11 @@
 
 namespace SprykerEco\Zed\Klarna\Communication\Controller;
 
-use Spryker\Zed\Application\Communication\Controller\AbstractController;
+use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class DetailsController
- *
- * @package SprykerEco\Zed\Klarna\Communication\Controller
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- *
  * @method \SprykerEco\Zed\Klarna\Communication\KlarnaCommunicationFactory getFactory()
  * @method \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface getQueryContainer()
  */
@@ -42,8 +36,6 @@ class DetailsController extends AbstractController
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param int $idPayment
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException

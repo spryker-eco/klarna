@@ -12,7 +12,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApi;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
 
-class ReserveAmount
+class ReserveAmount implements ReserveAmountInterface
 {
     const RESERVE_AMOUNT_KEY_REF_NO = 0;
     const RESERVE_AMOUNT_KEY_STATUS = 1;

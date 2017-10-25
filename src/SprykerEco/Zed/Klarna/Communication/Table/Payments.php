@@ -9,18 +9,11 @@ namespace SprykerEco\Zed\Klarna\Communication\Table;
 
 use Orm\Zed\Klarna\Persistence\Map\SpyPaymentKlarnaTableMap;
 use Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery;
-use Spryker\Shared\Url\Url;
+use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Zed\Gui\Communication\Table\AbstractTable;
 use Spryker\Zed\Gui\Communication\Table\TableConfiguration;
 
-/**
- * Class Payments
- *
- * @package SprykerEco\Zed\Klarna\Communication\Table
- *
- * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
- */
-class Payments extends AbstractTable
+class Payments extends AbstractTable implements TableInterface
 {
     const FIELD_VIEW = 'FIELD_VIEW';
     const URL_KLARNA_DETAILS = '/klarna/details/';
@@ -28,14 +21,10 @@ class Payments extends AbstractTable
 
     /**
      * @var \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      */
     protected $paymentKlarnaQuery;
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Orm\Zed\Klarna\Persistence\SpyPaymentKlarnaQuery $paymentKlarnaQuery
      */
     public function __construct(SpyPaymentKlarnaQuery $paymentKlarnaQuery)
@@ -45,8 +34,6 @@ class Payments extends AbstractTable
 
     /**
      * Configure Table header.
-     *
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
      *
      * @param \Spryker\Zed\Gui\Communication\Table\TableConfiguration $config
      *
@@ -75,8 +62,6 @@ class Payments extends AbstractTable
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param \Spryker\Zed\Gui\Communication\Table\TableConfiguration $config
      *
      * @return array
@@ -99,8 +84,6 @@ class Payments extends AbstractTable
     }
 
     /**
-     * @author Daniel Bohnhardt <daniel.bohnhardt@twt.de>
-     *
      * @param array $paymentItem
      *
      * @return array
@@ -110,9 +93,12 @@ class Payments extends AbstractTable
         $urls = [];
 
         $urls[] = $this->generateViewButton(
-            Url::generate(self::URL_KLARNA_DETAILS, [
-                self::PARAM_ID_PAYMENT => $paymentItem[SpyPaymentKlarnaTableMap::COL_ID_PAYMENT_KLARNA],
-            ]),
+            Url::generate(
+                self::URL_KLARNA_DETAILS,
+                [
+                    self::PARAM_ID_PAYMENT => $paymentItem[SpyPaymentKlarnaTableMap::COL_ID_PAYMENT_KLARNA],
+                ]
+            ),
             'View'
         );
 
