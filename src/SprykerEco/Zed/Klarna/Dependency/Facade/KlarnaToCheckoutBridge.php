@@ -8,7 +8,6 @@
 namespace SprykerEco\Zed\Klarna\Dependency\Facade;
 
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\Checkout\Business\CheckoutFacadeInterface;
 
 class KlarnaToCheckoutBridge implements KlarnaToCheckoutBridgeInterface
 {

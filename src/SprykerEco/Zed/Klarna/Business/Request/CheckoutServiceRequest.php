@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Klarna\Business\Request;
 
 use Generated\Shared\Transfer\KlarnaCheckoutServiceRequestTransfer;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaApiInterface;
-use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapper;
 use SprykerEco\Zed\Klarna\Business\Response\Mapper\CheckoutServiceResponseTransferMapperInterface;
 
 class CheckoutServiceRequest implements CheckoutServiceRequestInterface

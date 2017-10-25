@@ -18,7 +18,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method KlarnaBusinessFactory getFactory()
+ * @method \SprykerEco\Zed\Klarna\Business\KlarnaBusinessFactory getFactory()
  */
 class KlarnaFacade extends AbstractFacade implements KlarnaFacadeInterface
 {

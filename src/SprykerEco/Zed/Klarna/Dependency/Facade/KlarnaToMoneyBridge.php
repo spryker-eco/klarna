@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\Klarna\Dependency\Facade;
 
-use Spryker\Zed\Money\Business\MoneyFacadeInterface;
-
 /**
  * Class KlarnaToMoneyBridge
  *

@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\Klarna\Dependency\Facade;
 
-use Spryker\Zed\Sales\Business\SalesFacadeInterface;
-
 class KlarnaToSalesBridge implements KlarnaToSalesInterface
 {
     /**

@@ -18,14 +18,13 @@ class SalesHelper implements SalesHelperInterface
     protected $queryContainer;
 
     /**
-     * @var KlarnaConfig
+     * @var \SprykerEco\Zed\Klarna\KlarnaConfig
      */
     protected $config;
 
     /**
-     * SalesHelper constructor.
-     *
      * @param \SprykerEco\Zed\Klarna\Persistence\KlarnaQueryContainerInterface $queryContainer
+     * @param \SprykerEco\Zed\Klarna\KlarnaConfig $config
      */
     public function __construct(KlarnaQueryContainerInterface $queryContainer, KlarnaConfig $config)
     {

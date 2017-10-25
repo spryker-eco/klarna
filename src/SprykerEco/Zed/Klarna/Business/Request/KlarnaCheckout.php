@@ -23,7 +23,6 @@ use Klarna_Checkout_Order;
 use Orm\Zed\Customer\Persistence\Map\SpyCustomerTableMap;
 use Spryker\Shared\Shipment\ShipmentConstants;
 use SprykerEco\Shared\Klarna\KlarnaConfig;
-use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApi;
 use SprykerEco\Zed\Klarna\Business\Api\Handler\KlarnaCheckoutApiInterface;
 use SprykerEco\Zed\Klarna\Business\Exception\NoShippingException;
 use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface;
@@ -37,7 +36,6 @@ use SprykerEco\Zed\Klarna\Dependency\Facade\KlarnaToCheckoutBridgeInterface;
  */
 class KlarnaCheckout implements KlarnaCheckoutInterface
 {
-
     const SNIPPET = 'snippet';
     const ORDERID = 'orderid';
     const PHONE = 'phone';
