@@ -431,7 +431,7 @@ class KlarnaApi
     public function ship(SpyPaymentKlarna $paymentEntity)
     {
         if ($paymentEntity->getShippingInvoiceId() ||
-            !$paymentEntity->getSpySalesOrder()->getShipmentMethod()->getDefaultPrice()
+            !$paymentEntity->getSpySalesOrder()->getShipmentMethod()->getStoreCurrencyPrice()
         ) {
             return;
         }
@@ -836,12 +836,12 @@ class KlarnaApi
     protected function addShipping(ShipmentTransfer $shipment, $klarnaApi)
     {
         $method = $shipment->getMethod();
-        if ($method->getDefaultPrice()) {
+        if ($method->getStoreCurrencyPrice()) {
             $klarnaApi->addArticle(
                 1,
                 self::KLARNA_SHIPPING_ARTICLE_TYPE,
                 $method->getName(),
-                $this->moneyFacade->convertIntegerToDecimal($method->getDefaultPrice()),
+                $this->moneyFacade->convertIntegerToDecimal($method->getStoreCurrencyPrice()),
                 (float)$method->getTaxRate(),
                 0,
                 KlarnaFlags::INC_VAT | KlarnaFlags::IS_SHIPMENT
