@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <payment>
+        <label>Payments</label>
+        <title>Payments</title>
+        <bundle>klarna</bundle>
+        <pages>
+            <payment-klarna>
+                <label>Klarna</label>
+                <title>Klarna</title>
+                <bundle>klarna</bundle>
+                <controller>index</controller>
+                <action>index</action>
+            </payment-klarna>
+        </pages>
+    </payment>
+</config>

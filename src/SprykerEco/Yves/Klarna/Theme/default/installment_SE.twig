@@ -1,0 +1,73 @@
+<div class="payment-form klarna-installment-form" id="klarnaInstallment">
+    <h3>Delbetalning</h3>
+    <h3>Konto – Betala i din egen takt</h3>
+
+    <span id="ratexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Account({
+            el: 'ratexx',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
+            locale: 'sv_se',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+
+    {% include '@klarna/errorInstallment.twig' %}
+
+    <div id="paymentForm_klarna_installment">
+        {% for key, formRow in form.klarnaInstallment.children %}
+            <div>
+                {% if formRow.vars.name == 'installment_pay_index' %}
+                    <div id="paymentForm_klarna_installment_installment_pay_index">
+                        {% for keyPayIndex, rowPayIndex in formRow.children %}
+
+                            {{ form_widget(rowPayIndex) }}
+                            {% for payment in form.klarnaInstallment.vars.installmentResponseTransfer.payments  if rowPayIndex.vars.value == payment.id %}
+                                <table class="paymentDescription">
+                                    <tr>
+                                        <td>Rörlig årsränta</td>
+                                        <td>{{ payment.getInterestRate }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Uppläggningsavgift</td>
+                                        <td>{{ payment.startFee }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Administratitionsavgift</td>
+                                        <td>{{ payment.getInvoiceFee }} SEK/mån</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delbetala från</td>
+                                        <td>{{ payment.getMonthlyCosts }} SEK/mån</td>
+                                    </tr>
+                                </table><hr/>
+                            {% endfor %}
+
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form_label(formRow) }}
+                    {{ form_widget(formRow) }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        Exempel: Säg ett du köper for 10.000 kr. Administrativ avgift är 29 kr/män och ärsänta är 19,9 %. Du betalar 955 kr/män i 12 män.
+        Argil effektiv ränta blir dä29,22 %  och totalbeloppet for diti kop  om 10000 kr blir 11458 kr.
+    </div>
+
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Sms krävs";
+    var errorMsgDateBirthWrong = "false födelse";
+    var errorMsgPNOMandatory = "PNO krävs";
+    var errorMsgTermsMandatory = "Förhållanden krävs";
+    var errorMsgPaymentTypeMandatory = "Betalning krävs";
+</script>

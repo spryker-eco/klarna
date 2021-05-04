@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<transfer
+    xmlns="http://xsd.spryker.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xsd.spryker.com ../../src/Spryker/TransferObjectDefinitionSchema.xsd"
+>
+    <transfer name="Address">
+        <property name="currencyIso3Code" type="string"/>
+    </transfer>
+
+    <transfer name="KlarnaPayment">
+        <property name="fkSalesOrder" type="int" />
+        <property name="accountBrand" type="string" />
+        <property name="clientIp" type="string" />
+        <property name="email" type="string"/>
+        <property name="gender" type="string"/>
+        <property name="phone" type="string"/>
+        <property name="dateOfBirth" type="string"/>
+        <property name="installmentDateOfBirth" type="string"/>
+        <property name="languageIso2Code" type="string"/>
+        <property name="currencyIso3Code" type="string"/>
+        <property name="address" type="Address"/>
+        <property name="preCheckId" type="string"/>
+        <property name="installmentPayIndex" type="int"/>
+        <property name="pnoNo" type="int"/>
+        <property name="pendingStatus" type="int"/>
+        <property name="status" type="int"/>
+    </transfer>
+
+    <transfer name="Order">
+        <property name="idSalesOrder" type="int" />
+        <property name="klarnaPayment" type="KlarnaPayment"/>
+        <property name="items" type="Item[]" singular="item"/>
+    </transfer>
+
+    <transfer name="Item">
+        <property name="idSalesOrderItem" type="int"/>
+    </transfer>
+
+    <transfer name="Payment">
+        <property name="klarna" type="KlarnaPayment"/>
+        <property name="klarnaInvoice" type="KlarnaPayment"/>
+        <property name="klarnaInstallment" type="KlarnaPayment"/>
+    </transfer>
+
+    <transfer name="KlarnaReserveAmountResponse">
+        <property name="status" type="int"/>
+        <property name="reservationNo" type="string"/>
+        <property name="error" type="string"/>
+    </transfer>
+
+    <transfer name="KlarnaInstallmentResponse">
+        <property name="payments" type="KlarnaPClass[]" singular="KlarnaPClass"/>
+    </transfer>
+
+    <transfer name="KlarnaPClassRequest">
+        <property name="klarnaObjectInit" type="KlarnaObjectInit"/>
+
+        <property name="pClassType" type="int"/>
+    </transfer>
+
+    <transfer name="KlarnaPClass">
+        <property name="name" type="string"/>
+        <property name="minAmount" type="int"/>
+        <property name="expire" type="string"/>
+        <property name="id" type="string"/>
+        <property name="invoiceFee" type="int"/>
+        <property name="startFee" type="int"/>
+        <property name="type" type="string"/>
+        <property name="month" type="int"/>
+        <property name="monthlyCosts" type="int"/>
+        <property name="interestRate" type="int"/>
+        <property name="apr" type="float"/>
+        <property name="totalCreditPurchaseCost" type="float"/>
+    </transfer>
+
+    <transfer name="KlarnaCheckout">
+        <property name="html" type="string" />
+        <property name="orderid" type="string" />
+    </transfer>
+
+    <transfer name="KlarnaCheckoutServiceRequest">
+        <property name="klarnaObjectInit" type="KlarnaObjectInit"/>
+
+        <property name="grandTotal" type="int" />
+    </transfer>
+
+    <transfer name="KlarnaCheckoutServiceResponse">
+        <property name="paymentMethods" type="KlarnaPaymentMethod[]" singular="KlarnaPaymentMethod"/>
+        <property name="httpStatusCode" type="int" />
+        <property name="internalMessage" type="string" />
+        <property name="publicCode" type="string" />
+    </transfer>
+
+    <transfer name="KlarnaPaymentMethod">
+        <property name="pclassId" type="int" />
+        <property name="name" type="string" />
+        <property name="logoUrl" type="string" />
+        <property name="termsUrl" type="string" />
+        <property name="groupTitle" type="string" />
+        <property name="groupCode" type="string" />
+        <property name="KlarnaPaymentMethodDetails" type="KlarnaPaymentMethodDetail[]" singular="KlarnaPaymentMethodDetail"/>
+        <property name="title" type="string" />
+        <property name="extraInfo" type="string" />
+        <property name="useCase" type="string" />
+    </transfer>
+
+    <transfer name="KlarnaPaymentMethodDetail">
+        <property name="name" type="string" />
+        <property name="label" type="string" />
+        <property name="value" type="string" />
+        <property name="symbol" type="string" />
+    </transfer>
+
+    <transfer name="Quote">
+        <property name="klarnaCheckoutService" type="KlarnaCheckoutServiceResponse" />
+        <property name="clientIp" type="string" />
+        <property name="klarnaPClassType" type="int" />
+    </transfer>
+
+    <transfer name="KlarnaGetAddressesRequest">
+        <property name="klarnaObjectInit" type="KlarnaObjectInit"/>
+
+        <property name="protoVsn" type="string"/>
+        <property name="clientVsn" type="string"/>
+        <property name="eid" type="string"/>
+        <property name="pno" type="string"/>
+        <property name="digest" type="string"/>
+        <property name="pnoEncoding" type="string"/>
+        <property name="type" type="string"/>
+        <property name="clientIp" type="string"/>
+    </transfer>
+
+    <transfer name="KlarnaGetAddressesResponse">
+        <property name="klarnaAddress" type="KlarnaAddress[]"/>
+    </transfer>
+
+    <transfer name="KlarnaAddress">
+        <property name="email" type="string"/>
+        <property name="telno" type="string"/>
+        <property name="cellno" type="string"/>
+        <property name="firstName" type="string"/>
+        <property name="lastName" type="string"/>
+        <property name="companyName" type="string"/>
+        <property name="careof" type="string"/>
+        <property name="street" type="string"/>
+        <property name="zipCode" type="string"/>
+        <property name="city" type="string"/>
+        <property name="country" type="int"/>
+        <property name="houseNumber" type="string"/>
+        <property name="houseExt" type="string"/>
+    </transfer>
+
+    <transfer name="KlarnaObjectInit">
+        <property name="iso2Code" type="string"/>
+        <property name="currencyIso3Code" type="string"/>
+        <property name="clientIp" type="string" />
+    </transfer>
+
+</transfer>
