@@ -1,28 +1,27 @@
 {
-  "name": "spryker-eco/klarna",
-  "autoload": {
-    "psr-0": {
-      "SprykerEco": "src/",
-      "Acceptance": "tests/",
-      "Functional": "tests/",
-      "Integration": "tests/",
-      "Unit": "tests/",
-      "YvesUnit": "tests/"
+    "name": "spryker-eco/klarna",
+    "autoload": {
+        "psr-0": {
+            "SprykerEco": "src/",
+            "Acceptance": "tests/",
+            "Functional": "tests/",
+            "Integration": "tests/",
+            "Unit": "tests/",
+            "YvesUnit": "tests/"
+        }
+    },
+    "require": {
+        "klarna/php-xmlrpc": "4.0",
+        "klarna/checkout": "4.0"
+    },
+    "require-dev": {},
+    "description": "spryker klarna integration",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
     }
-  },
-  "require": {
-    "klarna/php-xmlrpc": "4.0",
-    "klarna/checkout": "4.0"
-  },
-  "require-dev": {
-  },
-  "description": "spryker klarna integration",
-  "license": "MIT",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "extra": {
-    "branch-alias": {
-      "dev-master": "2.0.x-dev"
-    }
-  }
 }
