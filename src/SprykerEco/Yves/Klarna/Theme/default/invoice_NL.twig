@@ -1,0 +1,30 @@
+<div class="payment-form klarna-invoice-form" id="klarnaInvoice">
+    <h3>Achteraf betalen</h3>
+
+    <span id="invoicexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Invoice({
+            el: 'invoicexx',
+            eid: '{{ form.klarnaInvoice.vars.attr.EID }}',
+            locale: 'nl_NL',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+
+    {% include '@klarna/errorInvoice.twig' %}
+
+    {{ form_widget(form.klarnaInvoice) }}
+
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Geboortedatum is verplicht";
+    var errorMsgDateBirthWrong = "Geboortedatum verkeerd";
+    var errorMsgPNOMandatory = "PNO is verplicht";
+    var errorMsgTermsMandatory = "Voorwaarden is verplicht";
+    var errorMsgPaymentTypeMandatory = "Type betaling is verplicht";
+</script>

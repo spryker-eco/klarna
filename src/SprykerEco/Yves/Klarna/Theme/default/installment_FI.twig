@@ -1,0 +1,104 @@
+<div class="payment-form klarna-installment-form" id="klarnaInstallment">
+    <h3>Erämaksu</h3>
+    <h3>Joustava erämaksu – Maksa omassa tahdissasi</h3>
+
+    <span id="ratexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Account({
+            el: 'ratexx',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
+            locale: 'fi_fi',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+
+    {% include '@klarna/errorInstallment.twig' %}
+
+    <div id="paymentForm_klarna_installment">
+        {% for key, formRow in form.klarnaInstallment.children %}
+            <div>
+                {% if formRow.vars.name == 'installment_pay_index' %}
+                    <div id="paymentForm_klarna_installment_installment_pay_index">
+                        {% for keyPayIndex, rowPayIndex in formRow.children %}
+
+                            {{ form_widget(rowPayIndex) }}
+
+                            {% for payment in form.klarnaInstallment.vars.installmentResponseTransfer.payments  if rowPayIndex.vars.value == payment.id %}
+                                {% if payment.getType == 1 %}
+                                    {# KlarnaPClass::ACCOUNT #}
+                                    <label>Joustava erämaksu - Maksa omassa tahdissasi</label>
+                                {% else %}
+                                    <label>{{ payment.getMonthlyCosts }} € / kk {{ payment.getMonth }} kuukauden ajan</label>
+                                {% endif %}
+
+
+                                <table class="paymentDescription">
+                                    <tr>
+                                        <td>Lainakorko</td>
+                                        <td>{{ payment.getInterestRate }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aloitusmaksu</td>
+                                        <td>{{ payment.getStartFee }} €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Käsittelymaksu</td>
+                                        <td>{{ payment.getInvoiceFee }} € / kk</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {% if payment.getType == 1 %}
+                                                Maksa erissä alkaen
+                                            {% else %}
+                                                Kuukausikustannus
+                                            {% endif %}
+
+                                        </td>
+                                        <td>{{ payment.getMonthlyCosts }} € / kk</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Todellinen vuosikorko</td>
+                                        <td>{{ payment.getApr }} %</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Luoton kokonaiskustannus</td>
+                                        <td>{{ payment.getTotalCreditPurchaseCost }} €</td>
+                                    </tr>
+                                </table><hr/>
+                            {% endfor %}
+
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form_label(formRow) }}
+                    {{ form_widget(formRow) }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        Esimerkki: Sanotaan, että teet 1000 €
+        ostoksen. Hallinnointimaksu on 0 €/kk ja
+        tämänhetkinen vuosikorko 19,90%. Maksat
+        erissä 92 €/kk 12 kuukauden ajan.
+        Todelliseksi vuosikoroksi tulee silloin
+        21,82% ja 1000 € ostoksesi
+        kokonaissummaksi 1 111 €.
+    </div><br/>
+
+    {{ form_widget(form.klarnaInstallment) }}
+
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Birth vaaditaan";
+    var errorMsgDateBirthWrong = "false syntymä";
+    var errorMsgPNOMandatory = "PNO vaaditaan";
+    var errorMsgTermsMandatory = "Ehdoista tarvitaan";
+    var errorMsgPaymentTypeMandatory = "Maksu";
+</script>

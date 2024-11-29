@@ -1,0 +1,22 @@
+<div class="payment-form klarna-installment-form" id="klarnaInstallment">
+    <h3>{{ 'payment.method.checkout.payment_title.klarnaInstallment' | trans }}</h3>
+    <h3>{{ 'payment.method.checkout.payment_sub_title.klarnaInstallment' | trans }}</h3>
+
+    {% include '@klarna/errorInstallment.twig' %}
+
+    {{ form_widget(form.klarnaInstallment) }}
+    <span id="ratexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Account({
+            el: 'ratexx',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
+            locale: '{{ termsLocale }}',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+</div>

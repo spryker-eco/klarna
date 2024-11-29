@@ -1,0 +1,31 @@
+<div class="payment-form klarna-invoice-form" id="klarnaInvoice">
+    <h3>Faktura</h3>
+    <h3>Betala om 14 dagar</h3>
+
+    <span id="invoicexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Invoice({
+            el: 'invoicexx',
+            eid: '{{ form.klarnaInvoice.vars.attr.EID }}',
+            locale: 'sv_se',
+            charge: 0,
+            type: 'desktop'
+        });
+    </script>
+
+    {% include '@klarna/errorInvoice.twig' %}
+
+    {{ form_widget(form.klarnaInvoice) }}
+
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Sms krävs";
+    var errorMsgDateBirthWrong = "false födelse";
+    var errorMsgPNOMandatory = "PNO krävs";
+    var errorMsgTermsMandatory = "Förhållanden krävs";
+    var errorMsgPaymentTypeMandatory = "Betalning krävs";
+</script>

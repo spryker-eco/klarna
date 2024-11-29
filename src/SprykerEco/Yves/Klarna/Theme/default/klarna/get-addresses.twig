@@ -1,0 +1,11 @@
+{% extends "@application/layout/layout.twig" %}
+{% block content %}
+    <div class="container">
+        <div class="row cms-page">
+            <pre>{{ dump(addresses) }}</pre>
+            {% for address in addresses.klarnaAddress %}
+                <pre>{{ dump(address) }}</pre>
+            {% endfor%}
+        </div>
+    </div>
+{% endblock %}

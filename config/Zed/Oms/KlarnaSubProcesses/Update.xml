@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<statemachine
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../process.xsd"
+>
+    <process name="Update">
+        <states>
+            <state name="ready for update"/>
+            <state name="update succeeded"/>
+        </states>
+
+        <transitions>
+            <transition>
+                <source>ready for update</source>
+                <target>update succeeded</target>
+                <event>update order</event>
+            </transition>
+        </transitions>
+
+        <events>
+            <event name="update order" onEnter="true" manual="true" command="Klarna/Update"/>
+        </events>
+    </process>
+</statemachine>

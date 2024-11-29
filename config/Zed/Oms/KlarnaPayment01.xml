@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<statemachine
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="process.xsd"
+>
+    <process name="KlarnaPayment01" main="true">
+        <subprocesses>
+            <process>Check</process>
+            <process>Shipment</process>
+            <process>Capture</process>
+            <process>Update</process>
+            <process>Refund</process>
+            <process>Closing</process>
+            <process>Cancel</process>
+        </subprocesses>
+
+        <states>
+            <state name="new" reserved="true"/>
+        </states>
+
+        <transitions>
+            <transition happy="true">
+                <source>new</source>
+                <target>ready for check</target>
+                <event>start check process</event>
+            </transition>
+
+            <transition happy="true">
+                <source>check succeeded</source>
+                <target>ready for shipment</target>
+                <event>start shipment process</event>
+            </transition>
+
+            <transition>
+                <source>update succeeded</source>
+                <target>ready for capture</target>
+                <event>start capture process</event>
+            </transition>
+
+            <transition happy="true" >
+                <source>shipped</source>
+                <target>ready for capture</target>
+                <event>start capture process</event>
+            </transition>
+
+            <transition>
+                <source>capture succeeded</source>
+                <target>ready for refund</target>
+                <event>start refund process</event>
+            </transition>
+
+            <transition>
+                <source>capture succeeded</source>
+                <target>ready for closing</target>
+                <event>start closing process with timeout</event>
+            </transition>
+
+            <transition>
+                <source>refund succeeded</source>
+                <target>ready for closing</target>
+                <event>start closing process</event>
+            </transition>
+        </transitions>
+
+        <events>
+            <event name="start shipment process" manual="true"/>
+            <event name="start capture process" onEnter="true"/>
+            <event name="start check process" onEnter="true"/>
+            <event name="start refund process" manual="true"/>
+            <event name="start closing process with timeout" timeout="183days"/>
+            <event name="start closing process" onEnter="true"/>
+        </events>
+    </process>
+
+    <process name="Check" file="KlarnaSubProcesses/Check.xml"/>
+    <process name="Shipment" file="KlarnaSubProcesses/Shipment.xml"/>
+    <process name="Capture" file="KlarnaSubProcesses/Capture.xml"/>
+    <process name="Refund" file="KlarnaSubProcesses/Refund.xml"/>
+    <process name="Closing" file="KlarnaSubProcesses/Closing.xml"/>
+    <process name="Update" file="KlarnaSubProcesses/Update.xml"/>
+    <process name="Cancel" file="KlarnaSubProcesses/Cancel.xml"/>
+</statemachine>

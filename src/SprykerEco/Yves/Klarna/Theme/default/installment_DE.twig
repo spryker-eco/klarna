@@ -1,0 +1,80 @@
+<div class="payment-form klarna-installment-form" id="klarnaInstallment">
+    <h3>Flexibel – in Ihrem eigenen Tempo bezahlen</h3>
+
+    <span id="ratexx"></span>
+
+    <script src="https://cdn.klarna.com/public/kitt/core/v1.0/js/klarna.min.js"></script>
+    <script src="https://cdn.klarna.com/public/kitt/toc/v1.1/js/klarna.terms.min.js"></script>
+
+    <script>
+        new Klarna.Terms.Account({
+            el: 'ratexx',
+            eid: '{{ form.klarnaInstallment.vars.attr.EID }}',
+            locale: 'de_DE',
+            charge: 0,
+            type: 'desktop'
+        });
+
+    </script>
+
+    {% include '@klarna/errorInstallment.twig' %}
+
+    {%  set invoiceFee = 0 %}
+    {% for payment in form.klarnaInstallment.vars.installmentResponseTransfer.payments %}
+        {%  set invoiceFee = payment.getInvoiceFee %}
+        <table class="paymentDescription">
+            <tr>
+                <td>Sollzinssatz (variabel)</td>
+                <td>{{ payment.getInterestRate }} %</td>
+            </tr>
+            <tr>
+                <td>Ratenkaufgebühr</td>
+                <td>{{ payment.getInvoiceFee }} {{ form.klarnaInstallment.vars.attr.currency }} / Monat</td>
+            </tr>
+            <tr>
+                <td>Monatliche Mindestrate für diesen Einkauf</td>
+                <td>{{ payment.getMonthlyCosts }} {{ form.klarnaInstallment.vars.attr.currency }} / Monat</td>
+            </tr>
+        </table><hr/>
+    {% endfor %}
+
+    <div>
+        Verfügungsrahmen ab 199,99 € (abhängig von der Hohe Ihrer Einkäufe), eektiver Jahreszins 18,07%* und Gesamtbetrag 218, 57€* (*bei Ausnutzung des vollen Verfügungsrahmens und Rückzahlung in 12 monatlichen Raten je 18,21 €).
+        Hier nden Sie
+        <a href="https://cdn.klarna.com/1.0/shared/content/legal/terms/{{ form.klarnaInstallment.vars.attr.EID }}/de_de/account">weitere Informationen</a>
+        ,
+        <a href="https://cdn.klarna.com/1.0/shared/content/legal/de_de/account/terms.pdf">AGB mit Widerrufsbelehrung</a>
+        und
+        <a href="https://cdn.klarna.com/1.0/shared/content/legal/de_de/consumer_credit.pdf">Standardinformationen für Verbraucherkredite</a>.
+        Obersteigt Ihr Einkauf mit Klarna Ratenkauf erstmals einen Betrag von 199,99 € erhalten Sie von Klarna einen Ratenkaufvertrag mit der Bitte um Unterzeichnung zugesandt. Ihr Kauf gilt solange als
+        <a href="https://cdn.klarna.com/1.0/shared/content/legal/terms/{{ form.klarnaInstallment.vars.attr.EID }}/de_de/invoice?fee={{ invoiceFee }}">Rechnungskauf</a>.
+    </div>
+    <br/>
+
+    <div id="paymentForm_klarna_installment">
+    {% for key, formRow in form.klarnaInstallment.children %}
+        <div>
+            {% if formRow.vars.name == 'installment_terms' %}
+                {{ form_widget(formRow) }}
+                <label for="paymentForm_klarna_installment_installment_terms">
+                    Mit der Übermittlung der für die Abwicklung der gewählten Klarna Zahlungsmethode und einer Identitäts– und Bonitätsprüfung erforderlichen Daten an Klarna bin ich einverstanden. Meine
+                    <a href="http://cdn.klarna.com/1.0/shared/content/legal/terms/{{ form.klarnaInstallment.vars.attr.EID }}/de_de/consent" >Einwilligung</a>
+                    kann ich jederzeit mit Wirkung für die Zukunft widerrufen. Es gelten die
+                    <a href="/de/agb">AGB des Händlers</a>.
+                </label>
+            {% else %}
+                {{ form_label(formRow) }}
+                {{ form_widget(formRow) }}
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    <br/>
+</div>
+<script>
+    var errorMsgDateBirthMandatory = "Geburtsdatum ist obligatorisch";
+    var errorMsgDateBirthWrong = "Geburtsdatum falsch";
+    var errorMsgPNOMandatory = "PNO ist obligatorisch";
+    var errorMsgTermsMandatory = "Bedingungen ist obligatorisch";
+    var errorMsgPaymentTypeMandatory = "Zahlungsart ist obligatorisch";
+</script>
